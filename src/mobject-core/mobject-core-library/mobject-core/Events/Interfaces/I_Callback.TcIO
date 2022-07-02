@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_Callback" Id="{0d16a7d4-f9f7-4cbf-9242-6b59d0319774}">
+    <Declaration><![CDATA[INTERFACE I_Callback EXTENDS I_Subscriber
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

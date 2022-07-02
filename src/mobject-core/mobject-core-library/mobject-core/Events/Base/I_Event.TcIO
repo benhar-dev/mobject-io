@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_Event" Id="{3ef0a490-be40-4d69-8456-a89ecc5f2bc3}">
+    <Declaration><![CDATA[INTERFACE I_Event EXTENDS __SYSTEM.IQueryInterface  ]]></Declaration>
+    <Method Name="AddSubscriber" Id="{df43b343-508b-43eb-a755-7d0e5f4d9ee9}">
+      <Declaration><![CDATA[METHOD PUBLIC AddSubscriber
+VAR_INPUT
+	Subscriber : I_Subscriber;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="RemoveSubscriber" Id="{a74bacb0-5c6a-408c-a82d-7adb1e93b880}">
+      <Declaration><![CDATA[METHOD PUBLIC RemoveSubscriber
+VAR_INPUT
+	Subscriber : I_Subscriber;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

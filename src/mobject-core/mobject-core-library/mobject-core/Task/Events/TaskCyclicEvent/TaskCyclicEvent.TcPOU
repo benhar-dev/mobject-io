@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="TaskCyclicEvent" Id="{f887109a-3ad6-453d-bf0f-4c5420be9500}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK TaskCyclicEvent EXTENDS Event IMPLEMENTS I_TaskCyclicEvent
+VAR
+	parent : I_Task;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <CFC>
+        <XmlArchive>
+          <Data>
+            <o xml:space="preserve" t="CFCImplementationObject">
+              <o n="Items" t="CFCItemList">
+                <l2 n="InnerList" />
+              </o>
+              <n n="ParameterInitializationMethodGenerator" />
+              <o n="RoutingPathTable" t="CFCRoutingPathTable">
+                <d2 n="InnerDictionary" />
+              </o>
+              <v n="AutoSizeCanvas">true</v>
+              <v n="CanvasWidth">2</v>
+              <v n="CanvasHeight">2</v>
+            </o>
+          </Data>
+          <TypeList>
+            <Type n="Boolean">System.Boolean</Type>
+            <Type n="CFCImplementationObject">{32d3375e-c010-41e2-9e43-b2fbf4f2b374}</Type>
+            <Type n="CFCItemList">{cd57ba20-558b-4b98-96c1-73c6000c3087}</Type>
+            <Type n="CFCRoutingPathTable">{4b8bcc79-5980-4868-b49e-005a8148859b}</Type>
+            <Type n="Int32">System.Int32</Type>
+          </TypeList>
+        </XmlArchive>
+      </CFC>
+    </Implementation>
+    <Method Name="FB_init" Id="{34690361-5385-45c4-abe3-fc0b1ad447c4}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Parent : I_Task;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.parent := Parent;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Info" Id="{45316dd5-4217-4539-8f58-db0230a3c479}">
+      <Declaration><![CDATA[PROPERTY Info : PlcTaskSystemInfo]]></Declaration>
+      <Get Name="Get" Id="{68fc8d6f-9547-47bb-b1df-12254bd63a37}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Info := parent.Info;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Notify" Id="{7ce2d076-8003-40b7-b652-f32bcd386fbe}">
+      <Declaration><![CDATA[METHOD PUBLIC Notify
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[NotifySubscribers();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

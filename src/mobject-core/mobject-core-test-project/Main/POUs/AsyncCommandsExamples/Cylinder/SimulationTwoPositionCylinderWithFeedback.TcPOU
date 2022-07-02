@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="SimulationTwoPositionCylinderWithFeedback" Id="{4ba2db27-fce4-4565-b565-d3a605b12851}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK SimulationTwoPositionCylinderWithFeedback EXTENDS CyclicInstance IMPLEMENTS I_Cylinder
+VAR
+	Output_Extend AT %Q* : BOOL;
+	Output_Retract AT %Q* : BOOL;
+	Input_Extended AT %I* : BOOL;
+	Input_Retracted AT %I* : BOOL;
+	
+	retract, extend : TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CyclicCall" Id="{d4141caf-79e3-41a3-a051-24b88daad0ff}">
+      <Declaration><![CDATA[METHOD PUBLIC CyclicCall
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[retract(IN:=Output_Retract,PT:=T#2S);
+extend(IN:=Output_Extend,PT:=T#2S);
+
+Input_Retracted := retract.Q;
+Input_Extended := extend.Q;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FullyExtend" Id="{aabe8531-b126-436b-a038-6b4b271b6dff}">
+      <Declaration><![CDATA[METHOD PUBLIC FullyExtend
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Output_Extend := TRUE;
+Output_Retract := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FullyRetract" Id="{0b2e47a9-a398-4830-aac1-657a6a90d481}">
+      <Declaration><![CDATA[METHOD PUBLIC FullyRetract
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Output_Extend := FALSE;
+Output_Retract := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsExtending" Id="{fe391868-040a-440c-9380-4c73bb813258}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsExtending : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b9b5c861-720a-4ebc-aad4-048f577a4924}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsExtending := (Output_Extend and not IsFullyExtended);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsFullyExtended" Id="{11851497-1dac-4364-b376-b12e023335ba}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsFullyExtended : BOOL]]></Declaration>
+      <Get Name="Get" Id="{30cc687c-d123-45cb-bc41-7d222d4388af}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsFullyExtended := extend.Q;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsFullyRetracted" Id="{77627329-8854-478f-8fe1-1befb6fcbb0a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsFullyRetracted : BOOL]]></Declaration>
+      <Get Name="Get" Id="{a7bc123d-a528-4d30-b08f-34d34ff7e129}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsFullyRetracted := retract.Q;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsRetracting" Id="{c26d884b-1e73-4d6a-9a97-abbbca7faa7c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsRetracting : Bool]]></Declaration>
+      <Get Name="Get" Id="{9adf0790-393a-41b0-858c-345ab5f15c51}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsRetracting := (Output_Retract and not IsFullyRetracted);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

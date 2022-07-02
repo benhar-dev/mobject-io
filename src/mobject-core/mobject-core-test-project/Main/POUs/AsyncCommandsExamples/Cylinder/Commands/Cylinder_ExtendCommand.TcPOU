@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Cylinder_ExtendCommand" Id="{7001d6b3-390f-4bb7-869a-6f280916d893}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
+{attribute 'reflection'} 
+FUNCTION_BLOCK Cylinder_ExtendCommand EXTENDS AsynchronousCommand
+VAR
+	cylinder : I_Cylinder;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{cfbe9121-ba24-4ee0-83c6-35c732c66db7}" />
+    <Folder Name="Protected" Id="{8238ea7e-58a5-40ba-8ada-21ad7be82f02}" />
+    <Method Name="FB_init" Id="{fd210eca-3d28-4f93-9854-14401eb2a1d7}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)	
+	Cylinder : I_Cylinder;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.cylinder := Cylinder;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhileBusy" Id="{5199f700-58c0-4dd7-8d14-13281507ed21}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED WhileBusy
+VAR_INPUT
+	commandState : I_AsynchronousCommandBusyState;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[cylinder.FullyExtend();
+
+IF cylinder.IsFullyExtended THEN
+	commandState.SetDone();	
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

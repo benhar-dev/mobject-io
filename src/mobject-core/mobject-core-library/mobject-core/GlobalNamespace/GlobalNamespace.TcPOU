@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="GlobalNamespace" Id="{bb55475b-70c8-4652-b733-872ee003630c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK GlobalNamespace
+VAR_STAT // singleton
+	lastInstanceNamespace : STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{ee7b2540-8d7d-4343-9aa1-e49b03a0768e}" />
+    <Method Name="FB_init" Id="{c985942f-5c5d-4663-8ed1-43d0a8e98009}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Instance : I_Instance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Instance.NameSpace = '' THEN
+	RETURN;
+END_IF
+
+lastInstanceNamespace := Instance.NameSpace;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetLastInstanceNamespace" Id="{06108602-e9ec-4bf1-ab0d-8b430815b4ba}">
+      <Declaration><![CDATA[METHOD PUBLIC GetLastInstanceNamespace : String
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetLastInstanceNamespace := lastInstanceNamespace;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

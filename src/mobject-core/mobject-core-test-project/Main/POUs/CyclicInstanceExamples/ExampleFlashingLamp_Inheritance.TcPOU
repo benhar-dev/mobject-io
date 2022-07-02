@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ExampleFlashingLamp_Inheritance" Id="{22e8ed2e-da40-4d53-b200-714dafe673cb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ExampleFlashingLamp_Inheritance EXTENDS CyclicInstance
+VAR
+	// these timers are required to implement the flashing lamp object
+	tick : ton;
+	tock : ton;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//... no code should go here.]]></ST>
+    </Implementation>
+    <Method Name="CyclicCall" Id="{2b7266d3-6c00-4a56-9644-69a5f1d4e5ac}">
+      <Declaration><![CDATA[METHOD CyclicCall
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[tick(in:=NOT tock.Q,pt:=T#1S);
+tock(in:=tick.Q,pt:=T#1S);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Output" Id="{f763be9f-9d11-4bd9-b6ca-0ea041ebbee6}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Output : BOOL]]></Declaration>
+      <Get Name="Get" Id="{6917ad8c-fa6a-400f-a66d-de2a05f1f040}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Output := tick.Q;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

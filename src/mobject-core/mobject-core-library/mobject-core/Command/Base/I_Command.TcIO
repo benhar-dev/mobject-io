@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_Command" Id="{c2374356-39d9-4a81-82d4-a9dd89072af4}">
+    <Declaration><![CDATA[INTERFACE I_Command
+]]></Declaration>
+    <Method Name="Abort" Id="{9525fb97-a63b-4487-bfa0-a5ee9240133e}">
+      <Declaration><![CDATA[METHOD PUBLIC Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Execute" Id="{680cb84f-e285-4414-bb7d-46c7f81f4e85}">
+      <Declaration><![CDATA[METHOD PUBLIC Execute]]></Declaration>
+    </Method>
+    <Property Name="Feedback" Id="{bbcfb8ff-ca21-4b29-a60f-53e7766a1ef8}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Feedback : I_CommandFeedback]]></Declaration>
+      <Get Name="Get" Id="{8fb8f332-b019-4000-bfc6-c905c9bc84f1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

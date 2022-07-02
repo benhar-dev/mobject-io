@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="SubscriberCollection" Id="{a8f55cbb-301c-4b91-bee4-1f5532667d56}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK SubscriberCollection
+VAR
+	subscribers : ARRAY [0..MobjectCoreConstants.MAX_SUBSCRIBERS] OF I_Subscriber;
+	last : INT := EMPTY;
+END_VAR
+VAR CONSTANT
+	EMPTY : INT := -1;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Private" Id="{4eaaa7fc-86f2-4b01-91d8-1029baee1675}" />
+    <Method Name="Insert" Id="{978d1b7a-4472-4c5f-932e-861c8cdd6ce7}">
+      <Declaration><![CDATA[METHOD PUBLIC Insert
+VAR_INPUT
+	Subscriber : I_Subscriber;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[last := last + 1;
+subscribers[last] := Subscriber;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Notify" Id="{e939c40d-65f1-4635-8f90-55c228bcade6}">
+      <Declaration><![CDATA[METHOD PUBLIC Notify
+VAR_INPUT
+	event : I_Event;
+END_VAR
+VAR 
+	i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 0 TO last DO
+	subscribers[i].Update(event);
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Remove" Id="{45451f35-a038-42f6-804f-e4e76bbcfc3d}">
+      <Declaration><![CDATA[METHOD PUBLIC Remove
+VAR_INPUT
+	Subscriber : I_Subscriber;
+END_VAR
+VAR
+	i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 0 TO last DO
+	IF Subscriber = subscribers[i] THEN
+		RemoveAtIndex(i);
+		RETURN;
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveAtIndex" Id="{7f5a4a61-fa5e-4a72-92c1-afd61791b747}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RemoveAtIndex
+VAR_INPUT
+	index : INT;
+END_VAR
+VAR
+	i : int;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF last = EMPTY THEN
+	RETURN;	
+END_IF
+
+FOR i := index TO last - 1 DO
+	subscribers[i] := subscribers[i+1];
+END_FOR
+
+subscribers[last] := 0;
+last := last -1;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

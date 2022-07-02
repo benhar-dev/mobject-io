@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="RegisterInstancesToTaskVisitor" Id="{47198838-e3d5-441d-8e8c-48c5d4d330b3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK RegisterInstancesToTaskVisitor IMPLEMENTS I_VisitIntances
+VAR
+	task : I_Task;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{c715e4be-f8d7-44a5-93dc-7a578205db4d}" />
+    <Method Name="FB_init" Id="{be82548b-0385-4b38-a84f-93a3a82cb800}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Task : I_Task;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.task := Task;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Visit" Id="{b9197ca1-cc69-47ae-bc48-9824cfe7e32c}">
+      <Declaration><![CDATA[METHOD PUBLIC Visit
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Instance = 0 THEN
+	RETURN;
+END_IF
+
+IF task.SharesNamespaceWith(Instance) THEN
+	task.RegisterInstance(Instance);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

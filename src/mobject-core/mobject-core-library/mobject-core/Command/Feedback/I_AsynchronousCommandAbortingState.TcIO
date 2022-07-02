@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_AsynchronousCommandAbortingState" Id="{98b6f948-2305-4709-8b4a-ea1e3a13afd2}">
+    <Declaration><![CDATA[INTERFACE I_AsynchronousCommandAbortingState
+]]></Declaration>
+    <Method Name="SetAborted" Id="{30339df6-20c9-4d2f-bee6-5f41d46d7353}">
+      <Declaration><![CDATA[METHOD PUBLIC SetAborted
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetError" Id="{642271fb-4115-4982-80d4-f8d76a7b6e1c}">
+      <Declaration><![CDATA[METHOD PUBLIC SetError
+VAR_INPUT
+	ErrorId : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

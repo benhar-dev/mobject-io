@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_Instance" Id="{e9c4db03-2c6d-45c9-bf2c-c529468a9350}">
+    <Declaration><![CDATA[INTERFACE I_Instance EXTENDS __SYSTEM.IQueryInterface 
+]]></Declaration>
+    <Property Name="NameSpace" Id="{06ec18fe-fdbc-4508-8f50-422b00a4c140}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NameSpace : STRING]]></Declaration>
+      <Get Name="Get" Id="{ce4836ba-28a1-4dfe-977b-31699c1034c1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="SharesNamespaceWith" Id="{ff664b26-639f-43da-a6be-9181b0924d9b}">
+      <Declaration><![CDATA[METHOD PUBLIC SharesNamespaceWith : BOOL
+VAR_INPUT
+	OtherInstance : I_Instance;
+END_VAR]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="GlobalInstanceMembers" Id="{42de02bd-9901-40d4-923e-964f2fd000cc}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK GlobalInstanceMembers
+VAR_STAT // singleton
+	instances : InstanceCollection;
+	instanceAddedEvent : InstanceAddedEvent;
+	instanceRemovedEvent : InstanceRemovedEvent;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddInstance" Id="{d80d677d-a9b5-48bb-bf29-024d8f6da86b}">
+      <Declaration><![CDATA[METHOD PUBLIC AddInstance
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Instance = 0 THEN
+	RETURN;
+END_IF
+
+instances.Insert(Instance);
+instanceAddedEvent.Notify(Instance);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ForEachInstance" Id="{2ff487e0-62b8-4e2c-be93-2fae7aa775a1}">
+      <Declaration><![CDATA[METHOD PUBLIC ForEachInstance
+VAR_INPUT
+	Visitor : I_VisitIntances;
+END_VAR
+VAR
+	last : DINT;
+	i : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[last := instances.Count - 1;
+
+FOR i := 0 TO last DO
+	Visitor.Visit(instances.GetByIndex(i));
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="OnInstanceAdded" Id="{f0e81e06-e231-4a64-97a0-9f485fb1fc6e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC OnInstanceAdded : I_Event]]></Declaration>
+      <Get Name="Get" Id="{d5710449-f51e-4970-96d4-66bf9befeeee}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OnInstanceAdded := instanceAddedEvent;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="OnInstanceRemoved" Id="{406e1d05-9112-4fe0-aae5-5520a1bca09c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC OnInstanceRemoved : I_Event]]></Declaration>
+      <Get Name="Get" Id="{b9a035ed-f6bc-46df-abc8-70f2a7b96af8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OnInstanceRemoved := InstanceRemovedEvent;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="RemoveInstance" Id="{83ff02e5-c711-439c-b6c4-6d256a353b71}">
+      <Declaration><![CDATA[METHOD PUBLIC RemoveInstance
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Instance = 0 THEN
+	RETURN;
+END_IF
+
+instances.Remove(Instance);
+InstanceRemovedEvent.Notify(Instance);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

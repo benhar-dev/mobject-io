@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="MobjectCoreConstants" Id="{04f6cad7-f23a-45ce-b16c-d2d5875ed44b}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	MAX_INSTANCES : DINT := 10000; // todo : convert to dynamic buffer 
+	MAX_SUBSCRIBERS : DINT := 10000; // todo : convert to dynamic buffer 
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

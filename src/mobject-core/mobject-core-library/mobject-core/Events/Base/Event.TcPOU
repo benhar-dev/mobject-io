@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Event" Id="{4d0749e9-dd51-4254-8072-025c2ed16feb}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK ABSTRACT Event IMPLEMENTS I_Event
+VAR
+	subscribers : SubscriberCollection;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Protected" Id="{f81292ce-63c9-42a8-9fd5-6142ce702b35}" />
+    <Method Name="AddSubscriber" Id="{dc1fa9a8-111d-4d13-a70c-ecbec31b1df1}">
+      <Declaration><![CDATA[METHOD PUBLIC AddSubscriber
+VAR_INPUT
+	Subscriber : I_Subscriber;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[subscribers.Insert(Subscriber);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NotifySubscribers" Id="{00f6e4c5-1f92-4c04-90a4-78cbf5e7a24d}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED NotifySubscribers]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[subscribers.Notify(THIS^);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveSubscriber" Id="{3a25e12d-9cea-4c90-88a9-76f17d36e0cf}">
+      <Declaration><![CDATA[METHOD PUBLIC RemoveSubscriber
+VAR_INPUT
+	Subscriber : I_Subscriber;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[subscribers.Remove(Subscriber);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

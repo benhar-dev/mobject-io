@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ReturnSubSectionFromInstancePath" Id="{d5ed6cd6-7820-460b-9c62-082c1e9435fb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ReturnSubSectionFromInstancePath : T_MAXSTRING
+VAR_INPUT
+	InstancePath : T_MAXSTRING;
+	SectionRequired : UDINT;
+END_VAR
+VAR
+	sectionStart : UDINT := 0;
+	sectionEnd : UDINT := 0;
+	sectionsFound : UDINT; 
+	sectionLength : UDINT;
+	i : UDINT;
+	instancePathCharacters : ARRAY[0..MAX_STRING_LENGTH] OF BYTE;
+END_VAR
+VAR CONSTANT
+	SECTION_MARKER : BYTE := 16#2E;
+	NULL : BYTE := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF SectionRequired = 0 THEN
+	RETURN;
+END_IF
+
+instancePathCharacters := MAXSTRING_TO_BYTEARR(InstancePath);
+
+IF instancePathCharacters[0] = SECTION_MARKER OR instancePathCharacters[0] = NULL THEN
+	RETURN;
+END_IF
+
+FOR i := 1 TO MAX_STRING_LENGTH DO
+		
+	IF instancePathCharacters[i] = NULL THEN	
+		sectionsFound := sectionsFound + 1;
+		sectionEnd := i - 1 ;
+		EXIT;
+	END_IF
+	
+	IF instancePathCharacters[i] = SECTION_MARKER THEN
+		sectionsFound := sectionsFound + 1;
+		sectionEnd := i - 1 ;
+	END_IF
+	
+	IF sectionsFound = SectionRequired THEN
+		EXIT;
+	END_IF
+	
+	IF instancePathCharacters[i] = SECTION_MARKER THEN
+		sectionStart := i + 1;
+	END_IF
+	
+END_FOR
+
+IF sectionsFound < SectionRequired THEN
+	RETURN;
+END_IF
+
+IF sectionEnd < sectionStart THEN
+	RETURN;
+END_IF
+
+sectionLength := 1 + sectionEnd - sectionStart;
+
+memset(ADR(ReturnSubSectionFromInstancePath),0,MAX_STRING_LENGTH);
+
+memcpy(ADR(ReturnSubSectionFromInstancePath),ADR(instancePathCharacters[sectionStart]),sectionLength);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

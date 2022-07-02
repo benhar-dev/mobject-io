@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Task" Id="{33fe3cda-c02a-46e0-ac30-4024460a9d16}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK Task EXTENDS Instance IMPLEMENTS I_Task
+VAR
+	cyclicCallEvent : TaskCyclicEvent(THIS^); 
+	globalInstanceMembers : GlobalInstanceMembers;
+	registerInstanceToTask: RegisterInstanceToTaskCallback(Task := THIS^);
+	deregisterInstanceFromTask : DeregisterInstanceFromTaskCallback(Task := THIS^);
+	registerExistingInstancesToTask : RegisterInstancesToTaskVisitor(Task := THIS^);
+	taskIndex : DINT;
+	taskInfo : PlcTaskSystemInfo;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{80a95690-8dc1-4b55-9abb-6501dea32b96}" />
+    <Folder Name="Destructor" Id="{75a8676f-9c52-489e-b740-0f12d89bcb4b}" />
+    <Folder Name="Internal" Id="{0817d808-0239-4cf1-9d4a-8540b0f27a54}" />
+    <Folder Name="Protected" Id="{7ba93735-8d6c-4187-9f20-ec4f8d7054e1}" />
+    <Method Name="CyclicCall" Id="{550ca59e-294d-4f7f-8f34-593f4883974d}">
+      <Declaration><![CDATA[METHOD PUBLIC CyclicCall
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[UpdateTaskInformation();
+cyclicCallEvent.Notify();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DeregisterInstance" Id="{413bb10c-e743-40ca-ab96-01e5acaa8d85}">
+      <Declaration><![CDATA[METHOD PUBLIC DeregisterInstance
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[DeregisterInstanceIfAutomaticallyCyclicCalled(Instance);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DeregisterInstanceIfAutomaticallyCyclicCalled" Id="{3f62ceef-1688-4376-94bd-69cebc119bb6}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED DeregisterInstanceIfAutomaticallyCyclicCalled
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR
+VAR
+	cyclicInstance : I_CyclicInstance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT __QUERYINTERFACE(Instance,cyclicInstance) THEN
+	RETURN;
+END_IF;
+
+cyclicCallEvent.RemoveSubscriber(cyclicInstance.CyclicInstanceCallback);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{a88cb4d0-6360-4b48-97fb-78d550d9ef3f}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[globalInstanceMembers.OnInstanceAdded.RemoveSubscriber(registerInstanceToTask);
+globalInstanceMembers.OnInstanceRemoved.RemoveSubscriber(deregisterInstanceFromTask);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d6600dc1-c851-4361-8854-74c482ef8792}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[globalInstanceMembers.ForEachInstance(registerExistingInstancesToTask);
+globalInstanceMembers.OnInstanceAdded.AddSubscriber(RegisterInstanceToTask);
+globalInstanceMembers.OnInstanceRemoved.AddSubscriber(DeregisterInstanceFromTask);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Index" Id="{fea7f2a2-4b22-480e-957c-347b4f545e4c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Index : DINT]]></Declaration>
+      <Get Name="Get" Id="{cfd74ea9-1294-4859-9641-98c27493cad9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Index := taskIndex;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Info" Id="{298b7782-e4f1-46e1-aaa8-6afd37a6fa63}">
+      <Declaration><![CDATA[PROPERTY Info : reference to PlcTaskSystemInfo]]></Declaration>
+      <Get Name="Get" Id="{e34510f9-7cfd-41b8-b9f3-6c21e4e33ccb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[info ref= taskInfo;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsExecutingThis" Id="{42debb83-1497-4759-bec3-72f6c33ff7b6}">
+      <Declaration><![CDATA[METHOD PUBLIC IsExecutingThis : BOOL
+VAR_INPUT
+END_VAR
+VAR
+	currentTaskIndex : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[currentTaskIndex := GETCURTASKINDEXEX();
+
+IF currentTaskIndex <= 0 THEN
+	RETURN;
+END_IF
+
+IsExecutingThis := currentTaskIndex = taskIndex;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="OnCyclicCall" Id="{11aa5b17-2780-4975-a1f6-66d038606493}">
+      <Declaration><![CDATA[PROPERTY PUBLIC OnCyclicCall : I_Event]]></Declaration>
+      <Get Name="Get" Id="{c68fb0e6-4b16-4f70-9b9a-fb7e4dedec8b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OnCyclicCall := cyclicCallEvent;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="RegisterInstance" Id="{7ed68801-d1c4-405c-a8fb-383cbb56879a}">
+      <Declaration><![CDATA[METHOD PUBLIC RegisterInstance
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR
+VAR
+	cyclicInstance : I_CyclicInstance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[RegisterInstanceIfAutomaticallyCyclicCalled(Instance);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterInstanceIfAutomaticallyCyclicCalled" Id="{3d2230a2-d9ac-4d32-91b5-2cd5dec9e9c0}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED RegisterInstanceIfAutomaticallyCyclicCalled
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR
+VAR
+	cyclicInstance : I_CyclicInstance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF not __QUERYINTERFACE(Instance,cyclicInstance) THEN
+	RETURN;
+END_IF;
+
+cyclicCallEvent.AddSubscriber(cyclicInstance.CyclicInstanceCallback);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UpdateTaskInformation" Id="{d08ec591-4213-4c95-89cf-7d09150463b2}" FolderPath="Internal\">
+      <Declaration><![CDATA[METHOD INTERNAL UpdateTaskInformation]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[taskIndex := GETCURTASKINDEXEX();
+taskInfo := TwinCAT_SystemInfoVarList._TaskInfo[taskIndex];]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

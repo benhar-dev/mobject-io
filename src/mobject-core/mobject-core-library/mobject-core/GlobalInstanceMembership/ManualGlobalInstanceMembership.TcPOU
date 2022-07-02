@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ManualGlobalInstanceMembership" Id="{c3945efc-c3cf-4cf7-9b60-267db192e2ba}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK ManualGlobalInstanceMembership
+VAR
+	self : I_Instance;
+	globalInstanceMembers : GlobalInstanceMembers;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{728f6580-c734-4667-b96f-4839827c4081}" />
+    <Folder Name="Destructor" Id="{c40fa4d9-48ef-4598-b3a0-1912f1f4cdfb}" />
+    <Method Name="FB_exit" Id="{a9e760cb-6de6-4d5c-a462-b6302a52e14d}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Leave();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1392b377-c760-427e-8d49-00af63536f43}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Self : I_Instance;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.self := Self;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Join" Id="{87bc7d20-8388-4b9d-bbd8-1072bb7781ac}">
+      <Declaration><![CDATA[METHOD PUBLIC Join
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[globalInstanceMembers.AddInstance(Self);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Leave" Id="{0ed57ad7-001d-467b-b611-42a3834425ca}">
+      <Declaration><![CDATA[METHOD PUBLIC Leave
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[globalInstanceMembers.RemoveInstance(THIS^.self);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Instance" Id="{61104ee8-d822-48ac-bc47-45dfd009ac1e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+{attribute 'reflection'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Instance IMPLEMENTS I_Instance
+{attribute 'hide_all_locals'}
+VAR
+	{attribute 'instance-path'} 
+    {attribute 'noinit'} 
+	instancePath : T_MAXSTRING;
+	instanceNamespace : STRING := GetNamespace();
+	globalNamespace : GlobalNamespace(THIS^);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Internal" Id="{76b2da4f-a3ed-429e-bbe9-ef5156816628}" />
+    <Method Name="GetNamespace" Id="{e810ce99-9d71-40ac-ae11-a84e6012dcad}" FolderPath="Internal\">
+      <Declaration><![CDATA[METHOD PRIVATE GetNamespace : STRING]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF InstancePathIsFilled() THEN
+	GetNamespace := ReturnNamespaceFromInstancePath(instancePath);
+	RETURN;
+END_IF
+
+IF IsNewObjectDuringInitialization() THEN
+	GetNamespace := globalNamespace.GetLastInstanceNamespace();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InstancePathIsFilled" Id="{a2b17ef6-cb9e-476e-9f89-78e97494c366}" FolderPath="Internal\">
+      <Declaration><![CDATA[METHOD PRIVATE InstancePathIsFilled : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InstancePathIsFilled :=  instancePath <> '';]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsNewObjectDuringInitialization" Id="{f91ae77a-c70e-4c49-b9e0-7278c8ae9b64}" FolderPath="Internal\">
+      <Declaration><![CDATA[METHOD PRIVATE IsNewObjectDuringInitialization : BOOL
+VAR CONSTANT 
+	PLC_INIT_PHASE : INT := 0;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsNewObjectDuringInitialization := GETCURTASKINDEXEX() = PLC_INIT_PHASE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="NameSpace" Id="{7ae71e18-c030-4e06-a315-882f3a357dc0}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NameSpace : STRING]]></Declaration>
+      <Get Name="Get" Id="{c3db41fa-c4f3-4c5f-9e86-90343b017ae9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Namespace := instanceNamespace;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SharesNamespaceWith" Id="{8bc887fe-eaed-4854-bdd7-2e4b9a46a836}">
+      <Declaration><![CDATA[METHOD PUBLIC SharesNamespaceWith : BOOL
+VAR_INPUT
+	OtherInstance : I_Instance;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SharesNamespaceWith := (Namespace = OtherInstance.NameSpace);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

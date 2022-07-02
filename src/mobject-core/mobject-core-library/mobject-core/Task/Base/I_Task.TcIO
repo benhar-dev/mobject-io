@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_Task" Id="{95f9090c-13d3-482f-b1e4-ea192c6eee21}">
+    <Declaration><![CDATA[INTERFACE I_Task EXTENDS I_Instance 
+]]></Declaration>
+    <Method Name="CyclicCall" Id="{dcd7806f-4f4e-4e57-b263-f41bcafa74c1}">
+      <Declaration><![CDATA[METHOD PUBLIC CyclicCall]]></Declaration>
+    </Method>
+    <Method Name="DeregisterInstance" Id="{4dfba9a2-672b-49d7-8e42-1754504ccf2f}">
+      <Declaration><![CDATA[METHOD PUBLIC DeregisterInstance
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Index" Id="{3c5bbab6-5d50-460b-92d2-f1f53a6922a3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Index : DINT]]></Declaration>
+      <Get Name="Get" Id="{0b013c63-5747-4c7b-a50f-84d32f5c7088}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Info" Id="{e58cbca8-9f68-4275-847a-ce58967eb349}">
+      <Declaration><![CDATA[PROPERTY Info : reference to PlcTaskSystemInfo]]></Declaration>
+      <Get Name="Get" Id="{53986318-b711-44ec-92cd-59e5061c39d1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="IsExecutingThis" Id="{a8fb18c1-2062-4087-a290-57f014230f7d}">
+      <Declaration><![CDATA[METHOD PUBLIC IsExecutingThis : BOOL
+VAR_INPUT
+END_VAR]]></Declaration>
+    </Method>
+    <Property Name="OnCyclicCall" Id="{65f5b62d-4236-4c3d-af0c-00905752e540}">
+      <Declaration><![CDATA[PROPERTY PUBLIC OnCyclicCall : I_Event]]></Declaration>
+      <Get Name="Get" Id="{f0f2597c-439e-4b75-9ca5-c4cf7ace9637}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="RegisterInstance" Id="{5ea4b4db-f1dc-4e2e-9b05-6e05b45cab28}">
+      <Declaration><![CDATA[METHOD PUBLIC RegisterInstance
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

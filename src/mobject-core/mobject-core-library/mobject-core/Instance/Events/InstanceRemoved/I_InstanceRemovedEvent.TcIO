@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_InstanceRemovedEvent" Id="{2009d3c1-018e-49dc-a886-5490f569df55}">
+    <Declaration><![CDATA[INTERFACE I_InstanceRemovedEvent EXTENDS I_Event
+]]></Declaration>
+    <Property Name="Instance" Id="{4ece9284-eb60-44c9-b64d-4584b64027d3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Instance : I_Instance]]></Declaration>
+      <Get Name="Get" Id="{42387aea-fc20-4786-bf6c-4ec9c7444e82}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

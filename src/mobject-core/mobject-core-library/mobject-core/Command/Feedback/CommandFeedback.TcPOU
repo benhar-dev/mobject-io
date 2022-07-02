@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="CommandFeedback" Id="{0bb2b70a-9917-4bc6-82f1-10209ec347e2}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK CommandFeedback IMPLEMENTS I_CommandFeedback, I_AsynchronousCommandBusyState, I_AsynchronousCommandAbortingState, I_SynchronousCommandBusyState
+VAR
+	_busy : BOOL;
+	_done : BOOL;
+	_aborted : BOOL;
+	_aborting : BOOL;
+	_error : BOOL;
+	_errorId : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Aborted" Id="{8b91521a-8e5a-43ba-8863-e2fa7cc99392}">
+      <Declaration><![CDATA[PROPERTY Aborted : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f85fbd4a-e9cd-4d12-af08-39edb0c8311f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Aborted := _aborted;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Aborting" Id="{24c48a50-0d39-4aac-bc60-257b83cb6e23}">
+      <Declaration><![CDATA[PROPERTY Aborting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1b70c1ef-8529-4879-92a8-1dd7343083b7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Aborting := _aborting;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Busy" Id="{9e877745-e45e-4105-8280-90d0392ab642}">
+      <Declaration><![CDATA[PROPERTY Busy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{dcbaea84-66e4-4f2e-8b4a-fc7867e82480}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Busy := _busy;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Done" Id="{5af9c492-205e-4d20-a51a-562a4e7a17b0}">
+      <Declaration><![CDATA[PROPERTY Done : BOOL]]></Declaration>
+      <Get Name="Get" Id="{633531fb-c4a7-4a9c-b318-18e19e4eb058}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Done := _done;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{2e6eb5ac-1af1-4513-9393-eb04207ebeab}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{210d04cf-7a8a-4361-88a3-aee6b02275d2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := _error;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ErrorId" Id="{cce1090d-2f46-4242-bd9e-6251b143b495}">
+      <Declaration><![CDATA[PROPERTY PUBLIC ErrorId : UDINT]]></Declaration>
+      <Get Name="Get" Id="{ac4538da-ece2-409d-a0d3-bfe8657c1cb1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetAborted" Id="{f00c57a3-7a26-4512-9bdc-2824e05f0a5e}">
+      <Declaration><![CDATA[METHOD PUBLIC SetAborted
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_busy := FALSE;
+_done := FALSE;
+_aborted := TRUE;
+_aborting := FALSE;
+_error := FALSE;
+_errorId := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetAborting" Id="{6172f62e-5040-4913-95cc-6bdf425631c5}">
+      <Declaration><![CDATA[METHOD PUBLIC SetAborting
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Busy THEN
+	SetAborted();
+	RETURN;
+END_IF
+
+_busy := TRUE;
+_done := FALSE;
+_aborted := FALSE;
+_aborting := TRUE;
+_error := FALSE;
+_errorId := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBusy" Id="{c1de6b82-a1bc-4f63-b4fc-c9ec9f901d55}">
+      <Declaration><![CDATA[METHOD PUBLIC SetBusy
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_busy := TRUE;
+_done := FALSE;
+_aborted := FALSE;
+_aborting := FALSE;
+_error := FALSE;
+_errorId := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetDone" Id="{d27df994-a111-46b1-a4ff-bc543ad7e26a}">
+      <Declaration><![CDATA[METHOD PUBLIC SetDone
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_busy := FALSE;
+_done := TRUE;
+_aborted := FALSE;
+_aborting := FALSE;
+_error := FALSE;
+_errorId := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{e44bd256-a596-435c-958f-64fb80c75037}">
+      <Declaration><![CDATA[METHOD PUBLIC SetError
+VAR_INPUT
+	ErrorId : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_busy := FALSE;
+_done := FALSE;
+_aborted := FALSE;
+_aborting := FALSE;
+_error := TRUE;
+_errorId := ErrorId;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

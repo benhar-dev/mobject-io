@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="InstanceRemovedEvent" Id="{227f2fc3-0115-4986-9712-4ba0d0df4526}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK InstanceRemovedEvent EXTENDS Event IMPLEMENTS I_InstanceRemovedEvent
+VAR
+	_instance : I_Instance;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <CFC>
+        <XmlArchive>
+          <Data>
+            <o xml:space="preserve" t="CFCImplementationObject">
+              <o n="Items" t="CFCItemList">
+                <l2 n="InnerList" />
+              </o>
+              <n n="ParameterInitializationMethodGenerator" />
+              <o n="RoutingPathTable" t="CFCRoutingPathTable">
+                <d2 n="InnerDictionary" />
+              </o>
+              <v n="AutoSizeCanvas">true</v>
+              <v n="CanvasWidth">2</v>
+              <v n="CanvasHeight">2</v>
+            </o>
+          </Data>
+          <TypeList>
+            <Type n="Boolean">System.Boolean</Type>
+            <Type n="CFCImplementationObject">{32d3375e-c010-41e2-9e43-b2fbf4f2b374}</Type>
+            <Type n="CFCItemList">{cd57ba20-558b-4b98-96c1-73c6000c3087}</Type>
+            <Type n="CFCRoutingPathTable">{4b8bcc79-5980-4868-b49e-005a8148859b}</Type>
+            <Type n="Int32">System.Int32</Type>
+          </TypeList>
+        </XmlArchive>
+      </CFC>
+    </Implementation>
+    <Property Name="Instance" Id="{1f253a84-dc7a-4c27-8a4b-538ae767b11c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Instance : I_Instance]]></Declaration>
+      <Get Name="Get" Id="{4e7b4e23-c9cc-444f-99ba-1b8dfbe37bfa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Instance := _instance;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Notify" Id="{3f18c54f-f9ce-4136-99a6-703b5bcb05cc}">
+      <Declaration><![CDATA[METHOD PUBLIC Notify
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_instance := instance;
+NotifySubscribers();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Sandpit" Id="{7ddd8b55-12ba-01d4-1e78-f6ddb0bdaaeb}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Sandpit
+VAR
+	
+	task : Task;
+	
+	// currently only objects created in the same POU as the task will be automatically called.  
+	// this will be extended in the next version to allow objects from other POUs and GVLs to be marked
+	// as being owned by an alternative task. 
+	
+	// cyclic instance example
+	lamp_inheritance : ExampleFlashingLamp_Inheritance;
+	lamp_composed : ExampleFlashingLamp_Composition;
+	output1, output2 : BOOL;
+	
+	// asyncCommand example
+	cylinder : SimulationTwoPositionCylinderWithFeedback;
+	extendCommand : Cylinder_ExtendCommand(cylinder);
+	extendTrigger : BOOL; // set true to execute the async command
+	extendComplete:  BOOL; // will set true once the command completes
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// all mobject code requires a task object to be made in the calling POU, with the CyclicCall being called. 
+task.CyclicCall();
+
+// cyclic instance example
+// -----------------------
+// the outputs below will flash, even though you are not explicitally calling the cyclic update of the lamps.  
+// this allows you as the designer to mark your instances as cyclicInstances for them to automatically call.  
+// this is especially useful when passing cyclic objects in as a dependency to non-cyclic objects, or if a non-cyclic object
+// makes a cyclic object.  You no longer need to worry about how it will be called.  
+
+output1 := lamp_inheritance.Output;
+output2 := lamp_composed.Output;
+
+// asyncCommand example
+// --------------------
+// asynchronous commands are a special  type of cyclicInstance who only automatically cyclic call when executed.  
+// They then unregister themselves once the command is no longer busy. 
+IF extendTrigger THEN
+	extendTrigger := FALSE;
+	extendComplete := FALSE;
+
+	// once you call execute, the command will automatically cyclic call until either done or errored. 
+	extendCommand.Execute();
+END_IF
+
+// you can monitor the state of the command using the feedback, although this is not a requirement.  
+IF extendCommand.Feedback.Done THEN
+	extendComplete := TRUE;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

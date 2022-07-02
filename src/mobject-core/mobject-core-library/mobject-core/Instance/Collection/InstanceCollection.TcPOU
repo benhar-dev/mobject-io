@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="InstanceCollection" Id="{fa184060-a42a-4ff0-90e2-dcb283ec6dd8}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK InstanceCollection
+VAR
+	instances : ARRAY [0..MobjectCoreConstants.MAX_INSTANCES] OF I_Instance;
+	last : DINT := EMPTY;
+END_VAR
+VAR CONSTANT
+	EMPTY : DINT := -1;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Count" Id="{937cecfd-4306-400e-b623-8ba2f897672a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
+      <Get Name="Get" Id="{8e72a050-d6fe-4a19-a736-fd6abd2ef4e0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := last + 1;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="GetByIndex" Id="{38bd5a7e-f9d7-4ee7-81f7-3b40a70ef39d}">
+      <Declaration><![CDATA[METHOD PUBLIC GetByIndex : I_Instance
+VAR_INPUT
+	Index : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetByIndex := instances[Index];]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Insert" Id="{12da7243-1afb-41ea-908d-6d963cadcc63}">
+      <Declaration><![CDATA[METHOD PUBLIC Insert
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[last := last + 1;
+instances[last] := Instance;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Remove" Id="{5467eb59-5caf-4ef0-8c34-8e4adec7cb97}">
+      <Declaration><![CDATA[METHOD Remove : BOOL
+VAR_INPUT
+	Instance : I_Instance;
+END_VAR
+VAR
+	i: DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 0 TO last DO
+	IF Instance = instances[i] THEN
+		instances[i] := 0;
+		
+		IF i <> last THEN
+			instances[i] := instances[last];
+		END_IF
+		
+		last := last -1;
+		
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

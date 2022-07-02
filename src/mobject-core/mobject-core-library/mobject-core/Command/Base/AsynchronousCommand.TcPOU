@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="AsynchronousCommand" Id="{4573ba5e-f595-4af2-9ceb-09fc18c9edbd}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK ABSTRACT AsynchronousCommand EXTENDS Instance IMPLEMENTS I_CyclicInstance, I_Command;
+VAR
+	membership : ManualGlobalInstanceMembership(THIS^);
+	commandState : CommandFeedback;
+	_cyclicInstanceCallback : CyclicCallback(THIS^);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Abstract" Id="{be4e69cc-0c81-4045-8111-c266dd4ab910}" />
+    <Folder Name="Private" Id="{9d5c5227-52f5-4c40-92e7-a0bbae19ea54}" />
+    <Folder Name="Protected" Id="{096f4fe6-5bb2-4bb8-a6bb-832023512d0b}" />
+    <Method Name="Abort" Id="{60afcb50-e5af-4421-b1bc-7eeb69aa83d0}">
+      <Declaration><![CDATA[METHOD PUBLIC Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsAborting() THEN
+	RETURN;
+END_IF
+
+IF HasCompleted() THEN
+	RETURN;
+END_IF
+
+AbortTheCommand();
+OnAbort(commandState);
+
+IF HasCompleted() THEN
+	UnregisterForCyclicCallback();
+	RETURN;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AbortTheCommand" Id="{25f1035c-3128-491b-95a2-b6812be3393a}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AbortTheCommand]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[commandState.SetAborting();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CyclicCall" Id="{7d4453bc-d846-4b1a-925e-f901cb1b6de8}">
+      <Declaration><![CDATA[METHOD PUBLIC CyclicCall
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsStillBusyExecuting() THEN
+	WhileBusy(commandState);
+END_IF
+
+IF IsAborting() THEN
+	WhileAborting(commandState);
+END_IF
+
+IF HasCompleted() THEN 
+	UnregisterForCyclicCallback();
+	RETURN;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="CyclicInstanceCallback" Id="{fbbaf756-654d-439c-9551-b0ca3c3fb3ab}">
+      <Declaration><![CDATA[PROPERTY PUBLIC CyclicInstanceCallback : I_Callback]]></Declaration>
+      <Get Name="Get" Id="{dd154a33-9513-491c-9f5c-6b79395d5906}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CyclicInstanceCallback := _cyclicInstanceCallback;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Execute" Id="{245940fa-5663-43ee-90f4-5403d4f93cb7}">
+      <Declaration><![CDATA[METHOD PUBLIC Execute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsAlreadyExecuting() THEN
+	RETURN;
+END_IF
+
+commandState.SetBusy();
+
+OnExecute(commandState);
+
+IF HasCompleted() THEN
+	RETURN;
+END_IF
+
+RegisterForCyclicCallback();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Feedback" Id="{ca5c2de7-0c7b-47ae-90f4-1aa64b1cfcbb}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Feedback : I_CommandFeedback]]></Declaration>
+      <Get Name="Get" Id="{b4d952d8-b530-4e62-b3d4-73bd57714062}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Feedback := commandState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="HasCompleted" Id="{57254ea6-8fe5-4889-8db3-4e6ee8636f4b}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE HasCompleted : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HasCompleted := not commandState.Busy;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsAborting" Id="{826caf00-4fda-4d36-a963-3391fd5b8d02}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE IsAborting : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsAborting := commandState.Aborting;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsAlreadyExecuting" Id="{2e8792df-35cb-4676-8920-db1b70c114b0}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE IsAlreadyExecuting : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsAlreadyExecuting := commandState.Busy;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStillBusyExecuting" Id="{b51705de-1d6d-48e7-bdae-d504980cfc15}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE IsStillBusyExecuting : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStillBusyExecuting := commandState.Busy and not commandState.Aborting;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnAbort" Id="{434a9592-740f-4773-aecb-a14d6ec189f2}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED OnAbort
+VAR_INPUT
+	CommandState : I_AsynchronousCommandAbortingState;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// override this method when a command needs time to "abort".
+// if your aborting code take more than one cycle to completed then do not SetAborted() here, rather use SetAborted inside WhileAborting.
+commandState.SetAborted();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{4ead10dc-3960-417d-bc9f-9eb0b39493b9}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR_INPUT
+	CommandState : I_AsynchronousCommandBusyState;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterForCyclicCallback" Id="{7c44a651-0968-483b-840e-e2352a4d8094}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RegisterForCyclicCallback]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[membership.Join();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UnregisterForCyclicCallback" Id="{8e9808f9-8f6a-41de-8ce9-d3f6ceea26b0}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE UnregisterForCyclicCallback]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[membership.Leave();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhileAborting" Id="{ce6eb5fa-6b19-440c-b4ec-8ab0fa207070}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED WhileAborting
+VAR_INPUT
+	CommandState : I_AsynchronousCommandAbortingState;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// you must override both OnAbort and WhileAborting to use this method.
+// if SetAborted has not been called during OnAbort then this method will be cyclically called until you do;
+commandState.SetAborted();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhileBusy" Id="{6b6b99f4-f4dd-4ca8-96fd-a4ad4ce31355}" FolderPath="Abstract\">
+      <Declaration><![CDATA[METHOD PROTECTED ABSTRACT WhileBusy
+VAR_INPUT
+	CommandState : I_AsynchronousCommandBusyState;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// This will be called cyclically until the command has finished executing.  
+// once done use the command below to complete the execute state.
+//commandState.SetDone();
+
+// use SetError to cancel the command.
+//commandFeedback.SetError(ErrorID:=0);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

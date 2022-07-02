@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_CyclicCalled" Id="{11b9a387-0128-4b59-92c3-59076cf24888}">
+    <Declaration><![CDATA[INTERFACE I_CyclicCalled EXTENDS __System.IQueryInterface 
+]]></Declaration>
+    <Method Name="CyclicCall" Id="{fafb0a67-325f-4f9d-bfb2-450c7a5c78d4}">
+      <Declaration><![CDATA[METHOD CyclicCall
+VAR_INPUT
+END_VAR]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

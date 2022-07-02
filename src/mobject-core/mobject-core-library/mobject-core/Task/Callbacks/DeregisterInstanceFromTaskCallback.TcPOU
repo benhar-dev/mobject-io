@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="DeregisterInstanceFromTaskCallback" Id="{e36b6dd5-f56c-4ec8-a6bf-494c674bda54}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK DeregisterInstanceFromTaskCallback IMPLEMENTS I_Callback
+VAR
+	task : I_Task;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9501917c-6917-4111-8e58-55a142dfe3dc}" />
+    <Method Name="FB_init" Id="{ddbb7130-b092-4d5b-8f57-fb6f20dd8085}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Task : I_Task;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.task := Task;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Update" Id="{a8e181ee-b041-4e2c-8c33-116a4739364f}">
+      <Declaration><![CDATA[METHOD PUBLIC Update
+VAR_INPUT
+	event : I_Event;
+END_VAR
+VAR
+	instanceRemove : I_InstanceRemovedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT __QUERYINTERFACE(event, instanceRemove) THEN
+	RETURN;
+END_IF
+
+IF task.SharesNamespaceWith(instanceRemove.Instance) THEN
+	task.DeregisterInstance(instanceRemove.Instance);
+END_IF
+
+IF task.IsExecutingThis() THEN
+	task.DeregisterInstance(instanceRemove.Instance);
+	RETURN;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="SynchronousCommand" Id="{7933fc53-0bdf-4661-ad67-064c255651ac}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK ABSTRACT SynchronousCommand IMPLEMENTS I_Command;
+VAR
+	commandFeedback : CommandFeedback;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Abstract" Id="{ebbeac00-4ca1-47a4-8734-e2237b5a0ef7}" />
+    <Method Name="Abort" Id="{b2e517b9-7919-465e-971d-7a67b23f060e}">
+      <Declaration><![CDATA[METHOD PUBLIC Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// not possible to abort an synchonous command as the code is immediatly called in Execute()]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Execute" Id="{612fe777-3f85-448c-8eb4-857e8d26ae95}">
+      <Declaration><![CDATA[METHOD PUBLIC Execute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[commandFeedback.SetBusy();
+
+OnExecute(commandFeedback);
+
+IF commandFeedback.Busy THEN
+	commandFeedback.SetDone();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Feedback" Id="{b3b0f557-629d-420a-9ab4-eed727e389a2}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Feedback : I_CommandFeedback]]></Declaration>
+      <Get Name="Get" Id="{5ad12640-51ff-409c-bb11-1abdac2f96bd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Feedback := commandFeedback;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="OnExecute" Id="{c9ca19ff-2ba5-4f6f-acc3-d35fa83ce1a8}" FolderPath="Abstract\">
+      <Declaration><![CDATA[METHOD PROTECTED ABSTRACT OnExecute
+VAR_INPUT
+	CommandState : I_SynchronousCommandBusyState;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

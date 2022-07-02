@@ -1,0 +1,39 @@
+
+.markdown-section output:after, .markdown-section pre:after {
+    content: '';
+}
+
+pre {
+    margin : 0px;
+}
+
+.markdown-section pre {
+    padding: 0;
+}
+
+.markdown-section pre>code {
+    padding: 2.2em 2.2em;
+}
+
+.markdown-section code {
+    background-color: #f8f8f8;
+    padding : 1.3em;
+}
+
+.markdown-section pre {
+    margin: 0em 0;
+    position: relative;
+    background-color:white;
+}
+
+
+.lang-body {
+    border-top: 1px solid lightgrey;
+    margin-bottom : 18px;
+    margin-top: 0px !important;
+}
+
+.lang-body pre {
+    margin-top: -18px !important;
+    border-top: 1px solid lightgrey;
+}
