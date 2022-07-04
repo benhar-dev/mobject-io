@@ -1,6 +1,6 @@
-![Logo](./docs/images/logo.svg)
-
-# mobject
+<p align="center">
+  <img width="460" height="300" src="./docs/images/logo.svg">
+</p>
 Pronounced mob-ject. The open source machine object oriented programming framework and guide.
 
 ## Opening Statement
