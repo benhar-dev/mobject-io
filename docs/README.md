@@ -1,4 +1,7 @@
-# mobject
+<p align="center">
+  <img width="460" height="300" src="./images/logo.svg">
+</p>
+
 >A framework and guide for writing object oriented programs in structured text. 
 
 ## Opening Statement

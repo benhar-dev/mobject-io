@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <Itf Name="I_TaskCyclicEvent" Id="{33d43389-6006-4cda-baca-66ee2d21f4d2}">
-    <Declaration><![CDATA[INTERFACE I_TaskCyclicEvent EXTENDS I_Event
-]]></Declaration>
+    <Declaration><![CDATA[INTERFACE I_TaskCyclicEvent EXTENDS I_Event]]></Declaration>
     <Property Name="Info" Id="{61a79a24-7897-4fd8-8ab2-0fac4e32b5ca}">
       <Declaration><![CDATA[PROPERTY Info : PlcTaskSystemInfo]]></Declaration>
       <Get Name="Get" Id="{bda09813-983c-4f63-9dfd-15c54d4fa712}">

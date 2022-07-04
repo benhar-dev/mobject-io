@@ -37,10 +37,9 @@
     <Folder Include="Command" />
     <Folder Include="Command\Base" />
     <Folder Include="Command\Feedback" />
-    <Folder Include="Command\Feedback\Readonly" />
-    <Folder Include="CyclicCalled" />
-    <Folder Include="CyclicCalled\Base" />
-    <Folder Include="CyclicCalled\Interface" />
+    <Folder Include="CyclicCallback" />
+    <Folder Include="CyclicCallback\Base" />
+    <Folder Include="CyclicCallback\Interface" />
     <Folder Include="CyclicInstance" />
     <Folder Include="Events" />
     <Folder Include="Events\Base" />
@@ -88,10 +87,10 @@
     <Compile Include="Command\Feedback\I_CommandFeedback.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CyclicCalled\Base\CyclicCallback.TcPOU">
+    <Compile Include="CyclicCallback\Base\CyclicCallback.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CyclicCalled\Interface\I_CyclicCalled.TcIO">
+    <Compile Include="CyclicCallback\Interface\I_CyclicCalled.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CyclicInstance\CyclicInstance.TcPOU">

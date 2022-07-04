@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <Itf Name="I_VisitIntances" Id="{2024b737-6a84-48f4-baeb-093a18ac9cb0}">
-    <Declaration><![CDATA[INTERFACE I_VisitIntances
-]]></Declaration>
+    <Declaration><![CDATA[INTERFACE I_VisitIntances]]></Declaration>
     <Method Name="Visit" Id="{08f06157-7fef-4f58-9f10-d92841ef6b0a}">
       <Declaration><![CDATA[METHOD PUBLIC Visit
 VAR_INPUT
