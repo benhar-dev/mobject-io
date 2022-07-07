@@ -18,7 +18,7 @@
     <Company>mobject.io</Company>
     <Released>false</Released>
     <Title>mobject-core</Title>
-    <ProjectVersion>0.1.0</ProjectVersion>
+    <ProjectVersion>0.2.0</ProjectVersion>
     <DefaultNamespace>mobject-core</DefaultNamespace>
     <Author>mobject dev team</Author>
     <LibraryCategories>
@@ -35,165 +35,168 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Command" />
-    <Folder Include="Command\Base" />
-    <Folder Include="Command\Feedback" />
-    <Folder Include="CyclicCallback" />
-    <Folder Include="CyclicCallback\Base" />
-    <Folder Include="CyclicCallback\Interface" />
+    <Folder Include="Command\By Inheritance" />
     <Folder Include="CyclicInstance" />
-    <Folder Include="Events" />
-    <Folder Include="Events\Base" />
-    <Folder Include="Events\Collections" />
-    <Folder Include="Events\Interfaces" />
-    <Folder Include="Functions" />
-    <Folder Include="Functions\Namespace" />
-    <Folder Include="GlobalInstanceMembership" />
-    <Folder Include="GlobalInstancesMembers" />
-    <Folder Include="GlobalNamespace" />
-    <Folder Include="Instance" />
-    <Folder Include="Instance\Collection" />
-    <Folder Include="Instance\Events" />
-    <Folder Include="Instance\Events\InstanceAdded" />
-    <Folder Include="Instance\Events\InstanceRemoved" />
-    <Folder Include="Collections" />
+    <Folder Include="CyclicInstance\By Inheritance" />
+    <Folder Include="CyclicInstance\By Composition" />
+    <Folder Include="_Internal" />
+    <Folder Include="_Internal\Collections" />
+    <Folder Include="_Internal\CyclicCallback" />
+    <Folder Include="_Internal\CyclicCallback\Base" />
+    <Folder Include="_Internal\CyclicCallback\Interface" />
+    <Folder Include="_Internal\Events" />
+    <Folder Include="_Internal\Events\Base" />
+    <Folder Include="_Internal\Events\Collections" />
+    <Folder Include="_Internal\Events\Interfaces" />
+    <Folder Include="_Internal\Functions" />
+    <Folder Include="_Internal\Functions\Namespace" />
+    <Folder Include="_Internal\GlobalInstanceMembership" />
+    <Folder Include="_Internal\GlobalInstancesMembers" />
+    <Folder Include="_Internal\GlobalNamespace" />
+    <Folder Include="_Internal\Instance" />
+    <Folder Include="_Internal\Instance\Collection" />
+    <Folder Include="_Internal\Instance\Events" />
+    <Folder Include="_Internal\Instance\Events\InstanceAdded" />
+    <Folder Include="_Internal\Instance\Events\InstanceRemoved" />
+    <Folder Include="_Internal\CommandFeedback" />
+    <Folder Include="_Internal\Task" />
+    <Folder Include="_Internal\Task\Callbacks" />
+    <Folder Include="_Internal\Task\Events" />
+    <Folder Include="_Internal\Task\Events\TaskCyclicEvent" />
+    <Folder Include="_Internal\Task\Visitors" />
     <Folder Include="Task" />
-    <Folder Include="Task\Base" />
-    <Folder Include="Task\Callbacks" />
-    <Folder Include="Task\Events" />
-    <Folder Include="Task\Events\TaskCyclicEvent" />
-    <Folder Include="Task\Visitors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\I_Collectable.TcIO">
+    <Compile Include="Command\By Inheritance\AsynchronousCommand.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Command\Base\AsynchronousCommand.TcPOU">
+    <Compile Include="Command\By Inheritance\SynchronousCommand.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Command\Base\I_Command.TcIO">
+    <Compile Include="Command\I_Command.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Command\Base\SynchronousCommand.TcPOU">
+    <Compile Include="CyclicInstance\By Composition\AutomaticCyclicCall.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Command\Feedback\CommandFeedback.TcPOU">
+    <Compile Include="CyclicInstance\By Composition\ManualCyclicCall.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Command\Feedback\I_AsynchronousCommandAbortingState.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Command\Feedback\I_AsynchronousCommandBusyState.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Command\Feedback\I_SynchronousCommandBusyState.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Command\Feedback\I_CommandFeedback.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CyclicCallback\AutomaticCyclicCall.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CyclicCallback\ManualCyclicCall.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CyclicCallback\Base\CyclicCallback.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CyclicCallback\Interface\I_CyclicCalled.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CyclicInstance\CyclicInstance.TcPOU">
+    <Compile Include="CyclicInstance\By Inheritance\CyclicInstance.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CyclicInstance\I_CyclicInstance.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Base\Event.TcPOU">
+    <Compile Include="_Internal\Collections\Collection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Base\I_Event.TcIO">
+    <Compile Include="_Internal\Collections\CollectionNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Collections\SubscriberCollection.TcPOU">
+    <Compile Include="_Internal\Collections\I_Collectable.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Interfaces\I_Callback.TcIO">
+    <Compile Include="_Internal\Collections\I_CollectionNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Interfaces\I_Subscriber.TcIO">
+    <Compile Include="_Internal\CommandFeedback\CommandFeedback.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Functions\Namespace\ReturnNamespaceFromInstancePath.TcPOU">
+    <Compile Include="_Internal\CommandFeedback\I_AsynchronousCommandAbortingState.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Functions\Namespace\ReturnSubSectionFromInstancePath.TcPOU">
+    <Compile Include="_Internal\CommandFeedback\I_AsynchronousCommandBusyState.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GlobalInstanceMembership\AutomaticGlobalInstanceMembership.TcPOU">
+    <Compile Include="_Internal\CommandFeedback\I_CommandFeedback.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GlobalInstanceMembership\ManualGlobalInstanceMembership.TcPOU">
+    <Compile Include="_Internal\CommandFeedback\I_SynchronousCommandBusyState.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GlobalInstancesMembers\GlobalInstanceMembers.TcPOU">
+    <Compile Include="_Internal\CyclicCallback\Base\CyclicCallback.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GlobalNamespace\GlobalNamespace.TcPOU">
+    <Compile Include="_Internal\CyclicCallback\Interface\I_CyclicCalled.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Instance\Collection\InstanceCollection.TcPOU">
+    <Compile Include="_Internal\Events\Base\Event.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Instance\Events\InstanceAdded\InstanceAddedEvent.TcPOU">
+    <Compile Include="_Internal\Events\Base\I_Event.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Instance\Events\InstanceAdded\I_InstanceAddedEvent.TcIO">
+    <Compile Include="_Internal\Events\Collections\SubscriberCollection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Instance\Events\InstanceRemoved\InstanceRemovedEvent.TcPOU">
+    <Compile Include="_Internal\Events\Interfaces\I_Callback.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Instance\Events\InstanceRemoved\I_InstanceRemovedEvent.TcIO">
+    <Compile Include="_Internal\Events\Interfaces\I_Subscriber.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Instance\Instance.TcPOU">
+    <Compile Include="_Internal\Functions\Namespace\ReturnNamespaceFromInstancePath.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Instance\I_Instance.TcIO">
+    <Compile Include="_Internal\Functions\Namespace\ReturnSubSectionFromInstancePath.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\I_CollectionNode.TcIO">
+    <Compile Include="_Internal\GlobalInstanceMembership\AutomaticGlobalInstanceMembership.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\Collection.TcPOU">
+    <Compile Include="_Internal\GlobalInstanceMembership\ManualGlobalInstanceMembership.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\CollectionNode.TcPOU">
+    <Compile Include="_Internal\GlobalInstancesMembers\GlobalInstanceMembers.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Task\Base\I_Task.TcIO">
+    <Compile Include="_Internal\GlobalNamespace\GlobalNamespace.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Task\Base\Task.TcPOU">
+    <Compile Include="_Internal\Instance\Collection\InstanceCollection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Task\Callbacks\DeregisterInstanceFromTaskCallback.TcPOU">
+    <Compile Include="_Internal\Instance\Events\InstanceAdded\InstanceAddedEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Task\Callbacks\RegisterInstanceToTaskCallback.TcPOU">
+    <Compile Include="_Internal\Instance\Events\InstanceAdded\I_InstanceAddedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Task\Events\TaskCyclicEvent\I_TaskCyclicEvent.TcIO">
+    <Compile Include="_Internal\Instance\Events\InstanceRemoved\InstanceRemovedEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Task\Events\TaskCyclicEvent\TaskCyclicEvent.TcPOU">
+    <Compile Include="_Internal\Instance\Events\InstanceRemoved\I_InstanceRemovedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Task\Visitors\I_VisitIntances.TcIO">
+    <Compile Include="_Internal\Instance\Instance.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Task\Visitors\RegisterInstancesToTaskVisitor.TcPOU">
+    <Compile Include="_Internal\Instance\I_Instance.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Task\Callbacks\DeregisterInstanceFromTaskCallback.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Task\Callbacks\RegisterInstanceToTaskCallback.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Task\Events\TaskCyclicEvent\I_TaskCyclicEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Task\Events\TaskCyclicEvent\TaskCyclicEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Task\Visitors\I_VisitIntances.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Task\Visitors\RegisterInstancesToTaskVisitor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Task\I_Task.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Task\Task.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

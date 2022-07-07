@@ -9,7 +9,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// To make an object cyclic called via composition then you must implement I_CyclicCalled and instatiate an AutomaticCyclicCall with your object in the constructor.]]></ST>
+      <ST><![CDATA[// To make an object automatic cyclic called via composition then you must simply implement I_CyclicCalled 
+// and instatiate an AutomaticCyclicCall with your object in the constructor.
+
+// Handy Hint!
+// -----------
+// if you want to be able to switch the cyclic calling on and off then you can use ManualCyclicCall for 
+// this with the .Enable() and .Disable() to control the cyclic state.  ManualCyclic call is use inside
+// AsynchronousCommand. ]]></ST>
     </Implementation>
     <Method Name="CyclicCall" Id="{7d561706-baad-496a-b32c-52968374d31e}">
       <Declaration><![CDATA[METHOD CyclicCall
