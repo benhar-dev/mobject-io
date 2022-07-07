@@ -7,7 +7,6 @@ VAR
 	Output_Retract AT %Q* : BOOL;
 	Input_Extended AT %I* : BOOL;
 	Input_Retracted AT %I* : BOOL;
-	
 	retract, extend : TON;
 END_VAR
 ]]></Declaration>

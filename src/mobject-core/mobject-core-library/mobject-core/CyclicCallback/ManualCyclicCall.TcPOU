@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ManualCyclicCall" Id="{d2a6eae5-f4c1-4aa1-b9bb-b0e27da19250}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ManualCyclicCall EXTENDS Instance IMPLEMENTS I_CyclicInstance
+VAR
+	membership : ManualGlobalInstanceMembership(THIS^);
+	_cyclicInstanceCallback : CyclicCallback(0);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{95d99c90-78e5-4239-959f-5a2084f3c724}" />
+    <Property Name="CyclicInstanceCallback" Id="{b1af1ac8-3131-42cd-ae1a-263c770de573}">
+      <Declaration><![CDATA[PROPERTY PUBLIC CyclicInstanceCallback : I_Callback]]></Declaration>
+      <Get Name="Get" Id="{3355e5d4-0172-4e55-a365-facbcd3477b6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CyclicInstanceCallback := _cyclicInstanceCallback;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Disable" Id="{f8a54ed5-10e8-43e3-b598-39d803f73ba2}">
+      <Declaration><![CDATA[METHOD PUBLIC Disable
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[membership.Leave();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Enable" Id="{03c801e5-9dd4-423c-86e3-6dcb4b0a8928}">
+      <Declaration><![CDATA[METHOD PUBLIC Enable
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[membership.Join();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{7726bab5-3c2e-47e7-b183-140b6f298cd0}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Target : I_CyclicCalled;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_cyclicInstanceCallback.Target := Target;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

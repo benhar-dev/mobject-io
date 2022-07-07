@@ -5,7 +5,7 @@
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
 FUNCTION_BLOCK CyclicCallback IMPLEMENTS I_Callback
 VAR
-	target : I_CyclicCalled;
+	_target : I_CyclicCalled;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -21,9 +21,28 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[this^.target := Target;]]></ST>
+        <ST><![CDATA[this^._target := Target;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Target" Id="{25bdf4f3-179d-4bda-b967-ba2c8f26a57b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Target : I_CyclicCalled]]></Declaration>
+      <Get Name="Get" Id="{047a067b-4fe8-4c10-9801-ff109a08f758}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Target := _target;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a022aec8-770a-40f0-b6b7-aa4de4cd8f6e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_target := Target;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Update" Id="{b0c3b4d3-42f6-4a0a-b433-de659224cd84}">
       <Declaration><![CDATA[METHOD PUBLIC Update
 VAR_INPUT
@@ -31,8 +50,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF target <> 0 THEN
-	target.CyclicCall();
+        <ST><![CDATA[IF _target <> 0 THEN
+	_target.CyclicCall();
 END_IF]]></ST>
       </Implementation>
     </Method>

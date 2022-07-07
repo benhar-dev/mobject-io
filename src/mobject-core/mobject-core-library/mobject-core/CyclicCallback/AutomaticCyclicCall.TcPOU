@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="AutomaticCyclicCall" Id="{a2b7e627-a5fd-402e-9eb5-f07e8064d422}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK AutomaticCyclicCall EXTENDS Instance IMPLEMENTS I_CyclicInstance
+VAR
+	membership : AutomaticGlobalInstanceMembership(THIS^);
+	_cyclicInstanceCallback : CyclicCallback(0);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{227b16bd-e892-4d8a-ae22-6c11c5a245f0}" />
+    <Property Name="CyclicInstanceCallback" Id="{3357174e-c594-4633-a65d-716774e3c184}">
+      <Declaration><![CDATA[PROPERTY PUBLIC CyclicInstanceCallback : I_Callback]]></Declaration>
+      <Get Name="Get" Id="{2a63e816-aedf-4c00-b118-0232bfc223e2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CyclicInstanceCallback := _cyclicInstanceCallback;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{c65d8418-85fb-461a-ba3b-19538b54bc1a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Target : I_CyclicCalled;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_cyclicInstanceCallback.Target := Target;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

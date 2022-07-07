@@ -91,6 +91,12 @@
     <Compile Include="Command\Feedback\I_CommandFeedback.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CyclicCallback\AutomaticCyclicCall.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CyclicCallback\ManualCyclicCall.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CyclicCallback\Base\CyclicCallback.TcPOU">
       <SubType>Code</SubType>
     </Compile>

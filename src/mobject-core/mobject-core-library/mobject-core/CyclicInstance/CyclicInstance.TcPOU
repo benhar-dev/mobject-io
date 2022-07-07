@@ -3,10 +3,9 @@
   <POU Name="CyclicInstance" Id="{dc2e84c3-6d56-43a2-a4f0-a82e4ef40050}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
-FUNCTION_BLOCK ABSTRACT CyclicInstance EXTENDS Instance IMPLEMENTS I_CyclicInstance
+FUNCTION_BLOCK ABSTRACT CyclicInstance EXTENDS Instance IMPLEMENTS I_CyclicCalled
 VAR
-	membership : AutomaticGlobalInstanceMembership(THIS^);
-	_cyclicInstanceCallback : CyclicCallback(THIS^);
+	cyclicCall : AutomaticCyclicCall(THIS^);
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
@@ -20,16 +19,5 @@ END_VAR]]></Declaration>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Property Name="CyclicInstanceCallback" Id="{2fedc0eb-3da0-43a8-8555-691afde2d4a4}">
-      <Declaration><![CDATA[PROPERTY PUBLIC CyclicInstanceCallback : I_Callback]]></Declaration>
-      <Get Name="Get" Id="{49d5d242-2da3-436f-b409-782c762f0a38}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[CyclicInstanceCallback := _cyclicInstanceCallback;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
   </POU>
 </TcPlcObject>

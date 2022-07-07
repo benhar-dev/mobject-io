@@ -4,11 +4,10 @@
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK ABSTRACT AsynchronousCommand EXTENDS Instance IMPLEMENTS I_CyclicInstance, I_Command;
+FUNCTION_BLOCK ABSTRACT AsynchronousCommand IMPLEMENTS I_CyclicCalled, I_Command;
 VAR
-	membership : ManualGlobalInstanceMembership(THIS^);
+	cyclicCall : ManualCyclicCall(THIS^);
 	commandState : CommandFeedback;
-	_cyclicInstanceCallback : CyclicCallback(THIS^);
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -35,7 +34,7 @@ AbortTheCommand();
 OnAbort(commandState);
 
 IF HasCompleted() THEN
-	UnregisterForCyclicCallback();
+	DisableCyclicCalling();
 	RETURN;
 END_IF]]></ST>
       </Implementation>
@@ -60,22 +59,23 @@ IF IsAborting() THEN
 END_IF
 
 IF HasCompleted() THEN 
-	UnregisterForCyclicCallback();
+	DisableCyclicCalling();
 	RETURN;
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Property Name="CyclicInstanceCallback" Id="{fbbaf756-654d-439c-9551-b0ca3c3fb3ab}">
-      <Declaration><![CDATA[PROPERTY PUBLIC CyclicInstanceCallback : I_Callback]]></Declaration>
-      <Get Name="Get" Id="{dd154a33-9513-491c-9f5c-6b79395d5906}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[CyclicInstanceCallback := _cyclicInstanceCallback;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
+    <Method Name="DisableCyclicCalling" Id="{8e9808f9-8f6a-41de-8ce9-d3f6ceea26b0}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE DisableCyclicCalling]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[cyclicCall.Disable();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EnableCyclicCalling" Id="{7c44a651-0968-483b-840e-e2352a4d8094}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EnableCyclicCalling]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[cyclicCall.Enable();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Execute" Id="{245940fa-5663-43ee-90f4-5403d4f93cb7}">
       <Declaration><![CDATA[METHOD PUBLIC Execute]]></Declaration>
       <Implementation>
@@ -91,7 +91,7 @@ IF HasCompleted() THEN
 	RETURN;
 END_IF
 
-RegisterForCyclicCallback();]]></ST>
+EnableCyclicCalling();]]></ST>
       </Implementation>
     </Method>
     <Property Name="Feedback" Id="{ca5c2de7-0c7b-47ae-90f4-1aa64b1cfcbb}">
@@ -147,18 +147,6 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="RegisterForCyclicCallback" Id="{7c44a651-0968-483b-840e-e2352a4d8094}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE RegisterForCyclicCallback]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[membership.Join();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="UnregisterForCyclicCallback" Id="{8e9808f9-8f6a-41de-8ce9-d3f6ceea26b0}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE UnregisterForCyclicCallback]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[membership.Leave();]]></ST>
       </Implementation>
     </Method>
     <Method Name="WhileAborting" Id="{ce6eb5fa-6b19-440c-b4ec-8ab0fa207070}" FolderPath="Protected\">

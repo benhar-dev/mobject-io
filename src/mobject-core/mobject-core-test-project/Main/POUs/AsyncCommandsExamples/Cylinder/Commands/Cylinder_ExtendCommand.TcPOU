@@ -2,7 +2,6 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="Cylinder_ExtendCommand" Id="{7001d6b3-390f-4bb7-869a-6f280916d893}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
-{attribute 'reflection'} 
 FUNCTION_BLOCK Cylinder_ExtendCommand EXTENDS AsynchronousCommand
 VAR
 	cylinder : I_Cylinder;

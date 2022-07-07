@@ -1,30 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="ExampleFlashingLamp_Composition" Id="{6c346b92-d0ba-425a-8541-d59d40052e70}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ExampleFlashingLamp_Composition IMPLEMENTS I_Instance, I_CyclicInstance
+    <Declaration><![CDATA[FUNCTION_BLOCK ExampleFlashingLamp_Composition IMPLEMENTS I_CyclicCalled
 VAR
-	instance : Instance;
-	taskMembership : AutomaticGlobalInstanceMembership(THIS^);
-	_cyclicCallback : CyclicCallback(THIS^);
-
+	cyclicCall : AutomaticCyclicCall(THIS^);
 	tick : ton;
 	tock : ton;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// To make an object cyclic called via composition then you must implement I_Instance and I_CyclicInstance
-// and also contain a GlobalInstanceMembership.
-//
-// I_Instance 
-// This can be done by creating variable of type Instance and linking your own .Namespace 
-// and .ShareNamespaceWith() with it.  
-//
-// I_CyclicInstance 
-// You must make a callback by the name of CyclicInstanceCallback which will be auto subscribed by the task.
-// The premade CyclicCallback ]]></ST>
+      <ST><![CDATA[// To make an object cyclic called via composition then you must implement I_CyclicCalled and instatiate an AutomaticCyclicCall with your object in the constructor.]]></ST>
     </Implementation>
-    <Folder Name="Required for I_CyclicInstance" Id="{085084e1-28b8-49b0-a33b-c32bd6c2ca30}" />
-    <Folder Name="Required for I_Instance" Id="{44b1aaf6-8874-4606-b8bd-311fdf0035ed}" />
     <Method Name="CyclicCall" Id="{7d561706-baad-496a-b32c-52968374d31e}">
       <Declaration><![CDATA[METHOD CyclicCall
 VAR_INPUT
@@ -34,28 +20,6 @@ END_VAR]]></Declaration>
 tock(in:=tick.Q,pt:=T#1S);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="CyclicInstanceCallback" Id="{3a37ff4e-49ad-4396-846e-88601200eb49}" FolderPath="Required for I_CyclicInstance\">
-      <Declaration><![CDATA[PROPERTY PUBLIC CyclicInstanceCallback : I_Callback]]></Declaration>
-      <Get Name="Get" Id="{f4fa7f7a-4187-459d-bbd4-542d29aa4452}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[CyclicInstanceCallback := _cyclicCallback;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
-    <Property Name="NameSpace" Id="{303c425b-90e1-4160-9417-10a402bf031e}" FolderPath="Required for I_Instance\">
-      <Declaration><![CDATA[PROPERTY PUBLIC NameSpace : STRING]]></Declaration>
-      <Get Name="Get" Id="{371df91b-4908-40bd-af7c-1ba9ee414ab6}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Namespace := instance.Namespace;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Property Name="Output" Id="{3cd6e915-b5bb-4734-b503-20e7a939da3e}">
       <Declaration><![CDATA[PROPERTY PUBLIC Output : BOOL]]></Declaration>
       <Get Name="Get" Id="{0ca7be68-adbb-43ce-a354-07885449c9ef}">
@@ -67,15 +31,5 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="SharesNamespaceWith" Id="{871d87d6-9233-44b7-864b-7ceeb3ada5a0}" FolderPath="Required for I_Instance\">
-      <Declaration><![CDATA[METHOD PUBLIC SharesNamespaceWith : BOOL
-VAR_INPUT
-	OtherInstance : I_Instance;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SharesNamespaceWith := instance.SharesNamespaceWith(OtherInstance);]]></ST>
-      </Implementation>
-    </Method>
   </POU>
 </TcPlcObject>
