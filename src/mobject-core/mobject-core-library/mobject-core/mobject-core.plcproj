@@ -18,7 +18,7 @@
     <Company>mobject.io</Company>
     <Released>false</Released>
     <Title>mobject-core</Title>
-    <ProjectVersion>0.2.0</ProjectVersion>
+    <ProjectVersion>0.3.0</ProjectVersion>
     <DefaultNamespace>mobject-core</DefaultNamespace>
     <Author>mobject dev team</Author>
     <LibraryCategories>
@@ -142,10 +142,7 @@
     <Compile Include="_Internal\Functions\Namespace\ReturnSubSectionFromInstancePath.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\GlobalInstanceMembership\AutomaticGlobalInstanceMembership.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="_Internal\GlobalInstanceMembership\ManualGlobalInstanceMembership.TcPOU">
+    <Compile Include="_Internal\GlobalInstanceMembership\GlobalInstanceMembership.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\GlobalInstancesMembers\GlobalInstanceMembers.TcPOU">

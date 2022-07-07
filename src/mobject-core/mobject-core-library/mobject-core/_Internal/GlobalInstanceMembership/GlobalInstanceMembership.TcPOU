@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="ManualGlobalInstanceMembership" Id="{c3945efc-c3cf-4cf7-9b60-267db192e2ba}" SpecialFunc="None">
+  <POU Name="GlobalInstanceMembership" Id="{c3945efc-c3cf-4cf7-9b60-267db192e2ba}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
-FUNCTION_BLOCK ManualGlobalInstanceMembership
+FUNCTION_BLOCK GlobalInstanceMembership
 VAR
 	self : I_Instance;
 	globalInstanceMembers : GlobalInstanceMembers;

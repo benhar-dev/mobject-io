@@ -3,7 +3,7 @@
   <POU Name="AutomaticCyclicCall" Id="{a2b7e627-a5fd-402e-9eb5-f07e8064d422}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK AutomaticCyclicCall EXTENDS Instance IMPLEMENTS I_CyclicInstance
 VAR
-	membership : AutomaticGlobalInstanceMembership(THIS^);
+	membership : GlobalInstanceMembership(THIS^);
 	_cyclicInstanceCallback : CyclicCallback(0);
 END_VAR
 ]]></Declaration>
@@ -31,7 +31,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_cyclicInstanceCallback.Target := Target;]]></ST>
+        <ST><![CDATA[_cyclicInstanceCallback.Target := Target;
+membership.Join();]]></ST>
       </Implementation>
     </Method>
   </POU>

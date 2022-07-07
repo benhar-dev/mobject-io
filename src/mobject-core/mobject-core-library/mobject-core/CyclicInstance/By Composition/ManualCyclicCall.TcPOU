@@ -3,7 +3,7 @@
   <POU Name="ManualCyclicCall" Id="{d2a6eae5-f4c1-4aa1-b9bb-b0e27da19250}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ManualCyclicCall EXTENDS Instance IMPLEMENTS I_CyclicInstance
 VAR
-	membership : ManualGlobalInstanceMembership(THIS^);
+	membership : GlobalInstanceMembership(THIS^);
 	_cyclicInstanceCallback : CyclicCallback(0);
 END_VAR
 ]]></Declaration>
