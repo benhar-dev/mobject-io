@@ -23,10 +23,16 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="NotifySubscribers" Id="{00f6e4c5-1f92-4c04-90a4-78cbf5e7a24d}" FolderPath="Protected\">
-      <Declaration><![CDATA[METHOD PROTECTED NotifySubscribers]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED NotifySubscribers
+VAR
+	count : UDINT;
+	i : UDINT;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[subscribers.Notify(THIS^);
-]]></ST>
+        <ST><![CDATA[count := subscribers.Count;
+FOR i := 0 TO count - 1 DO
+	subscribers.GetByIndex(i).Update(THIS^);
+END_FOR]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveSubscriber" Id="{3a25e12d-9cea-4c90-88a9-76f17d36e0cf}">
