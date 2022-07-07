@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Collection" Id="{02cd4f79-ea16-4bc5-ab43-4e3e5f3ec2c0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Collection
+VAR
+	head : I_CollectionNode;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Destructor" Id="{1f30c3ec-e824-4fdb-a84c-193bac262648}" />
+    <Property Name="Count" Id="{8842bc34-c017-4b95-8e0e-89eca5059051}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : UDINT]]></Declaration>
+      <Get Name="Get" Id="{143f0c89-d525-45bf-91db-43dc91e6fe97}">
+        <Declaration><![CDATA[VAR
+	currentCount : UDINT;
+	currentNode : I_CollectionNode;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[currentCount := 0;
+currentNode := head;
+
+WHILE currentNode <> 0 DO
+	currentNode := currentNode.Next;
+	currentCount := currentCount + 1;
+END_WHILE;
+
+Count := currentCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_exit" Id="{31643322-c431-497d-98d4-9a0d12ccf498}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+VAR
+	previousNode : I_CollectionNode;
+	currentNode : I_CollectionNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[currentNode := head;
+
+WHILE currentNode <> 0 DO
+	previousNode := currentNode;
+	currentNode := previousNode.Next;
+	
+	previousNode.Destroy();
+END_WHILE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetByIndex" Id="{5c6e0bb6-37e8-44ee-8654-d23c03f35250}">
+      <Declaration><![CDATA[METHOD PUBLIC GetByIndex : I_Collectable
+VAR_INPUT
+	Index : UDINT;
+END_VAR
+VAR
+	currentNode : I_CollectionNode;
+	counter : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN
+	RETURN;
+END_IF
+
+currentNode := head;
+counter := 0;
+
+WHILE currentNode <> 0 DO
+	
+	IF counter = Index THEN
+		GetByIndex := currentNode.Collectable;
+		return;
+	END_IF
+	
+	currentNode := currentNode.Next;
+	counter := counter + 1;
+
+END_WHILE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Insert" Id="{d3d57015-68eb-4d29-bf3e-5be357249a89}">
+      <Declaration><![CDATA[METHOD PUBLIC Insert
+VAR_INPUT
+	CollectableObject : I_Collectable;
+END_VAR
+VAR
+	last : I_CollectionNode;
+	pCollectionNode : POINTER TO CollectionNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pCollectionNode := __NEW(CollectionNode(Collectable := CollectableObject)); 
+
+IF head = 0 THEN	
+	head := pCollectionNode^; 
+	RETURN;
+END_IF
+
+last := head; 
+
+WHILE last.Next <> 0 DO
+	last := last.next; 
+END_WHILE;
+	
+last.next := pCollectionNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Remove" Id="{ec2ed065-5448-44be-9b23-02a0f4d6dab4}">
+      <Declaration><![CDATA[METHOD PUBLIC Remove
+VAR_INPUT
+	CollectableObject : I_Collectable;
+END_VAR
+VAR
+	currentNode : I_CollectionNode;
+	previousNode : I_CollectionNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN
+	RETURN;
+END_IF
+
+currentNode := head;
+
+IF currentNode.Collectable = CollectableObject THEN
+	
+	head := currentNode.Next;
+	currentNode.Next := 0;
+	currentNode.Destroy();
+	RETURN;
+	
+END_IF
+
+WHILE currentNode <> 0 DO
+	
+	IF currentNode.Collectable = CollectableObject THEN
+		EXIT;
+	END_IF
+	
+	previousNode := currentNode;
+	currentNode := currentNode.Next;
+
+END_WHILE;
+
+IF currentNode = 0 THEN
+	RETURN;
+END_IF
+
+previousNode.Next := currentNode.Next;
+currentNode.Next := 0;
+currentNode.Destroy();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveByIndex" Id="{cf3040fc-88bc-4bc6-a3a2-0b0e27b77dd6}">
+      <Declaration><![CDATA[METHOD PUBLIC RemoveByIndex
+VAR_INPUT
+	Index : UDINT;
+END_VAR
+VAR
+	currentNode : I_CollectionNode;
+	counter : UDINT;
+	previousNode : I_CollectionNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN
+	RETURN;
+END_IF
+
+currentNode := head;
+
+IF Index = 0 THEN
+	
+	head := currentNode.Next;
+	currentNode.Next := 0;
+	currentNode.Destroy();
+	RETURN;
+	
+END_IF
+
+counter := 0;
+
+WHILE currentNode <> 0 DO
+	
+	IF counter = Index THEN
+		EXIT;
+	END_IF
+	
+	previousNode := currentNode;
+	currentNode := currentNode.Next;
+	counter := counter + 1;
+
+END_WHILE;
+
+IF currentNode = 0 THEN
+	RETURN;
+END_IF
+
+previousNode.Next := currentNode.Next;
+currentNode.Next := 0;
+currentNode.Destroy();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

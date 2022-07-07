@@ -41,10 +41,10 @@ output2 := lamp_composed.Output;
 // --------------------
 // asynchronous commands are a special  type of cyclicInstance who only automatically cyclic call when executed.  
 // They then unregister themselves once the command is no longer busy. 
+
 IF extendTrigger THEN
 	extendTrigger := FALSE;
 	extendComplete := FALSE;
-
 	// once you call execute, the command will automatically cyclic call until either done or errored. 
 	extendCommand.Execute();
 END_IF

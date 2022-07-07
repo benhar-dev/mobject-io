@@ -5,7 +5,7 @@
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
 {attribute 'reflection'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Instance IMPLEMENTS I_Instance
+FUNCTION_BLOCK Instance IMPLEMENTS I_Instance, I_Collectable
 {attribute 'hide_all_locals'}
 VAR
 	{attribute 'instance-path'} 

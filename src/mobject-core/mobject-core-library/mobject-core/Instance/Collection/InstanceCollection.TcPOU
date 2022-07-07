@@ -5,35 +5,35 @@
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
 FUNCTION_BLOCK InstanceCollection
 VAR
-	instances : ARRAY [0..MobjectCoreConstants.MAX_INSTANCES] OF I_Instance;
-	last : DINT := EMPTY;
-END_VAR
-VAR CONSTANT
-	EMPTY : DINT := -1;
+	collection : Collection;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Property Name="Count" Id="{937cecfd-4306-400e-b623-8ba2f897672a}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : UDINT]]></Declaration>
       <Get Name="Get" Id="{8e72a050-d6fe-4a19-a736-fd6abd2ef4e0}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Count := last + 1;]]></ST>
+          <ST><![CDATA[Count := collection.Count;]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Method Name="GetByIndex" Id="{38bd5a7e-f9d7-4ee7-81f7-3b40a70ef39d}">
       <Declaration><![CDATA[METHOD PUBLIC GetByIndex : I_Instance
 VAR_INPUT
-	Index : DINT;
+	Index : UDINT;
 END_VAR
-]]></Declaration>
+VAR
+	instance : I_Instance;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetByIndex := instances[Index];]]></ST>
+        <ST><![CDATA[IF __QUERYINTERFACE(collection.GetByIndex(Index),instance) THEN
+	GetByIndex := instance;
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Insert" Id="{12da7243-1afb-41ea-908d-6d963cadcc63}">
@@ -41,10 +41,13 @@ END_VAR
 VAR_INPUT
 	Instance : I_Instance;
 END_VAR
-]]></Declaration>
+VAR
+	collectable : I_Collectable;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[last := last + 1;
-instances[last] := Instance;]]></ST>
+        <ST><![CDATA[IF __QUERYINTERFACE(Instance,collectable) THEN
+	collection.Insert(collectable);
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Remove" Id="{5467eb59-5caf-4ef0-8c34-8e4adec7cb97}">
@@ -53,21 +56,12 @@ VAR_INPUT
 	Instance : I_Instance;
 END_VAR
 VAR
-	i: DINT;
+	collectable : I_Collectable;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR i := 0 TO last DO
-	IF Instance = instances[i] THEN
-		instances[i] := 0;
-		
-		IF i <> last THEN
-			instances[i] := instances[last];
-		END_IF
-		
-		last := last -1;
-		
-	END_IF
-END_FOR]]></ST>
+        <ST><![CDATA[IF __QUERYINTERFACE(Instance,collectable) THEN
+	collection.Remove(collectable);
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>

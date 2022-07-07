@@ -55,6 +55,7 @@
     <Folder Include="Instance\Events" />
     <Folder Include="Instance\Events\InstanceAdded" />
     <Folder Include="Instance\Events\InstanceRemoved" />
+    <Folder Include="Collections" />
     <Folder Include="Task" />
     <Folder Include="Task\Base" />
     <Folder Include="Task\Callbacks" />
@@ -63,6 +64,9 @@
     <Folder Include="Task\Visitors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\I_Collectable.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Command\Base\AsynchronousCommand.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -153,9 +157,14 @@
     <Compile Include="Instance\I_Instance.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MobjectCoreConstants.TcGVL">
+    <Compile Include="Collections\I_CollectionNode.TcIO">
       <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="Collections\Collection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\CollectionNode.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Task\Base\I_Task.TcIO">
       <SubType>Code</SubType>
@@ -194,6 +203,10 @@
     <PlaceholderReference Include="Tc2_Utilities">
       <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Utilities</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_DynamicMemory">
+      <DefaultResolution>Tc3_DynamicMemory, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_DynamicMemory</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>

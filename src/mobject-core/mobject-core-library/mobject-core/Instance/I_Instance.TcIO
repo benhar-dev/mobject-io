@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <Itf Name="I_Instance" Id="{e9c4db03-2c6d-45c9-bf2c-c529468a9350}">
-    <Declaration><![CDATA[INTERFACE I_Instance EXTENDS __SYSTEM.IQueryInterface 
+    <Declaration><![CDATA[INTERFACE I_Instance EXTENDS I_Collectable
 ]]></Declaration>
     <Property Name="NameSpace" Id="{06ec18fe-fdbc-4508-8f50-422b00a4c140}">
       <Declaration><![CDATA[PROPERTY PUBLIC NameSpace : STRING]]></Declaration>

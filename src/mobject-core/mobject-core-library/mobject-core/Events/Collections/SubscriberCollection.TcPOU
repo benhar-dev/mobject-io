@@ -1,81 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="SubscriberCollection" Id="{a8f55cbb-301c-4b91-bee4-1f5532667d56}" SpecialFunc="None">
+  <POU Name="SubscriberCollection" Id="{49fa52f6-80e9-47e5-97e8-bab123e19f18}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
 FUNCTION_BLOCK SubscriberCollection
 VAR
-	subscribers : ARRAY [0..MobjectCoreConstants.MAX_SUBSCRIBERS] OF I_Subscriber;
-	last : INT := EMPTY;
+	collection : Collection;
 END_VAR
-VAR CONSTANT
-	EMPTY : INT := -1;
-END_VAR]]></Declaration>
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Private" Id="{4eaaa7fc-86f2-4b01-91d8-1029baee1675}" />
-    <Method Name="Insert" Id="{978d1b7a-4472-4c5f-932e-861c8cdd6ce7}">
+    <Property Name="Count" Id="{39367114-1b17-445b-9fee-a0418561408a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : UDINT]]></Declaration>
+      <Get Name="Get" Id="{ea189a06-ec9d-44f7-902b-e23e3af2278b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := collection.Count;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="GetByIndex" Id="{cbe1a40a-f7ae-400c-a7be-3b7d48dc00de}">
+      <Declaration><![CDATA[METHOD PUBLIC GetByIndex : I_Subscriber
+VAR_INPUT
+	Index : UDINT;
+END_VAR
+VAR
+	subscriber : I_Subscriber;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF __QUERYINTERFACE(collection.GetByIndex(Index),subscriber) THEN
+	GetByIndex := subscriber;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Insert" Id="{bb6174ed-ebf0-4df0-8a8c-0ff98563261c}">
       <Declaration><![CDATA[METHOD PUBLIC Insert
 VAR_INPUT
 	Subscriber : I_Subscriber;
+END_VAR
+VAR
+	collectable : I_Collectable;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[last := last + 1;
-subscribers[last] := Subscriber;]]></ST>
+        <ST><![CDATA[IF __QUERYINTERFACE(Subscriber,collectable) THEN
+	collection.Insert(collectable);
+END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Notify" Id="{e939c40d-65f1-4635-8f90-55c228bcade6}">
-      <Declaration><![CDATA[METHOD PUBLIC Notify
-VAR_INPUT
-	event : I_Event;
-END_VAR
-VAR 
-	i : INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[FOR i := 0 TO last DO
-	subscribers[i].Update(event);
-END_FOR]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Remove" Id="{45451f35-a038-42f6-804f-e4e76bbcfc3d}">
-      <Declaration><![CDATA[METHOD PUBLIC Remove
+    <Method Name="Remove" Id="{58b669f5-2b03-4920-99c2-00094c60fbd2}">
+      <Declaration><![CDATA[METHOD Remove : BOOL
 VAR_INPUT
 	Subscriber : I_Subscriber;
 END_VAR
 VAR
-	i : INT;
+	collectable : I_Collectable;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR i := 0 TO last DO
-	IF Subscriber = subscribers[i] THEN
-		RemoveAtIndex(i);
-		RETURN;
-	END_IF
-END_FOR]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="RemoveAtIndex" Id="{7f5a4a61-fa5e-4a72-92c1-afd61791b747}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE RemoveAtIndex
-VAR_INPUT
-	index : INT;
-END_VAR
-VAR
-	i : int;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF last = EMPTY THEN
-	RETURN;	
-END_IF
-
-FOR i := index TO last - 1 DO
-	subscribers[i] := subscribers[i+1];
-END_FOR
-
-subscribers[last] := 0;
-last := last -1;]]></ST>
+        <ST><![CDATA[IF __QUERYINTERFACE(Subscriber,collectable) THEN
+	collection.Remove(collectable);
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>
