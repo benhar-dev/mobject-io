@@ -4,7 +4,7 @@
 ## Opening Statement
 This coding guide has been created to help keep our code base clean and tidy.  It will act as a base for those of you who have not settled on a standard, and will impose rules on those of you who wish to contribute.  
 
-## Naming
+## Symbol Naming
 
 ### Intent
 Use names which both reveal your intent and removes the need for supplementing your code with comments.  
@@ -17,7 +17,7 @@ END_IF
 ```
 The example above has been renamed and refactored to remove the comment.  This allows us to read the code without placing any mental obstacles in the way of our understanding.  
 ```example
-IF PowerSupply10.HasFault THEN 
+IF powerSupply10.HasFault THEN 
 	UPS.mode := FULL_CAPACITY_MODE;
 END_IF
 ```
@@ -33,6 +33,16 @@ It may seem only a small step, but the brain power that we have saved not decodi
    VAR startButton : BOOL;
 ```
 
+### Prefix and Suffix
+There is only one instance in which a prefix is allowed and this is on a symbol for a pointer as it will visually remind you to dereference the pointer before use.
+```example
+   VAR pMessage : POINTER TO Message;
+```
+The p prefix will alert the programmer to correctly dereference the pointer using ^.
+```example
+   pMessage^.DoSomething(); // the symbol ^ is the dereference operator
+```
+!> Prefix and Suffix are visual obstacles and as such they impair our natural ability to read.  Hungarian notation will only obscure your code with no benefit to the reader so you should look to remove this at all times.  
 
 ## Comments
 Ask yourself 'why do I need a comment?' 
