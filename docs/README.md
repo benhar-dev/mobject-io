@@ -56,7 +56,7 @@ FUNCTION_BLOCK FlashingLamp EXTENDS CyclicInstance
 VAR
   // these timers are required to implement the flashing lamp object
   tick : ton;
-	tock : ton;
+  tock : ton;
 END_VAR
 ```
 ```body
@@ -98,7 +98,7 @@ VAR
   cyclicCall : AutomaticCyclicCall(THIS^);
   // these timers are required to implement the flashing lamp object
   tick : ton;
-	tock : ton;
+  tock : ton;
 END_VAR
 ```
 ```body
