@@ -105,14 +105,6 @@ END_VAR
 //... no code should go here.
 ```
 
-> **Hint:** 
->
-> The I_CyclicCalled interface forces you to implement the .CyclicCalled method.
->
-> AutomaticCyclicCall will try to register you with a task for cyclic calling automatically. 
->
-> Only classes who implement I_CyclicCalled can be passed in to AutomaticCyclicCall. 
-
 3. Next create a method called CyclicCall.  Any code placed in here will be automatically called each PLC cycle.  
 
 ```declaration
