@@ -47,7 +47,9 @@ In this example we will make a flashing lamp object.
 
 #### **Inheritance**
 
-Start by creating FlashingLamp Function Block with the following code.
+This example shows how to achieve this by inheriting from the CyclicInstance class.
+
+1. Start by creating FlashingLamp Function Block with the following code.
 
 ```declaration
 FUNCTION_BLOCK FlashingLamp EXTENDS CyclicInstance
@@ -61,7 +63,7 @@ END_VAR
 //... no code should go here.
 ```
 
-Next create a method called CyclicCall.  Any code placed in here will be automatically called each PLC cycle.  
+2. Next create a method called CyclicCall.  Any code placed in here will be automatically called each PLC cycle.  
 
 ```declaration
 METHOD CyclicCall
@@ -73,7 +75,53 @@ tick(in:=NOT tock.Q,pt:=T#1S);
 tock(in:=tick.Q,pt:=T#1S);
 ```
 
-Now create a property called Output.  This is how we will read the state of our lamp.
+3. Now create a property called Output.  This is how we will read the state of our lamp.
+
+```declaration
+PROPERTY PUBLIC Output : BOOL
+```
+```body
+Output := tick.Q;
+```
+
+#### **Composition**
+
+This example shows how to achieve this by using composition.
+
+1. Start by creating FlashingLamp Function Block. 
+
+2. Our class will need to implement the I_CyclicCalled interface and declare a AutomaticCyclicCall variable as shown below.
+
+```declaration
+FUNCTION_BLOCK FlashingLamp Implements I_CyclicCalled
+VAR
+  cyclicCall : AutomaticCyclicCall(THIS^);
+  // these timers are required to implement the flashing lamp object
+  tick : ton;
+	tock : ton;
+END_VAR
+```
+```body
+//... no code should go here.
+```
+
+?> The I_CyclicCalled tells the code that you have a .CyclicCalled method.
+
+?> AutomaticCyclicCall will automatically register you (via This^) for cyclic calling.  Only classes who implement I_CyclicCalled can be passed in to AutomaticCyclicCall. 
+
+3. Next create a method called CyclicCall.  Any code placed in here will be automatically called each PLC cycle.  
+
+```declaration
+METHOD CyclicCall
+VAR_INPUT
+END_VAR
+```
+```body
+tick(in:=NOT tock.Q,pt:=T#1S);
+tock(in:=tick.Q,pt:=T#1S);
+```
+
+4. Now create a property called Output.  This is how we will read the state of our lamp.
 
 ```declaration
 PROPERTY PUBLIC Output : BOOL
