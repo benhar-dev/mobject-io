@@ -54,8 +54,8 @@ This example shows how to achieve this by inheriting from the CyclicInstance cla
 ```declaration
 FUNCTION_BLOCK FlashingLamp EXTENDS CyclicInstance
 VAR
-    // these timers are required to implement the flashing lamp object
-    tick : ton;
+  // these timers are required to implement the flashing lamp object
+  tick : ton;
 	tock : ton;
 END_VAR
 ```
