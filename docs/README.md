@@ -93,7 +93,7 @@ This example shows how to achieve this by using composition.
 2. Our class will need to implement the I_CyclicCalled interface and declare a AutomaticCyclicCall variable as shown below.
 
 ```declaration
-FUNCTION_BLOCK FlashingLamp Implements I_CyclicCalled
+FUNCTION_BLOCK FlashingLamp IMPLEMENTS I_CyclicCalled
 VAR
   cyclicCall : AutomaticCyclicCall(THIS^);
   // these timers are required to implement the flashing lamp object
