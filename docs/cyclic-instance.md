@@ -109,3 +109,5 @@ task.CyclicCall();
 output := lamp.Output;
 ```
 
+### Good practice 
+Currently there is no CLASS keyword in Structured Text.  As such you will be creating your classes from the POU type of FUNCTION_BLOCK.  Please have a look at the [Class section](/coding-guide?id=class) of the [Coding guide](/coding-guide) as there are a few other good practice steps which you should take which were not shown in this example.
