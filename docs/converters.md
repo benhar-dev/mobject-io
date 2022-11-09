@@ -40,10 +40,10 @@ END_VAR
 ```
 ```body
    number := 123.0;
-   result := Convert_LREAL_TO_BYTE(number,destination1);  // destination1 = 123, result = S_OK
-   result := Convert_LREAL_TO_BYTE(number,destination2);  // destination2 = 123, result = S_OK
-   result := Convert_LREAL_TO_BYTE(number,destination3);  // destination3 = 123.0, result = S_OK
-   result := Convert_LREAL_TO_BYTE(number,destination4);  // destination4 = '123.0', result = S_OK
+   result := Convert_LREAL_TO_(number,destination1);  // destination1 = 123, result = S_OK
+   result := Convert_LREAL_TO_(number,destination2);  // destination2 = 123, result = S_OK
+   result := Convert_LREAL_TO_(number,destination3);  // destination3 = 123.0, result = S_OK
+   result := Convert_LREAL_TO_(number,destination4);  // destination4 = '123.0', result = S_OK
 ```
 
 ## Supported Conversions 
