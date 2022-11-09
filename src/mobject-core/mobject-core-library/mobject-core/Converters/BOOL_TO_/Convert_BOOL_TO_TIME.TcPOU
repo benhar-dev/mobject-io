@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_BOOL_TO_TIME" Id="{2fcaa746-9083-4857-a62a-6af10fa78163}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_BOOL_TO_TIME : Hresult
+VAR_INPUT
+	in : BOOL;
+	out : REFERENCE TO TIME;
+END_VAR
+VAR
+	converted : TIME;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := BOOL_TO_TIME(in);
+
+IF (TIME_TO_BOOL(converted) <> in) THEN
+	Convert_BOOL_TO_TIME := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

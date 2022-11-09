@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="SafeDispose" Id="{159d7b0b-db7f-4df9-84d0-86c56f5a80db}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION SafeDispose : BOOL
+VAR_INPUT
+	Source : I_Disposable;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Source <> 0 THEN	
+	Source.Dispose();	
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

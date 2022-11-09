@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_REAL_TO_SINT" Id="{a6a2f199-d202-4322-b559-ed221e03fae7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_REAL_TO_SINT : Hresult
+VAR_INPUT
+	in : REAL;
+	out : REFERENCE TO SINT;
+END_VAR
+VAR
+	converted : SINT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := REAL_TO_SINT(in);
+
+IF (SINT_TO_REAL(converted) <> in) THEN
+	Convert_REAL_TO_SINT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

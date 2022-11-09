@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_TOD_TO_DWORD" Id="{1cfdce1d-9404-4912-9733-03b577a9cdf5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_TOD_TO_DWORD : Hresult
+VAR_INPUT
+	in : TOD;
+	out : REFERENCE TO DWORD;
+END_VAR
+VAR
+	converted : DWORD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := TOD_TO_DWORD(in);
+
+IF (DWORD_TO_TOD(converted) <> in) THEN
+	Convert_TOD_TO_DWORD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

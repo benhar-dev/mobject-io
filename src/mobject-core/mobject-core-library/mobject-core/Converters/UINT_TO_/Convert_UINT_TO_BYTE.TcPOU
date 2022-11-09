@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_UINT_TO_BYTE" Id="{78ab4284-32c5-4700-8743-2a9ed7509541}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_UINT_TO_BYTE : Hresult
+VAR_INPUT
+	in : UINT;
+	out : REFERENCE TO BYTE;
+END_VAR
+VAR
+	converted : BYTE;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := UINT_TO_BYTE(in);
+
+IF (BYTE_TO_UINT(converted) <> in) THEN
+	Convert_UINT_TO_BYTE := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

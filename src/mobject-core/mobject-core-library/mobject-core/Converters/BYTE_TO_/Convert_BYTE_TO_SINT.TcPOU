@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_BYTE_TO_SINT" Id="{8eb20720-a6cd-4841-8b9b-6f5da59acd61}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_BYTE_TO_SINT : Hresult
+VAR_INPUT
+	in : BYTE;
+	out : REFERENCE TO SINT;
+END_VAR
+VAR
+	converted : SINT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := BYTE_TO_SINT(in);
+
+IF (SINT_TO_BYTE(converted) <> in) THEN
+	Convert_BYTE_TO_SINT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_TIME_TO_TIME" Id="{1b0b5518-9091-4e79-ad70-6cf7ff9751a2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_TIME_TO_TIME : Hresult
+VAR_INPUT
+	in : TIME;
+	out : REFERENCE TO TIME;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[out := in;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_STRING_TO_DATE" Id="{0a976c31-a45d-4e8e-945e-0f22e32fc437}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_STRING_TO_DATE : Hresult
+VAR_INPUT
+	in : STRING;
+	out : REFERENCE TO DATE;
+END_VAR
+VAR
+	converted : DATE;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := STRING_TO_DATE(in);
+
+IF (DATE_TO_STRING(converted) <> in) THEN
+	Convert_STRING_TO_DATE := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

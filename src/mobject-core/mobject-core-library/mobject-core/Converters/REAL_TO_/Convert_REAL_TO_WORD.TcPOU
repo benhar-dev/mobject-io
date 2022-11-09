@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_REAL_TO_WORD" Id="{fb3dbd28-ee07-4e97-a232-bc4e986e3251}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_REAL_TO_WORD : Hresult
+VAR_INPUT
+	in : REAL;
+	out : REFERENCE TO WORD;
+END_VAR
+VAR
+	converted : WORD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := REAL_TO_WORD(in);
+
+IF (WORD_TO_REAL(converted) <> in) THEN
+	Convert_REAL_TO_WORD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

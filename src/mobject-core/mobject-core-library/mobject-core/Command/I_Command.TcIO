@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <Itf Name="I_Command" Id="{c2374356-39d9-4a81-82d4-a9dd89072af4}">
-    <Declaration><![CDATA[INTERFACE I_Command
+    <Declaration><![CDATA[INTERFACE I_Command EXTENDS __System.IQueryInterface
 ]]></Declaration>
     <Method Name="Abort" Id="{9525fb97-a63b-4487-bfa0-a5ee9240133e}">
       <Declaration><![CDATA[METHOD PUBLIC Abort

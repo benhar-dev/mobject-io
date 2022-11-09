@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_DWORD_TO_UDINT" Id="{96d31378-b2d4-4a60-a4f5-62afa6930bc9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_DWORD_TO_UDINT : Hresult
+VAR_INPUT
+	in : DWORD;
+	out : REFERENCE TO UDINT;
+END_VAR
+VAR
+	converted : UDINT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := DWORD_TO_UDINT(in);
+
+IF (UDINT_TO_DWORD(converted) <> in) THEN
+	Convert_DWORD_TO_UDINT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

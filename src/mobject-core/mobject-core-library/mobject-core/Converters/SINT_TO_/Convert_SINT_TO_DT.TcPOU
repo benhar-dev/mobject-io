@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_SINT_TO_DT" Id="{d2da5296-6f0e-4d2a-8a73-299a0524d7d3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_SINT_TO_DT : Hresult
+VAR_INPUT
+	in : SINT;
+	out : REFERENCE TO DT;
+END_VAR
+VAR
+	converted : DT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := SINT_TO_DT(in);
+
+IF (DT_TO_SINT(converted) <> in) THEN
+	Convert_SINT_TO_DT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

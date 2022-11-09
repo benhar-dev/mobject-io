@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_LINT_TO_REAL" Id="{3444cd3b-f20c-4b29-a215-3604085d7d1f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_LINT_TO_REAL : Hresult
+VAR_INPUT
+	in : LINT;
+	out : REFERENCE TO REAL;
+END_VAR
+VAR
+	converted : REAL;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := LINT_TO_REAL(in);
+
+IF (REAL_TO_LINT(converted) <> in) THEN
+	Convert_LINT_TO_REAL := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

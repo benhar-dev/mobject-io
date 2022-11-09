@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_BYTE_TO_TOD" Id="{48bfb6fb-fddc-482c-8f3c-19d6ad76f5a4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_BYTE_TO_TOD : Hresult
+VAR_INPUT
+	in : BYTE;
+	out : REFERENCE TO TOD;
+END_VAR
+VAR
+	converted : TOD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := BYTE_TO_TOD(in);
+
+IF (TOD_TO_BYTE(converted) <> in) THEN
+	Convert_BYTE_TO_TOD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

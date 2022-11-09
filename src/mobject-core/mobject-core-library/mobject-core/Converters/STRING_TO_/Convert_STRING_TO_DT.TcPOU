@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_STRING_TO_DT" Id="{ea9cf90e-5bd9-4ddd-98ba-a916548a7e94}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_STRING_TO_DT : Hresult
+VAR_INPUT
+	in : STRING;
+	out : REFERENCE TO DT;
+END_VAR
+VAR
+	converted : DT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := STRING_TO_DT(in);
+
+IF (DT_TO_STRING(converted) <> in) THEN
+	Convert_STRING_TO_DT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

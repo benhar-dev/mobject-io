@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_LREAL_TO_INT" Id="{9b5980ad-87c7-4e19-8adf-5f25726797d9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_LREAL_TO_INT : Hresult
+VAR_INPUT
+	in : LREAL;
+	out : REFERENCE TO INT;
+END_VAR
+VAR
+	converted : INT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := LREAL_TO_INT(in);
+
+IF (INT_TO_LREAL(converted) <> in) THEN
+	Convert_LREAL_TO_INT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

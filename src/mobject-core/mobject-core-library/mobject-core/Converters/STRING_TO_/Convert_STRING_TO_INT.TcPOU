@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_STRING_TO_INT" Id="{76260ac8-d121-4a79-998d-63eab411d65f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_STRING_TO_INT : Hresult
+VAR_INPUT
+	in : STRING;
+	out : REFERENCE TO INT;
+END_VAR
+VAR
+	converted : INT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := STRING_TO_INT(in);
+
+IF (INT_TO_STRING(converted) <> in) THEN
+	Convert_STRING_TO_INT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_UINT_TO_DATE" Id="{fc3f83ac-b5db-45b9-b5a5-782da0235240}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_UINT_TO_DATE : Hresult
+VAR_INPUT
+	in : UINT;
+	out : REFERENCE TO DATE;
+END_VAR
+VAR
+	converted : DATE;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := UINT_TO_DATE(in);
+
+IF (DATE_TO_UINT(converted) <> in) THEN
+	Convert_UINT_TO_DATE := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -35,7 +35,7 @@ END_IF]]></ST>
     <Method Name="InstancePathIsFilled" Id="{a2b17ef6-cb9e-476e-9f89-78e97494c366}" FolderPath="Internal\">
       <Declaration><![CDATA[METHOD PRIVATE InstancePathIsFilled : BOOL]]></Declaration>
       <Implementation>
-        <ST><![CDATA[InstancePathIsFilled :=  instancePath <> '';]]></ST>
+        <ST><![CDATA[InstancePathIsFilled := instancePath <> '';]]></ST>
       </Implementation>
     </Method>
     <Method Name="IsNewObjectDuringInitialization" Id="{f91ae77a-c70e-4c49-b9e0-7278c8ae9b64}" FolderPath="Internal\">

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_DINT_TO_STRING" Id="{8c28d2fa-b273-425c-b125-b29561eb764d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_DINT_TO_STRING : Hresult
+VAR_INPUT
+	in : DINT;
+	out : REFERENCE TO STRING;
+END_VAR
+VAR
+	converted : STRING;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := DINT_TO_STRING(in);
+
+IF (STRING_TO_DINT(converted) <> in) THEN
+	Convert_DINT_TO_STRING := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_UINT_TO_TIME" Id="{f5c1a9a7-09b8-4408-bda6-b2629351359e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_UINT_TO_TIME : Hresult
+VAR_INPUT
+	in : UINT;
+	out : REFERENCE TO TIME;
+END_VAR
+VAR
+	converted : TIME;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := UINT_TO_TIME(in);
+
+IF (TIME_TO_UINT(converted) <> in) THEN
+	Convert_UINT_TO_TIME := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

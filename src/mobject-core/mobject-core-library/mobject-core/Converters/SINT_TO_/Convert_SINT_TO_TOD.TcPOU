@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_SINT_TO_TOD" Id="{15c6bf02-f7fe-422d-9dce-4e3e69cba23d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_SINT_TO_TOD : Hresult
+VAR_INPUT
+	in : SINT;
+	out : REFERENCE TO TOD;
+END_VAR
+VAR
+	converted : TOD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := SINT_TO_TOD(in);
+
+IF (TOD_TO_SINT(converted) <> in) THEN
+	Convert_SINT_TO_TOD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

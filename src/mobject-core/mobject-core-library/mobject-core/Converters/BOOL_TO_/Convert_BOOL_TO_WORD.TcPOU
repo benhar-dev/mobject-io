@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_BOOL_TO_WORD" Id="{13bb0cdf-198c-4d48-9d66-15b0c5275913}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_BOOL_TO_WORD : Hresult
+VAR_INPUT
+	in : BOOL;
+	out : REFERENCE TO WORD;
+END_VAR
+VAR
+	converted : WORD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := BOOL_TO_WORD(in);
+
+IF (WORD_TO_BOOL(converted) <> in) THEN
+	Convert_BOOL_TO_WORD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

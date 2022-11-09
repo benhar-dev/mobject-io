@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_LINT_TO_INT" Id="{9401ef62-e439-4ecd-9e27-1c3a98c25c9e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_LINT_TO_INT : Hresult
+VAR_INPUT
+	in : LINT;
+	out : REFERENCE TO INT;
+END_VAR
+VAR
+	converted : INT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := LINT_TO_INT(in);
+
+IF (INT_TO_LINT(converted) <> in) THEN
+	Convert_LINT_TO_INT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

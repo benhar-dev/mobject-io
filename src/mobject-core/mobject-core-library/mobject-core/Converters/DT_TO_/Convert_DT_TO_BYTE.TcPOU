@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_DT_TO_BYTE" Id="{a036a2d1-9cf8-4b34-a3a9-d16d6b199ca2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_DT_TO_BYTE : Hresult
+VAR_INPUT
+	in : DT;
+	out : REFERENCE TO BYTE;
+END_VAR
+VAR
+	converted : BYTE;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := DT_TO_BYTE(in);
+
+IF (BYTE_TO_DT(converted) <> in) THEN
+	Convert_DT_TO_BYTE := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

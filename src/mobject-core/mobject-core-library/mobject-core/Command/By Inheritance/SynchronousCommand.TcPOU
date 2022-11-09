@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK ABSTRACT SynchronousCommand IMPLEMENTS I_Command;
+FUNCTION_BLOCK ABSTRACT SynchronousCommand EXTENDS Disposable IMPLEMENTS I_Command;
 VAR
 	commandFeedback : CommandFeedback;
 END_VAR]]></Declaration>

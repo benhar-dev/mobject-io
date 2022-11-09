@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_BYTE_TO_BOOL" Id="{80cc53ae-da8a-40d0-8686-9ad169a1933a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_BYTE_TO_BOOL : Hresult
+VAR_INPUT
+	in : BYTE;
+	out : REFERENCE TO BOOL;
+END_VAR
+VAR
+	converted : BOOL;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := BYTE_TO_BOOL(in);
+
+IF (BOOL_TO_BYTE(converted) <> in) THEN
+	Convert_BYTE_TO_BOOL := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_USINT_TO_DT" Id="{a62ab813-be09-45d9-9085-a99ae9990302}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_USINT_TO_DT : Hresult
+VAR_INPUT
+	in : USINT;
+	out : REFERENCE TO DT;
+END_VAR
+VAR
+	converted : DT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := USINT_TO_DT(in);
+
+IF (DT_TO_USINT(converted) <> in) THEN
+	Convert_USINT_TO_DT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

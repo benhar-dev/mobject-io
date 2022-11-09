@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_STRING_TO_DWORD" Id="{3a5da705-230f-47dc-b8df-1cddb4fbc88f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_STRING_TO_DWORD : Hresult
+VAR_INPUT
+	in : STRING;
+	out : REFERENCE TO DWORD;
+END_VAR
+VAR
+	converted : DWORD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := STRING_TO_DWORD(in);
+
+IF (DWORD_TO_STRING(converted) <> in) THEN
+	Convert_STRING_TO_DWORD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

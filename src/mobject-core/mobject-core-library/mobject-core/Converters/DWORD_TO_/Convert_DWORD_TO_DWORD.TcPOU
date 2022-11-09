@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_DWORD_TO_DWORD" Id="{29ecdd8c-0d44-41ff-9818-9bc720903cf5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_DWORD_TO_DWORD : Hresult
+VAR_INPUT
+	in : DWORD;
+	out : REFERENCE TO DWORD;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[out := in;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

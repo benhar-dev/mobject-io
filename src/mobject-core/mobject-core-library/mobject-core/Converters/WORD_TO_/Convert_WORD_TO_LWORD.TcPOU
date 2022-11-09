@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_WORD_TO_LWORD" Id="{1030b3dd-2892-4b0a-9b96-94d335be0d4b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_WORD_TO_LWORD : Hresult
+VAR_INPUT
+	in : WORD;
+	out : REFERENCE TO LWORD;
+END_VAR
+VAR
+	converted : LWORD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := WORD_TO_LWORD(in);
+
+IF (LWORD_TO_WORD(converted) <> in) THEN
+	Convert_WORD_TO_LWORD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_STRING_TO_LINT" Id="{0a446475-8bb2-4741-9629-effc29b1b385}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_STRING_TO_LINT : Hresult
+VAR_INPUT
+	in : STRING;
+	out : REFERENCE TO LINT;
+END_VAR
+VAR
+	converted : LINT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := STRING_TO_LINT(in);
+
+IF (LINT_TO_STRING(converted) <> in) THEN
+	Convert_STRING_TO_LINT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

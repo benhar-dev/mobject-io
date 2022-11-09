@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_ULINT_TO_LWORD" Id="{620479a9-b7a3-4166-8700-054cdc476a82}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_ULINT_TO_LWORD : Hresult
+VAR_INPUT
+	in : ULINT;
+	out : REFERENCE TO LWORD;
+END_VAR
+VAR
+	converted : LWORD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := ULINT_TO_LWORD(in);
+
+IF (LWORD_TO_ULINT(converted) <> in) THEN
+	Convert_ULINT_TO_LWORD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

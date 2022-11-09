@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_USINT_TO_INT" Id="{a58865ff-d006-4084-bb33-b378f3695cfc}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_USINT_TO_INT : Hresult
+VAR_INPUT
+	in : USINT;
+	out : REFERENCE TO INT;
+END_VAR
+VAR
+	converted : INT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := USINT_TO_INT(in);
+
+IF (INT_TO_USINT(converted) <> in) THEN
+	Convert_USINT_TO_INT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

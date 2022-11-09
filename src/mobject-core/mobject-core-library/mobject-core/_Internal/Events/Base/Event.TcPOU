@@ -35,9 +35,10 @@ IF count = 0 THEN
 	RETURN;
 END_IF
 
-FOR i := 0 TO count - 1 DO
-	subscribers.GetByIndex(i).Update(THIS^);
-END_FOR]]></ST>
+WHILE count > 0 DO 
+	subscribers.GetByIndex(count - 1 ).Update(THIS^);
+	count := count - 1;
+END_WHILE]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveSubscriber" Id="{3a25e12d-9cea-4c90-88a9-76f17d36e0cf}">

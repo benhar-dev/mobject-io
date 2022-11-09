@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_DWORD_TO_DINT" Id="{c7d62349-161f-4dd7-8590-a4f456236711}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_DWORD_TO_DINT : Hresult
+VAR_INPUT
+	in : DWORD;
+	out : REFERENCE TO DINT;
+END_VAR
+VAR
+	converted : DINT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := DWORD_TO_DINT(in);
+
+IF (DINT_TO_DWORD(converted) <> in) THEN
+	Convert_DWORD_TO_DINT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

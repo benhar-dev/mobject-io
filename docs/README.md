@@ -11,7 +11,7 @@ mobjects' goal is to be a lightweight solution to typical oop problems.  Where p
 
 ## Getting started
 
-When using any of the examples, you must first prepare your project with 2 simple steps.  
+In the guide examples may be marked __cyclic__ or __Asynchronous__.  In order to use any of these examples, you must first prepare your project with 2 simple steps.  
 
 1. Add the mobject-core library
 2. In every Program POU which is called by a Task, you must make a variable of type Task and call this cyclically in the body.  
@@ -26,4 +26,4 @@ END_VAR
 task.CyclicCall(); // Call this once per cycle.  You can put your own code before or after this call.
 ```
 
-Thats all! From this point on, all of the examples below will function as expected.
+Thats all! From this point on, all of the cyclic and asynchronous examples will function as expected.

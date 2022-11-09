@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_UDINT_TO_TOD" Id="{14006796-60d2-473b-9107-c1ee0ce3215f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_UDINT_TO_TOD : Hresult
+VAR_INPUT
+	in : UDINT;
+	out : REFERENCE TO TOD;
+END_VAR
+VAR
+	converted : TOD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := UDINT_TO_TOD(in);
+
+IF (TOD_TO_UDINT(converted) <> in) THEN
+	Convert_UDINT_TO_TOD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

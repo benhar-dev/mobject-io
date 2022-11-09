@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_BYTE_TO_LREAL" Id="{75de0b43-fd36-4118-9b3e-c32f66b6ce87}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_BYTE_TO_LREAL : Hresult
+VAR_INPUT
+	in : BYTE;
+	out : REFERENCE TO LREAL;
+END_VAR
+VAR
+	converted : LREAL;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := BYTE_TO_LREAL(in);
+
+IF (LREAL_TO_BYTE(converted) <> in) THEN
+	Convert_BYTE_TO_LREAL := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

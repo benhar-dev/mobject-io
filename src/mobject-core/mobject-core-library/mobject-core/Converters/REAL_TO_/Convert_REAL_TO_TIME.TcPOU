@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_REAL_TO_TIME" Id="{8d5094db-e43c-4369-8912-6d0bb22c949a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_REAL_TO_TIME : Hresult
+VAR_INPUT
+	in : REAL;
+	out : REFERENCE TO TIME;
+END_VAR
+VAR
+	converted : TIME;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := REAL_TO_TIME(in);
+
+IF (TIME_TO_REAL(converted) <> in) THEN
+	Convert_REAL_TO_TIME := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_TIME_TO_DWORD" Id="{1ba5d121-b9df-4fee-8409-f5ab9c101a58}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_TIME_TO_DWORD : Hresult
+VAR_INPUT
+	in : TIME;
+	out : REFERENCE TO DWORD;
+END_VAR
+VAR
+	converted : DWORD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := TIME_TO_DWORD(in);
+
+IF (DWORD_TO_TIME(converted) <> in) THEN
+	Convert_TIME_TO_DWORD := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

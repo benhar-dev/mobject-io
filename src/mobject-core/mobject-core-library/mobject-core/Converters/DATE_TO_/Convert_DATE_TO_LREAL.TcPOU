@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_DATE_TO_LREAL" Id="{d20dddc8-6bb4-4914-97c7-d1844d22750a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_DATE_TO_LREAL : Hresult
+VAR_INPUT
+	in : DATE;
+	out : REFERENCE TO LREAL;
+END_VAR
+VAR
+	converted : LREAL;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := DATE_TO_LREAL(in);
+
+IF (LREAL_TO_DATE(converted) <> in) THEN
+	Convert_DATE_TO_LREAL := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

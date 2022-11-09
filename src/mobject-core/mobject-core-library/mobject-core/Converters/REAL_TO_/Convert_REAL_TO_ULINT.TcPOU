@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_REAL_TO_ULINT" Id="{0076797e-d393-45af-811f-9c8af0e61194}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_REAL_TO_ULINT : Hresult
+VAR_INPUT
+	in : REAL;
+	out : REFERENCE TO ULINT;
+END_VAR
+VAR
+	converted : ULINT;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[converted := REAL_TO_ULINT(in);
+
+IF (ULINT_TO_REAL(converted) <> in) THEN
+	Convert_REAL_TO_ULINT := INCOMPATIBLE;
+	RETURN;
+END_IF
+
+out := converted;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

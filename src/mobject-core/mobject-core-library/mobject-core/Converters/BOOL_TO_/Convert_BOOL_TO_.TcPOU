@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Convert_BOOL_TO_" Id="{f2823b1b-999c-4fdb-b0e5-388fa942cf47}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Convert_BOOL_TO_ : Hresult
+VAR_INPUT
+	in : BOOL;
+	out : ANY;
+END_VAR
+VAR
+	convertResult : HRESULT := INCOMPATIBLE;
+	convertAddress : PVOID;
+	_BOOL : BOOL;
+	_BYTE : BYTE;
+	_DATE : DATE;
+	_DINT : DINT;
+	_DT : DT;
+	_DWORD : DWORD;
+	_INT : INT;
+	_LINT : LINT;
+	_LREAL : LREAL;
+	_LWORD : LWORD;
+	_REAL : REAL;
+	_SINT : SINT;
+	_STRING : STRING;
+	_TIME : TIME;
+	_TOD : TOD;
+	_UDINT : UDINT;
+	_UINT : UINT;
+	_ULINT : ULINT;
+	_USINT : USINT;
+	_WORD : WORD;
+END_VAR
+VAR CONSTANT
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE out.TypeClass OF
+	
+	__SYSTEM.TYPE_CLASS.TYPE_BOOL:
+	
+		convertResult := Convert_BOOL_TO_BOOL(in, _BOOL);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_BOOL);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_BYTE:
+	
+		convertResult := Convert_BOOL_TO_BYTE(in, _BYTE);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_BYTE);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_DATE:
+	
+		convertResult := Convert_BOOL_TO_DATE(in, _DATE);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_DATE);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_DINT:
+	
+		convertResult := Convert_BOOL_TO_DINT(in, _DINT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_DINT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_DATEANDTIME:
+	
+		convertResult := Convert_BOOL_TO_DT(in, _DT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_DT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_DWORD:
+	
+		convertResult := Convert_BOOL_TO_DWORD(in, _DWORD);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_DWORD);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_INT:
+	
+		convertResult := Convert_BOOL_TO_INT(in, _INT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_INT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_LINT:
+	
+		convertResult := Convert_BOOL_TO_LINT(in, _LINT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_LINT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_LREAL:
+	
+		convertResult := Convert_BOOL_TO_LREAL(in, _LREAL);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_LREAL);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_LWORD:
+	
+		convertResult := Convert_BOOL_TO_LWORD(in, _LWORD);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_LWORD);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_REAL:
+	
+		convertResult := Convert_BOOL_TO_REAL(in, _REAL);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_REAL);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_SINT:
+	
+		convertResult := Convert_BOOL_TO_SINT(in, _SINT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_SINT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_STRING:
+	
+		convertResult := Convert_BOOL_TO_STRING(in, _STRING);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_STRING);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_TIME:
+	
+		convertResult := Convert_BOOL_TO_TIME(in, _TIME);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_TIME);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_TIMEOFDAY:
+	
+		convertResult := Convert_BOOL_TO_TOD(in, _TOD);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_TOD);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_UDINT:
+	
+		convertResult := Convert_BOOL_TO_UDINT(in, _UDINT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_UDINT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_UINT:
+	
+		convertResult := Convert_BOOL_TO_UINT(in, _UINT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_UINT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_ULINT:
+	
+		convertResult := Convert_BOOL_TO_ULINT(in, _ULINT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_ULINT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_USINT:
+	
+		convertResult := Convert_BOOL_TO_USINT(in, _USINT);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_USINT);
+		END_IF
+
+	__SYSTEM.TYPE_CLASS.TYPE_WORD:
+	
+		convertResult := Convert_BOOL_TO_WORD(in, _WORD);
+		IF SUCCEEDED(convertResult) THEN
+			convertAddress := ADR(_WORD);
+		END_IF
+
+END_CASE
+
+IF SUCCEEDED(convertResult) THEN
+	memcpy(out.pValue,convertAddress,DINT_TO_UDINT(out.diSize));
+END_IF
+
+Convert_BOOL_TO_ := convertResult;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

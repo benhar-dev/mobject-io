@@ -1,13 +1,15 @@
 # Cyclic Instance
 
-## The problem
+## Problem
 
 PLCs are cyclic as they need to communicate with the outside world.  As such, your objects may need to be cyclic too.  A flashing lamp object would need time to process its internal timers and update its output, which leads to us needing to explicitly call the object each PLC cycle.  To further complicate matters, if you make new objects at runtime who need to by cyclic called, then it becomes hard to handle who should be responsible for calling them. 
 
-## The solution
+## Solution
 The first core purpose for mobject-core is to provide you with a simple way to handle cyclic code.  This library allows you as the object programmer to mark your objects as a cyclic instance.  Doing so will allow your object to be called automatically.  
 
 ## Example
+!> This example is **Cyclic**, and as such you must first follow the getting started guide found [here](./#getting-started).
+
 In this example we will make a flashing lamp object.  
 <!-- tabs:start -->
 
