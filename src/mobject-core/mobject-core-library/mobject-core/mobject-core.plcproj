@@ -18,7 +18,7 @@
     <Company>mobject.io</Company>
     <Released>false</Released>
     <Title>mobject-core</Title>
-    <ProjectVersion>0.5.0</ProjectVersion>
+    <ProjectVersion>0.6.0</ProjectVersion>
     <DefaultNamespace>mobject-core</DefaultNamespace>
     <Author>mobject dev team</Author>
     <LibraryCategories>
@@ -863,7 +863,7 @@
     <Compile Include="Converters\STRING_TO_\Convert_STRING_TO_DATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\STRING_TO_\Convert_STRING_TO_Destination.TcPOU">
+    <Compile Include="Converters\STRING_TO_\Convert_STRING_TO_.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\STRING_TO_\Convert_STRING_TO_DINT.TcPOU">
@@ -926,7 +926,7 @@
     <Compile Include="Converters\TIME_TO_\Convert_TIME_TO_DATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\TIME_TO_\Convert_TIME_TO_Destination.TcPOU">
+    <Compile Include="Converters\TIME_TO_\Convert_TIME_TO_.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\TIME_TO_\Convert_TIME_TO_DINT.TcPOU">
@@ -989,7 +989,7 @@
     <Compile Include="Converters\TOD_TO_\Convert_TOD_TO_DATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\TOD_TO_\Convert_TOD_TO_Destination.TcPOU">
+    <Compile Include="Converters\TOD_TO_\Convert_TOD_TO_.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\TOD_TO_\Convert_TOD_TO_DINT.TcPOU">
@@ -1052,7 +1052,7 @@
     <Compile Include="Converters\UDINT_TO_\Convert_UDINT_TO_DATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\UDINT_TO_\Convert_UDINT_TO_Destination.TcPOU">
+    <Compile Include="Converters\UDINT_TO_\Convert_UDINT_TO_.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\UDINT_TO_\Convert_UDINT_TO_DINT.TcPOU">
@@ -1115,7 +1115,7 @@
     <Compile Include="Converters\UINT_TO_\Convert_UINT_TO_DATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\UINT_TO_\Convert_UINT_TO_Destination.TcPOU">
+    <Compile Include="Converters\UINT_TO_\Convert_UINT_TO_.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\UINT_TO_\Convert_UINT_TO_DINT.TcPOU">
@@ -1178,7 +1178,7 @@
     <Compile Include="Converters\ULINT_TO_\Convert_ULINT_TO_DATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\ULINT_TO_\Convert_ULINT_TO_Destination.TcPOU">
+    <Compile Include="Converters\ULINT_TO_\Convert_ULINT_TO_.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\ULINT_TO_\Convert_ULINT_TO_DINT.TcPOU">
@@ -1241,7 +1241,7 @@
     <Compile Include="Converters\USINT_TO_\Convert_USINT_TO_DATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\USINT_TO_\Convert_USINT_TO_Destination.TcPOU">
+    <Compile Include="Converters\USINT_TO_\Convert_USINT_TO_.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\USINT_TO_\Convert_USINT_TO_DINT.TcPOU">
@@ -1304,7 +1304,7 @@
     <Compile Include="Converters\WORD_TO_\Convert_WORD_TO_DATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\WORD_TO_\Convert_WORD_TO_Destination.TcPOU">
+    <Compile Include="Converters\WORD_TO_\Convert_WORD_TO_.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\WORD_TO_\Convert_WORD_TO_DINT.TcPOU">
