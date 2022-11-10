@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ParseJsonPath" Id="{4ab4a8c4-d5cf-4775-a559-680737d05fff}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ParseJsonPath : I_JsonPathElement
+VAR_INPUT
+	Path : REFERENCE TO STRING;
+	JsonPathElement : REFERENCE TO I_JsonPathElement;
+END_VAR
+VAR
+	pRootElement : POINTER TO JsonPathElement_Root;
+	pPropertyElement : POINTER TO JsonPathElement_Property; 
+	pArrayElement : POINTER TO JsonPathElement_ArraySingleSelector; 
+	
+	lastElement : I_JsonPathElement;
+	parsePosition : UDINT;
+	
+	currentlyParsing : (NOTHING, DOT_NOTATION_PROPERTY, BRACKET_NOTATION_PROPERTY_OR_ARRAY, BRACKET_NOTATION_PROPERTY_ELEMENT, BRACKET_NOTATION_ARRAY_ELEMENT);
+	
+	currentElementStart : UDINT;
+	currentElementEnd : UDINT;
+	currentElementLength : UDINT;
+	elementText : T_MAXSTRING;
+	endOfRepeat : BOOL;
+END_VAR
+VAR CONSTANT
+	PERIOD : BYTE := 16#2E; // .
+	DOLLAR_SIGN : BYTE := 16#24; // $
+	SINGLE_QUOTE : BYTE := 16#27; // '
+	LEFT_SQUARE_BRACKET : BYTE := 16#5B; // [
+	RIGHT_SQUARE_BRACKET : BYTE := 16#5D; // ]
+	NULL : BYTE := 0; // null
+	INVALIDPARM : HRESULT := 16#9811070B;
+	NOT_FOUND : HRESULT := 16#9811070C;
+	INCOMPATIBLE : HRESULT := 16#9811070E;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF JsonPathElement <> 0 THEN
+	JsonPathElement.Dispose();
+END_IF
+
+pRootElement := __NEW(JsonPathElement_Root(PreviousElement := 0,NextElement := 0));
+lastElement := pRootElement^;
+
+IF Path[0] = NULL THEN
+	JsonPathElement := lastElement;
+	RETURN;
+END_IF
+
+parsePosition := 0;
+currentlyParsing := NOTHING;
+
+REPEAT 
+	
+	IF Path[parsePosition] = NULL THEN
+		 endOfRepeat := TRUE;
+	END_IF
+		
+	CASE currentlyParsing OF
+		
+		NOTHING: 
+		
+			IF Path[parsePosition] = DOLLAR_SIGN THEN
+				// No action
+				
+			ELSIF Path[parsePosition] = PERIOD THEN
+				// No action
+				
+			ELSIF Path[parsePosition] = LEFT_SQUARE_BRACKET THEN
+				currentlyParsing := BRACKET_NOTATION_PROPERTY_OR_ARRAY;				
+				
+			ELSIF Path[parsePosition] = RIGHT_SQUARE_BRACKET THEN
+				// No action
+				
+			ELSIF Path[parsePosition] = SINGLE_QUOTE THEN
+				// No action
+				
+			ELSE
+				currentlyParsing := DOT_NOTATION_PROPERTY;
+				currentElementStart := parsePosition;			
+			END_IF
+			
+		DOT_NOTATION_PROPERTY:
+		
+			IF Path[parsePosition] = PERIOD  OR Path[parsePosition] = LEFT_SQUARE_BRACKET OR Path[parsePosition] = NULL THEN
+				
+				currentElementEnd := parsePosition - 1;
+				
+				currentElementLength := 1 + currentElementEnd - currentElementStart;
+				memset(ADR(elementText),0,SIZEOF(elementText));
+				memcpy(ADR(elementText),ADR(Path[currentElementStart]),currentElementLength);
+				
+				pPropertyElement := __NEW(JsonPathElement_Property(PreviousElement := 0,NextElement := 0, Name := elementText));
+				lastElement.NextElement := pPropertyElement^;
+				lastElement	:= pPropertyElement^;
+						
+				currentlyParsing := NOTHING;
+				CONTINUE;
+				
+			END_IF
+			
+		BRACKET_NOTATION_PROPERTY_OR_ARRAY:
+		
+			IF Path[parsePosition] = SINGLE_QUOTE THEN
+				currentlyParsing := BRACKET_NOTATION_PROPERTY_ELEMENT;
+				currentElementStart := parsePosition + 1;			
+			ELSE
+				currentlyParsing := BRACKET_NOTATION_ARRAY_ELEMENT;
+				currentElementStart := parsePosition;			
+			END_IF
+			
+		BRACKET_NOTATION_PROPERTY_ELEMENT:
+		
+			IF Path[parsePosition] = SINGLE_QUOTE THEN
+				
+				currentElementEnd := parsePosition - 1;
+
+				currentElementLength := 1 + currentElementEnd - currentElementStart;
+				memset(ADR(elementText),0,SIZEOF(elementText));
+				memcpy(ADR(elementText),ADR(Path[currentElementStart]),currentElementLength);
+				
+				pPropertyElement := __NEW(JsonPathElement_Property(PreviousElement := 0,NextElement := 0, Name := elementText));
+				lastElement.NextElement := pPropertyElement^;
+				lastElement	:= pPropertyElement^;
+				
+				currentlyParsing := NOTHING;
+						
+			END_IF
+			
+		BRACKET_NOTATION_ARRAY_ELEMENT:
+		
+			IF Path[parsePosition] = RIGHT_SQUARE_BRACKET THEN
+				
+				currentElementEnd := parsePosition - 1;
+				
+				currentElementLength := 1 + currentElementEnd - currentElementStart;
+				memset(ADR(elementText),0,SIZEOF(elementText));
+				memcpy(ADR(elementText),ADR(Path[currentElementStart]),currentElementLength);
+				
+				pArrayElement := __NEW(JsonPathElement_ArraySingleSelector(PreviousElement := 0,NextElement := 0, IndexString := elementText));
+				lastElement.NextElement := pArrayElement^;
+				lastElement	:= pArrayElement^;
+				
+				currentlyParsing := NOTHING;
+						
+			END_IF
+			
+
+	END_CASE
+	
+	parsePosition := parsePosition + 1;
+	
+UNTIL endOfRepeat 
+END_REPEAT
+	
+JsonPathElement := lastElement;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

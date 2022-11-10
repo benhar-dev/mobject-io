@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="JsonPathElement_Property" Id="{2f07aa6b-bb05-4d2a-a467-58ebc4bd0cdf}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK JsonPathElement_Property EXTENDS JsonPathElement 
+VAR
+	name : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{1bd34833-3f2a-43e6-9e2b-60a4f71cc417}" />
+    <Method Name="FB_init" Id="{84410c23-ba03-4bf2-a082-e62c128e7c6b}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	PreviousElement : I_JsonPathElement;
+	NextElement : I_JsonPathElement; 
+	Name : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[This^.name := Name;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="PropertyName" Id="{d027bbab-9864-4dbc-86cb-9f2d180b8163}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PropertyName : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{1bfe8cff-1019-4b61-8ae7-c975d06daab5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PropertyName := name;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ResolveToSJsonValue" Id="{c28e31bc-d8d4-44b2-94ee-32052359f811}">
+      <Declaration><![CDATA[METHOD PUBLIC ResolveToSJsonValue : SJsonValue
+VAR_INPUT
+	jsonParser : REFERENCE TO FB_JsonDomParser;
+	jsonDocument : SJsonValue;
+END_VAR
+VAR
+	currentPosition : SJsonValue;
+	memberPath : SJsonValue;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF PreviousElement <> 0 THEN
+	currentPosition := PreviousElement.ResolveToSJsonValue(jsonParser,jsonDocument);
+ELSE
+	currentPosition := jsonDocument;
+END_IF
+
+IF currentPosition = 0 THEN
+	RETURN;
+END_IF
+
+ResolveToSJsonValue := jsonParser.FindMember(currentPosition,name);
+
+//IF jsonParser.IsArray(memberPath) THEN
+//	ResolveToSJsonValue := memberPath;
+//ELSE
+//	ResolveToSJsonValue := jsonParser.GetMemberValue(memberPath);
+//END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -12,6 +12,8 @@
 
 - mobject-iot
 
+    - [Json Reader](json-reader.md)
+
 - mobject-packml
 
 - mobject-condition-monitoring

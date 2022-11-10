@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Sandpit" Id="{7ddd8b55-12ba-01d4-1e78-f6ddb0bdaaeb}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM Sandpit
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Main" Id="{7ddd8b55-12ba-01d4-1e78-f6ddb0bdaaeb}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Main
 VAR
 	
 	task : Task;

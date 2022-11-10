@@ -18,7 +18,7 @@
     <Company>mobject.io</Company>
     <Released>false</Released>
     <Title>mobject-core</Title>
-    <ProjectVersion>0.6.0</ProjectVersion>
+    <ProjectVersion>0.6.1</ProjectVersion>
     <DefaultNamespace>mobject-core</DefaultNamespace>
     <Author>mobject dev team</Author>
     <LibraryCategories>
@@ -57,9 +57,9 @@
     <Folder Include="Converters\ULINT_TO_" />
     <Folder Include="Converters\USINT_TO_" />
     <Folder Include="Converters\WORD_TO_" />
-    <Folder Include="CyclicInstance" />
-    <Folder Include="CyclicInstance\By Inheritance" />
-    <Folder Include="CyclicInstance\By Composition" />
+    <Folder Include="Cyclic Instance" />
+    <Folder Include="Cyclic Instance\By Inheritance" />
+    <Folder Include="Cyclic Instance\By Composition" />
     <Folder Include="_Internal" />
     <Folder Include="_Internal\Collections" />
     <Folder Include="_Internal\CyclicCallback" />
@@ -1358,16 +1358,16 @@
     <Compile Include="Converters\WORD_TO_\Convert_WORD_TO_WORD.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CyclicInstance\By Composition\AutomaticCyclicCall.TcPOU">
+    <Compile Include="Cyclic Instance\By Composition\AutomaticCyclicCall.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CyclicInstance\By Composition\ManualCyclicCall.TcPOU">
+    <Compile Include="Cyclic Instance\By Composition\ManualCyclicCall.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CyclicInstance\By Inheritance\CyclicInstance.TcPOU">
+    <Compile Include="Cyclic Instance\By Inheritance\CyclicInstance.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CyclicInstance\I_CyclicInstance.TcIO">
+    <Compile Include="Cyclic Instance\I_CyclicInstance.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\Collections\Collection.TcPOU">

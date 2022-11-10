@@ -2,30 +2,23 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6f1b5684-59de-40a6-99af-397cf81ed401}</ProjectGuid>
+    <ProjectGuid>{fc96b739-695c-4f31-b29d-f9e9765b00d5}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>Main</Name>
+    <Name>mobject_json</Name>
     <ProgramVersion>3.1.4023.0</ProgramVersion>
-    <Application>{7802213f-8230-440a-b4db-ad736ef603df}</Application>
-    <TypeSystem>{12f1f0ac-7b13-4c57-9266-7f2436723a1f}</TypeSystem>
-    <Implicit_Task_Info>{43dcd602-ca7d-42bf-9508-bc1cd408ecd1}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{dafd99ec-131c-4702-8092-d1ba5bc2e9e0}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{dc777827-27e9-4365-b9ba-cf82f82ecfc4}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{49f0d865-632d-4634-b05d-723da0546035}</LibraryReferences>
-    <Company>
-    </Company>
+    <Application>{93be6354-1e3d-426a-94f4-659aca5c5478}</Application>
+    <TypeSystem>{2d60926b-9ad3-4890-8e2a-c98a2c590336}</TypeSystem>
+    <Implicit_Task_Info>{014b2365-15c4-4b9a-9fc2-273d0e94b5fc}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{55c6dc8b-b1bd-462a-9f0e-9a848e5423c7}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{22a21bea-937c-4e67-82e4-4aac328c689d}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{b1e8ad63-0bd8-41f5-ae63-cb421326a49a}</LibraryReferences>
+    <Company>mobject.io</Company>
     <Released>false</Released>
-    <Title>
-    </Title>
-    <ProjectVersion>
-    </ProjectVersion>
-    <DefaultNamespace>
-    </DefaultNamespace>
-    <Author>
-    </Author>
+    <Title>mobject-json</Title>
+    <ProjectVersion>0.2.0</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{1060d52a-c0ce-4c5f-a334-01a7e2e0ab1b}</Id>
@@ -34,50 +27,56 @@
       </LibraryCategory>
     </LibraryCategories>
     <SelectedLibraryCategories>
+      <Id xmlns="">{1060d52a-c0ce-4c5f-a334-01a7e2e0ab1b}</Id>
     </SelectedLibraryCategories>
+    <DefaultNamespace>mobject-json</DefaultNamespace>
+    <Author>mobject dev team</Author>
+    <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PlcTask.TcTTO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\Commands\Cylinder_ExtendCommand.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\I_Cylinder.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\SimulationTwoPositionCylinderWithFeedback.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\CyclicInstanceExamples\ExampleFlashingLamp_Composition.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\CyclicInstanceExamples\ExampleFlashingLamp_Inheritance.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Main.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
+    <Folder Include="Json Reader" />
+    <Folder Include="_Internal" />
+    <Folder Include="_Internal\JsonPath" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="POUs" />
-    <Folder Include="POUs\AsyncCommandsExamples" />
-    <Folder Include="POUs\AsyncCommandsExamples\Cylinder" />
-    <Folder Include="POUs\AsyncCommandsExamples\Cylinder\Commands" />
-    <Folder Include="POUs\CyclicInstanceExamples" />
+    <Compile Include="Json Reader\JsonReader.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\JsonPath\I_JsonPathElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\JsonPath\JsonPathElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\JsonPath\JsonPathElement_ArraySingleSelector.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\JsonPath\JsonPathElement_Property.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\JsonPath\JsonPathElement_Root.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\JsonPath\ParseJsonPath.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="mobject-core">
       <DefaultResolution>mobject-core, * (mobject.io)</DefaultResolution>
-      <Namespace>mobject</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="Tc2_Standard">
-      <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
-      <Namespace>Tc2_Standard</Namespace>
+      <Namespace>mobject_core</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_IotBase">
+      <DefaultResolution>Tc3_IotBase, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_IotBase</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_JsonXml">
+      <DefaultResolution>Tc3_JsonXml, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_JsonXml</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -85,7 +84,7 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Main.tmc">
+    <None Include="mobject-json.tmc">
       <SubType>Content</SubType>
     </None>
   </ItemGroup>
@@ -102,10 +101,17 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" />
         </o>
-        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <v>{29BD8D0C-3586-4548-BB48-497B9A01693F}</v>
         <o>
-          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
-          <d n="SubKeys" t="Hashtable" />
+          <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
+          <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>Rules</v>
+            <o>
+              <v n="Name">"Rules"</v>
+              <d n="SubKeys" t="Hashtable" />
+              <d n="Values" t="Hashtable" />
+            </o>
+          </d>
           <d n="Values" t="Hashtable" />
         </o>
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>

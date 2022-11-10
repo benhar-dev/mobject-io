@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="JsonPathElement" Id="{8edb91a2-c526-4ba3-97c5-b8729709b0f1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK ABSTRACT JsonPathElement EXTENDS Disposable IMPLEMENTS I_JsonPathElement
+VAR
+	_previousElement, _nextElement : I_JsonPathElement;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7c5d3272-7068-4e31-9308-ece34c233939}" />
+    <Method Name="AddReference" Id="{dad9e4ce-73ab-4ec4-8485-a9fd7782fc44}">
+      <Declaration><![CDATA[METHOD AddReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NextElement <> 0 THEN
+	NextElement.AddReference();
+END_IF
+
+SUPER^.AddReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Dispose" Id="{b4a96398-d179-487d-a66a-484379c24608}">
+      <Declaration><![CDATA[METHOD Dispose
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF PreviousElement <> 0 THEN
+	PreviousElement.NextElement := 0;
+	PreviousElement.Dispose();
+END_IF
+
+IF NextElement <> 0 THEN
+	NextElement.PreviousElement := 0;
+	NextElement.Dispose();
+END_IF
+
+SUPER^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{a183be44-c225-4cef-8331-2a267a1d3ac0}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	PreviousElement : I_JsonPathElement;
+	NextElement : I_JsonPathElement; 
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^._previousElement := PreviousElement;
+THIS^._nextElement := NextElement;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="NextElement" Id="{d7414643-0085-464a-8aaa-7fc8dec9e8c5}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NextElement : I_JsonPathElement]]></Declaration>
+      <Get Name="Get" Id="{11ed51b8-db1a-4170-9d56-5108ce43f29a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NextElement := _nextElement;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{6b6a0943-9463-4deb-bc4c-a6e9919b5673}">
+        <Declaration><![CDATA[VAR
+	self : I_JsonPathElement;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_nextElement := NextElement;
+
+IF NextElement = 0 THEN
+	RETURN;
+END_IF
+
+self := THIS^;
+
+IF NextElement.PreviousElement <> self THEN
+	NextElement.PreviousElement := self;
+END_IF;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PreviousElement" Id="{fa8e8155-b073-46f1-ba1a-e678f9f8631c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PreviousElement : I_JsonPathElement]]></Declaration>
+      <Get Name="Get" Id="{b7d7ff7a-d413-44c3-a2f1-abc277418553}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PreviousElement := _previousElement;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{1fc9578e-d39c-4296-8b48-feab273cc71a}">
+        <Declaration><![CDATA[VAR
+	self : I_JsonPathElement;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_previousElement := PreviousElement;
+
+IF PreviousElement = 0 THEN
+	RETURN;
+END_IF
+
+self := THIS^;
+
+IF PreviousElement.NextElement <> self THEN
+	PreviousElement.NextElement := self;
+END_IF;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PropertyName" Id="{b1e9ed71-ff90-45f5-aa72-97ff47e73a18}">
+      <Declaration><![CDATA[PROPERTY PUBLIC ABSTRACT PropertyName : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{6e35132e-2626-4816-bfa4-085702aa1d28}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ResolveToSJsonValue" Id="{f0bbbf78-1f59-4094-be0e-9504726a2ca5}">
+      <Declaration><![CDATA[METHOD PUBLIC ABSTRACT ResolveToSJsonValue : SJsonValue
+VAR_INPUT
+	jsonParser : REFERENCE TO FB_JsonDomParser;
+	jsonDocument : SJsonValue;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

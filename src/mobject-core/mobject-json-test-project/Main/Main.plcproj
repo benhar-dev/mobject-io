@@ -2,74 +2,35 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6f1b5684-59de-40a6-99af-397cf81ed401}</ProjectGuid>
+    <ProjectGuid>{68c002ca-5012-4214-9ea4-1e6bca5c8ef6}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>Main</Name>
     <ProgramVersion>3.1.4023.0</ProgramVersion>
-    <Application>{7802213f-8230-440a-b4db-ad736ef603df}</Application>
-    <TypeSystem>{12f1f0ac-7b13-4c57-9266-7f2436723a1f}</TypeSystem>
-    <Implicit_Task_Info>{43dcd602-ca7d-42bf-9508-bc1cd408ecd1}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{dafd99ec-131c-4702-8092-d1ba5bc2e9e0}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{dc777827-27e9-4365-b9ba-cf82f82ecfc4}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{49f0d865-632d-4634-b05d-723da0546035}</LibraryReferences>
-    <Company>
-    </Company>
-    <Released>false</Released>
-    <Title>
-    </Title>
-    <ProjectVersion>
-    </ProjectVersion>
-    <DefaultNamespace>
-    </DefaultNamespace>
-    <Author>
-    </Author>
-    <LibraryCategories>
-      <LibraryCategory xmlns="">
-        <Id>{1060d52a-c0ce-4c5f-a334-01a7e2e0ab1b}</Id>
-        <Version>1.0.0.0</Version>
-        <DefaultName>mobject.io</DefaultName>
-      </LibraryCategory>
-    </LibraryCategories>
-    <SelectedLibraryCategories>
-    </SelectedLibraryCategories>
+    <Application>{c5c2e6dc-6ec1-4f99-a5c7-c15b6c4e860c}</Application>
+    <TypeSystem>{004d7cc0-83e5-46cb-bbeb-cb641d9d14b4}</TypeSystem>
+    <Implicit_Task_Info>{19f7a379-ce0d-48aa-8398-da7d53768e0a}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{b2f140ab-12b5-464a-b8bb-634f2575346e}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{18868e05-5927-45fd-b6a4-e69f2e6908db}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{2fb4621e-c1ee-4e13-87f9-0ad1304d0dde}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\Commands\Cylinder_ExtendCommand.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\I_Cylinder.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\SimulationTwoPositionCylinderWithFeedback.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\CyclicInstanceExamples\ExampleFlashingLamp_Composition.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\CyclicInstanceExamples\ExampleFlashingLamp_Inheritance.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Main.TcPOU">
+    <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="POUs" />
-    <Folder Include="POUs\AsyncCommandsExamples" />
-    <Folder Include="POUs\AsyncCommandsExamples\Cylinder" />
-    <Folder Include="POUs\AsyncCommandsExamples\Cylinder\Commands" />
-    <Folder Include="POUs\CyclicInstanceExamples" />
   </ItemGroup>
   <ItemGroup>
-    <PlaceholderReference Include="mobject-core">
-      <DefaultResolution>mobject-core, * (mobject.io)</DefaultResolution>
-      <Namespace>mobject</Namespace>
+    <PlaceholderReference Include="mobject-json">
+      <DefaultResolution>mobject-json, * (mobject.io)</DefaultResolution>
+      <Namespace>mobject_json</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -82,6 +43,10 @@
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="TcUnit">
+      <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
+      <Namespace>TcUnit</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
@@ -102,10 +67,17 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" />
         </o>
-        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <v>{29BD8D0C-3586-4548-BB48-497B9A01693F}</v>
         <o>
-          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
-          <d n="SubKeys" t="Hashtable" />
+          <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
+          <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>Rules</v>
+            <o>
+              <v n="Name">"Rules"</v>
+              <d n="SubKeys" t="Hashtable" />
+              <d n="Values" t="Hashtable" />
+            </o>
+          </d>
           <d n="Values" t="Hashtable" />
         </o>
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>

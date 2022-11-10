@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="JsonPathElement_ArraySingleSelector" Id="{bd3d8056-eb68-4207-9e5d-830f430f2f19}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK JsonPathElement_ArraySingleSelector EXTENDS JsonPathElement 
+VAR
+	_index : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{84f42711-a8f3-4280-a72d-9a55fc716792}" />
+    <Method Name="FB_init" Id="{0ec68a8a-ff62-4047-a5e2-a648a2f7e9b7}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	PreviousElement : I_JsonPathElement;
+	NextElement : I_JsonPathElement; 
+	IndexString : String;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[This^._index := STRING_TO_UDINT(IndexString);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Index" Id="{18217741-bbc3-41d5-9269-0b38391fd6d7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Index : UDINT]]></Declaration>
+      <Get Name="Get" Id="{01503458-c7a7-4829-ae75-58dd9ccdd335}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Index := _index;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PropertyName" Id="{35e4d2bb-c128-4cc7-b44a-dcaf5f84834e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PropertyName : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{58a78575-75e5-40a7-9361-7c84e0903c0c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF PreviousElement = 0 THEN
+	RETURN;	
+END_IF
+
+PropertyName := PreviousElement.PropertyName;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ResolveToSJsonValue" Id="{f695918f-89e5-44f4-b617-66fd2990035a}">
+      <Declaration><![CDATA[METHOD PUBLIC ResolveToSJsonValue : SJsonValue
+VAR_INPUT
+	jsonParser : REFERENCE TO FB_JsonDomParser;
+	jsonDocument : SJsonValue;
+END_VAR
+VAR
+	currentPosition : SJsonValue;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF PreviousElement <> 0 THEN
+	currentPosition := PreviousElement.ResolveToSJsonValue(jsonParser,jsonDocument);
+ELSE
+	currentPosition := jsonDocument;
+END_IF
+
+IF currentPosition = 0 THEN
+	RETURN;
+END_IF
+
+ResolveToSJsonValue := jsonParser.GetArrayValueByIdx(currentPosition, Index);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
