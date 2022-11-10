@@ -27,7 +27,7 @@ END_VAR
     <Method Name="LoadFromString" Id="{b658e62e-3799-4095-9f1e-b3b4cdcb1654}">
       <Declaration><![CDATA[METHOD PUBLIC LoadFromString
 VAR_INPUT
-	JsonString : T_MAXSTRING;
+	JsonString : REFERENCE TO STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>

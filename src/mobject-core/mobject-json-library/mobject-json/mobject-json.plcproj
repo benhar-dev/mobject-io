@@ -18,7 +18,7 @@
     <Company>mobject.io</Company>
     <Released>false</Released>
     <Title>mobject-json</Title>
-    <ProjectVersion>0.2.0</ProjectVersion>
+    <ProjectVersion>0.2.1</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{1060d52a-c0ce-4c5f-a334-01a7e2e0ab1b}</Id>
