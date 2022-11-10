@@ -9,7 +9,7 @@ A sprinkling of OOP is usually enough to simplify and unclutter procedural code.
 mobject's goal is to be a lightweight solution to typical oop problems.  
 
 ## Documentation
-The documentation for this project can be found [here](https://benhar-dev.github.io/mobject-core/). 
+The documentation for this project can be found [here](https://benhar-dev.github.io/mobject-io/). 
 
 ## Versions
 * TcXaeShell 3.1.4024.29
