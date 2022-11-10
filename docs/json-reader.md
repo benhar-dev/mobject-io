@@ -4,7 +4,15 @@
 Reading JSON is becoming a more common task inside the PLC.  You can either use the FB_JsonDomParser provided in TwinCAT which require multiple calls to navigate in to a JSON document, or you can use the FB_JsonReadWriteDataType to convert a JSON document directly to a known structure, but this is not practical if you have many different forms of JSON.
 
 ## Solution
-mobject-json is equipped with a JsonReader class.  You can read in your JSON document via string, or HTTP request, and once done you can navigate it simply by using JSON path syntax.  Also, as an added bonus, the class will automatically check the destination symbol and shall provide you with a HRESULT based on its success.  
+mobject-json is equipped with a JsonReader class.  You can read in your JSON document via string, or HTTP request, and once done you can navigate it simply by using JSON path syntax.  Also, as an added bonus, the class will automatically check the destination symbol and shall provide you with a HRESULT based on its success at reading and converting the value.  
+
+```example
+jsonString := '{"factory":{"machines":[{"name":"module_1","running":true}]}}';
+jsonReader.LoadFromString(jsonString);
+
+jsonReader.ReadPath('.factory.machines[0].name',moduleName); // module_1
+jsonReader.ReadPath('.factory.machines[0].running',isRunning); // true
+```
 
 ### JSONPath Syntax
 
@@ -29,7 +37,7 @@ The leading $ represents the root object or array and can be omitted. For exampl
 
 ## Examples
 
-When the destination type is known you can use the function __Convert\_TYPE\_TO\_TYPE__
+The examples below show the different types of path syntax in use, coupled with the expected hresult. 
 
 ```declaration
 PROGRAM MAIN
