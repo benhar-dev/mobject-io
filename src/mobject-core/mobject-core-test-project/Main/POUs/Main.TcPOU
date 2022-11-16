@@ -18,8 +18,9 @@ VAR
 	// asyncCommand example
 	cylinder : SimulationTwoPositionCylinderWithFeedback;
 	extendCommand : Cylinder_ExtendCommand(cylinder);
+	extendCommandFeedback : I_CommandFeedback;
 	extendTrigger : BOOL; // set true to execute the async command
-	extendComplete:  BOOL; // will set true once the command completes
+	extendComplete :  BOOL; // will set true once the command completes
 	
 END_VAR
 ]]></Declaration>
@@ -46,12 +47,14 @@ IF extendTrigger THEN
 	extendTrigger := FALSE;
 	extendComplete := FALSE;
 	// once you call execute, the command will automatically cyclic call until either done or errored. 
-	extendCommand.Execute();
+	extendCommand.Execute(extendCommandFeedback);
 END_IF
 
 // you can monitor the state of the command using the feedback, although this is not a requirement.  
-IF extendCommand.Feedback.Done THEN
+IF extendCommandFeedback <> 0 AND_THEN extendCommandFeedback.Done THEN
 	extendComplete := TRUE;
+	extendCommandFeedback.Release();
+	extendCommandFeedback := 0;
 END_IF]]></ST>
     </Implementation>
   </POU>

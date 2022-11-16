@@ -29,13 +29,10 @@ VAR CONSTANT
 	LEFT_SQUARE_BRACKET : BYTE := 16#5B; // [
 	RIGHT_SQUARE_BRACKET : BYTE := 16#5D; // ]
 	NULL : BYTE := 0; // null
-	INVALIDPARM : HRESULT := 16#9811070B;
-	NOT_FOUND : HRESULT := 16#9811070C;
-	INCOMPATIBLE : HRESULT := 16#9811070E;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF JsonPathElement <> 0 THEN
-	JsonPathElement.Dispose();
+	JsonPathElement.Release();
 END_IF
 
 pRootElement := __NEW(JsonPathElement_Root(PreviousElement := 0,NextElement := 0));

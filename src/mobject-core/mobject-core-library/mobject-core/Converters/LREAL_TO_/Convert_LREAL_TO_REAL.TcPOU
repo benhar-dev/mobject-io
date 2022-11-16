@@ -9,9 +9,7 @@ END_VAR
 VAR
 	converted : REAL;
 END_VAR
-VAR CONSTANT
-	INCOMPATIBLE : HRESULT := 16#9811070E;
-END_VAR]]></Declaration>
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF (in < -3.402823E+38) THEN	
 	Convert_LREAL_TO_REAL := INCOMPATIBLE;

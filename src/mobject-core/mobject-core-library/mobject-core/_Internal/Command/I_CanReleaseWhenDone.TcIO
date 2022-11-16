@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_CanReleaseWhenDone" Id="{97435b89-20a9-4fae-b395-a48ce0a49a9d}">
+    <Declaration><![CDATA[INTERFACE I_CanReleaseWhenDone
+]]></Declaration>
+    <Method Name="ThenRelease" Id="{19d335de-3bd0-4086-9556-09b2e8260417}">
+      <Declaration><![CDATA[METHOD PUBLIC ThenRelease
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

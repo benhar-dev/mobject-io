@@ -26,25 +26,6 @@ END_IF
 SUPER^.AddReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Dispose" Id="{b4a96398-d179-487d-a66a-484379c24608}">
-      <Declaration><![CDATA[METHOD Dispose
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF PreviousElement <> 0 THEN
-	PreviousElement.NextElement := 0;
-	PreviousElement.Dispose();
-END_IF
-
-IF NextElement <> 0 THEN
-	NextElement.PreviousElement := 0;
-	NextElement.Dispose();
-END_IF
-
-SUPER^.Dispose();]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="FB_init" Id="{a183be44-c225-4cef-8331-2a267a1d3ac0}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -130,6 +111,25 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="Release" Id="{b4a96398-d179-487d-a66a-484379c24608}">
+      <Declaration><![CDATA[METHOD Release
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF PreviousElement <> 0 THEN
+	PreviousElement.NextElement := 0;
+	PreviousElement.Release();
+END_IF
+
+IF NextElement <> 0 THEN
+	NextElement.PreviousElement := 0;
+	NextElement.Release();
+END_IF
+
+SUPER^.Release();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="ResolveToSJsonValue" Id="{f0bbbf78-1f59-4094-be0e-9504726a2ca5}">
       <Declaration><![CDATA[METHOD PUBLIC ABSTRACT ResolveToSJsonValue : SJsonValue
 VAR_INPUT

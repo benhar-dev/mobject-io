@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="Constants" Id="{cafe211d-6d6f-4994-9349-242771e3ef8d}">
+    <Declaration><![CDATA[VAR_GLOBAL CONSTANT
+	INVALIDPARM : HRESULT := UDINT_TO_DINT(16#9811070B);
+	NOT_FOUND : HRESULT := UDINT_TO_DINT(16#9811070C);
+	INCOMPATIBLE : HRESULT := UDINT_TO_DINT(16#9811070E);
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

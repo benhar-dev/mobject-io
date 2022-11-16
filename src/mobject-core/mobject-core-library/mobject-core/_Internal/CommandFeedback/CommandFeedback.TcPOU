@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="CommandFeedback" Id="{0bb2b70a-9917-4bc6-82f1-10209ec347e2}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK CommandFeedback IMPLEMENTS I_CommandFeedback, I_AsynchronousCommandBusyState, I_AsynchronousCommandAbortingState, I_SynchronousCommandBusyState
+FUNCTION_BLOCK CommandFeedback EXTENDS Disposable IMPLEMENTS I_CommandFeedbackReadWrite, I_CommandFeedback, I_AsynchronousCommandBusyState, I_AsynchronousCommandAbortingState, I_SynchronousCommandBusyState
 VAR
 	_busy : BOOL;
 	_done : BOOL;

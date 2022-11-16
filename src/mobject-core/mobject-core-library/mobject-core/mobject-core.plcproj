@@ -18,7 +18,7 @@
     <Company>mobject.io</Company>
     <Released>false</Released>
     <Title>mobject-core</Title>
-    <ProjectVersion>0.6.1</ProjectVersion>
+    <ProjectVersion>0.8.0</ProjectVersion>
     <DefaultNamespace>mobject-core</DefaultNamespace>
     <Author>mobject dev team</Author>
     <LibraryCategories>
@@ -81,6 +81,7 @@
     <Folder Include="_Internal\Instance\Events\InstanceRemoved" />
     <Folder Include="_Internal\CommandFeedback" />
     <Folder Include="_Internal\Disposable" />
+    <Folder Include="_Internal\Command" />
     <Folder Include="_Internal\Task" />
     <Folder Include="_Internal\Task\Callbacks" />
     <Folder Include="_Internal\Task\Events" />
@@ -97,6 +98,10 @@
     </Compile>
     <Compile Include="Command\I_Command.TcIO">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Constants.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="Converters\BOOL_TO_\Convert_BOOL_TO_.TcPOU">
       <SubType>Code</SubType>
@@ -1394,7 +1399,13 @@
     <Compile Include="_Internal\CommandFeedback\I_CommandFeedback.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_Internal\CommandFeedback\I_CommandFeedbackReadWrite.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_Internal\CommandFeedback\I_SynchronousCommandBusyState.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Command\I_CanReleaseWhenDone.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\CyclicCallback\Base\CyclicCallback.TcPOU">

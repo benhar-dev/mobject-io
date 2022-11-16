@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Disposable" Id="{869ad9a5-a7c1-45c5-b310-1f17b5d4cef9}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
@@ -15,28 +15,46 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Protected" Id="{4c53547f-9172-4827-abf4-7bbd1b7af9dc}" />
     <Method Name="AddReference" Id="{48439e69-8098-49ea-990b-a1612fb609e6}">
       <Declaration><![CDATA[METHOD AddReference
 VAR_INPUT
 END_VAR
-]]></Declaration>
+VAR
+	debug : UDINT;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[referenceCount := referenceCount + 1;]]></ST>
+        <ST><![CDATA[referenceCount := referenceCount + 1;
+
+debug := referenceCount;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Dispose" Id="{5416b4c9-62cc-4a51-b665-54b85dbfdcb4}">
-      <Declaration><![CDATA[METHOD Dispose
+    <Method Name="OnDispose" Id="{557c0ee7-c9e8-4533-927d-e6ba6353bbd0}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED OnDispose
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
+        <ST><![CDATA[__DELETE(THIS);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Release" Id="{5416b4c9-62cc-4a51-b665-54b85dbfdcb4}">
+      <Declaration><![CDATA[METHOD Release
+VAR_INPUT
+END_VAR
+VAR
+	debug : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
         <ST><![CDATA[referenceCount := referenceCount - 1;
 
-IF referenceCount <> 0 THEN
+debug := referenceCount;
+
+IF referenceCount > 0 THEN
 	RETURN;
 END_IF
 
-__DELETE(THIS);]]></ST>
+OnDispose();]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="SafeDispose" Id="{159d7b0b-db7f-4df9-84d0-86c56f5a80db}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION SafeDispose : BOOL
 VAR_INPUT
@@ -7,7 +7,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF Source <> 0 THEN	
-	Source.Dispose();	
+	Source.Release();	
 END_IF]]></ST>
     </Implementation>
   </POU>

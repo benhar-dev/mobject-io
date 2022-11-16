@@ -10,7 +10,7 @@
 
 - mobject-json
 
-    - [Json Reader](json-reader.md)
+    - [Json Path](json-path.md)
 
 - mobject-iot
 

@@ -4,8 +4,8 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	
-	jsonReader : JsonReader;
-	jsonString : T_MAXSTRING := '{"factory":{"machines":[{"name":"module 1","in-production":true,"speed":122.2,"produced":608},{"name":"module 2","in-production":false,"speed":543.2,"produced":24}]}}';
+	jsonPath : JsonPath;
+	json : T_MAXSTRING := '{"factory":{"machines":[{"name":"module 1","in-production":true,"speed":122.2,"produced":608},{"name":"module 2","in-production":false,"speed":543.2,"produced":24}]}}';
 
 	machineName : STRING;
 	inProduction : BOOL;
@@ -20,22 +20,22 @@ END_VAR
     <Implementation>
       <ST><![CDATA[// setup the json reader with the supplied json
 
-jsonReader.LoadFromString(jsonString);
+jsonPath.Parse(json);
 
 // all paths are found and can be automatically converted to the supplied destination variables
 
-hresult := jsonReader.ReadPath('factory.machines[0].name',machineName); // hresult = S_OK, machineName = 'module 1'
-hresult := jsonReader.ReadPath('.factory.machines[0].in-production',inProduction); // hresult = S_OK, inProduction = true
-hresult := jsonReader.ReadPath('$$factory.machines[1].speed',speed); // hresult = S_OK, speed = 543.2
-hresult := jsonReader.ReadPath('$$.[$'factory$'].machines[1].produced',produced); // hresult = S_OK, produced = 24
+hresult := jsonPath.TryRead('factory.machines[0].name',machineName); // hresult = S_OK, machineName = 'module 1'
+hresult := jsonPath.TryRead('.factory.machines[0].in-production',inProduction); // hresult = S_OK, inProduction = true
+hresult := jsonPath.TryRead('$$factory.machines[1].speed',speed); // hresult = S_OK, speed = 543.2
+hresult := jsonPath.TryRead('$$.[$'factory$'].machines[1].produced',produced); // hresult = S_OK, produced = 24
 
 // this will fail as 122.2 cannot be automatically converted to the type INT without data loss. 
 
-hresult := jsonReader.ReadPath('.factory.machines[0].speed',myInt); // hresult = INCOMPATIBLE, myInt = no change
+hresult := jsonPath.TryRead('.factory.machines[0].speed',myInt); // hresult = INCOMPATIBLE, myInt = no change
 
 // this will fail as the property 'hello' cannot be found. 
 
-hresult := jsonReader.ReadPath('.factory.machines[0].hello',myInt); // hresult = NOTFOUND, myInt = no change]]></ST>
+hresult := jsonPath.TryRead('.factory.machines[0].hello',myInt); // hresult = NOTFOUND, myInt = no change]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

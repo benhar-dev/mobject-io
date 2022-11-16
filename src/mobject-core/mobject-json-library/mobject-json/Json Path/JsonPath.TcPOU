@@ -1,41 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="JsonReader" Id="{91fdfc05-0255-43a2-90ca-ffd8e5cfa080}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK JsonReader
+  <POU Name="JsonPath" Id="{91fdfc05-0255-43a2-90ca-ffd8e5cfa080}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK JsonPath IMPLEMENTS I_JsonPath
 VAR
 	jsonParser : FB_JsonDomParser;
 	jsonDocument : SJsonValue;
 END_VAR
 VAR CONSTANT
-	INVALIDPARM : HRESULT := 16#9811070B;
-	NOT_FOUND : HRESULT := 16#9811070C;
-	INCOMPATIBLE : HRESULT := 16#9811070E;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="LoadFromHttpRequest" Id="{db28d493-2bc0-424c-bb7e-318f6ef440be}">
-      <Declaration><![CDATA[METHOD PUBLIC LoadFromHttpRequest
-VAR_INPUT
-	HttpRequest : REFERENCE TO FB_IotHttpRequest;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[jsonDocument := HttpRequest.GetJsonDomContent(jsonParser);]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="LoadFromString" Id="{b658e62e-3799-4095-9f1e-b3b4cdcb1654}">
-      <Declaration><![CDATA[METHOD PUBLIC LoadFromString
+    <Method Name="Parse" Id="{b658e62e-3799-4095-9f1e-b3b4cdcb1654}">
+      <Declaration><![CDATA[METHOD PUBLIC Parse : I_JsonPath
 VAR_INPUT
 	JsonString : REFERENCE TO STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[jsonDocument := jsonParser.ParseDocument(JsonString);]]></ST>
+        <ST><![CDATA[jsonDocument := jsonParser.ParseDocument(JsonString);
+Parse := this^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ReadPath" Id="{69ccef2a-b6a5-4daf-8700-f2215c7efe88}">
-      <Declaration><![CDATA[METHOD PUBLIC ReadPath : HRESULT
+    <Method Name="ParseFromHttpRequest" Id="{db28d493-2bc0-424c-bb7e-318f6ef440be}">
+      <Declaration><![CDATA[METHOD PUBLIC ParseFromHttpRequest : I_JsonPath
+VAR_INPUT
+	HttpRequest : REFERENCE TO FB_IotHttpRequest;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[jsonDocument := HttpRequest.GetJsonDomContent(jsonParser);
+ParseFromHttpRequest := this^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryRead" Id="{69ccef2a-b6a5-4daf-8700-f2215c7efe88}">
+      <Declaration><![CDATA[METHOD PUBLIC TryRead : HRESULT
 VAR_INPUT
 	Path : T_MaxString;
 	Destination : ANY;
@@ -56,58 +55,58 @@ END_VAR]]></Declaration>
         <ST><![CDATA[ParseJsonPath(Path,jsonElement);
 
 IF FAILED(result) THEN
-	ReadPath := result;
+	TryRead := result;
 	RETURN;
 END_IF
 
 jsonValue := jsonElement.ResolveToSJsonValue(jsonParser,jsonDocument);
-jsonElement.Dispose();
+jsonElement.Release();
 
 IF jsonValue = 0 THEN
-	ReadPath := NOT_FOUND;
+	TryRead := NOT_FOUND;
 	RETURN;
 END_IF
 
 IF jsonParser.IsBool(jsonValue) THEN
 	_BOOL := jsonParser.GetBool(jsonValue);
-	ReadPath := Convert_BOOL_TO_(_BOOL,Destination);
+	TryRead := Convert_BOOL_TO_(_BOOL,Destination);
 	RETURN;
 END_IF
 
 IF jsonParser.IsInt(jsonValue) THEN
 	_DINT := jsonParser.GetInt(jsonValue);
-	ReadPath := Convert_DINT_TO_(_DINT,Destination);
+	TryRead := Convert_DINT_TO_(_DINT,Destination);
 	RETURN;
 END_IF
 
 IF jsonParser.IsInt64(jsonValue) THEN
 	_LINT := jsonParser.GetInt64(jsonValue);
-	ReadPath := Convert_LINT_TO_(_LINT,Destination);
+	TryRead := Convert_LINT_TO_(_LINT,Destination);
 	RETURN;
 END_IF
 
 IF jsonParser.IsUInt(jsonValue) THEN
 	_UDINT := jsonParser.GetUInt(jsonValue);
-	ReadPath := Convert_UDINT_TO_(_UDINT,Destination);
+	TryRead := Convert_UDINT_TO_(_UDINT,Destination);
 	RETURN;
 END_IF
 
 IF jsonParser.IsUInt64(jsonValue) THEN
 	_ULINT := jsonParser.GetUInt64(jsonValue);
-	ReadPath := Convert_ULINT_TO_(_ULINT,Destination);
+	TryRead := Convert_ULINT_TO_(_ULINT,Destination);
 	RETURN;
 END_IF
 
 IF jsonParser.IsDouble(jsonValue) THEN
 	_LREAL := jsonParser.GetDouble(jsonValue);
-	ReadPath := Convert_LREAL_TO_(_LREAL,Destination);
+	TryRead := Convert_LREAL_TO_(_LREAL,Destination);
 	RETURN;
 END_IF
 
 IF jsonParser.IsString(jsonValue) AND Destination.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_STRING THEN
 	_STRING := Destination.pValue;
 	IF (jsonParser.CopyString(jsonValue,_STRING^,Destination.diSize) > 0) THEN;
-		ReadPath := S_OK;
+		TryRead := S_OK;
 		RETURN;
 	END_IF
 END_IF

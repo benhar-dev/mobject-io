@@ -9,9 +9,7 @@ END_VAR
 VAR
 	converted : INT;
 END_VAR
-VAR CONSTANT
-	INCOMPATIBLE : HRESULT := 16#9811070E;
-END_VAR]]></Declaration>
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[converted := UDINT_TO_INT(in);
 

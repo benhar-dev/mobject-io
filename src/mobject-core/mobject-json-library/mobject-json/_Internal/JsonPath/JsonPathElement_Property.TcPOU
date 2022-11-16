@@ -59,13 +59,7 @@ IF currentPosition = 0 THEN
 	RETURN;
 END_IF
 
-ResolveToSJsonValue := jsonParser.FindMember(currentPosition,name);
-
-//IF jsonParser.IsArray(memberPath) THEN
-//	ResolveToSJsonValue := memberPath;
-//ELSE
-//	ResolveToSJsonValue := jsonParser.GetMemberValue(memberPath);
-//END_IF]]></ST>
+ResolveToSJsonValue := jsonParser.FindMember(currentPosition,name);]]></ST>
       </Implementation>
     </Method>
   </POU>

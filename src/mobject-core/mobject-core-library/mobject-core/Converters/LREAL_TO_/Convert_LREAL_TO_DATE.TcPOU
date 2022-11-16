@@ -9,9 +9,7 @@ END_VAR
 VAR
 	converted : DATE;
 END_VAR
-VAR CONSTANT
-	INCOMPATIBLE : HRESULT := 16#9811070E;
-END_VAR]]></Declaration>
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[converted := LREAL_TO_DATE(in);
 

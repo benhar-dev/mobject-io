@@ -29,9 +29,6 @@ VAR
 	_ULINT : ULINT;
 	_USINT : USINT;
 	_WORD : WORD;
-END_VAR
-VAR CONSTANT
-	INCOMPATIBLE : HRESULT := 16#9811070E;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE out.TypeClass OF
