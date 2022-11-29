@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_HttpResponse" Id="{51a83b02-023a-06f8-10aa-8a229dd628e0}">
+    <Declaration><![CDATA[INTERFACE I_HttpResponse EXTENDS I_Disposable
+]]></Declaration>
+    <Property Name="Json" Id="{9e9bd29b-0414-0bc9-23da-ad86ed7a6dec}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Json : I_JsonPath]]></Declaration>
+      <Get Name="Get" Id="{64ba1d36-d431-04d5-0e00-567adbfc79cc}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ResponseCode" Id="{2b6ab977-22c9-0a88-2858-067343e938ff}">
+      <Declaration><![CDATA[PROPERTY PUBLIC ResponseCode : udint]]></Declaration>
+      <Get Name="Get" Id="{c4ccf432-1efa-0875-04f7-adb15e39bfc3}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

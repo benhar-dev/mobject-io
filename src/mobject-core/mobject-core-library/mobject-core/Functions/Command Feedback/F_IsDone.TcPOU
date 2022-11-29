@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_IsDone" Id="{620b8e3f-8997-0738-3bea-a3e66984f371}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_IsDone : BOOL;
+VAR_INPUT
+	Feedback : I_CommandFeedback;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Feedback <> 0 AND_THEN Feedback.Done THEN
+	F_IsDone := TRUE;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

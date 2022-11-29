@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_PackML_SuspendedCommands" Id="{f31c0d5b-acac-0491-1bc4-9e5110404f07}">
+    <Declaration><![CDATA[INTERFACE I_PackML_SuspendedCommands
+]]></Declaration>
+    <Method Name="Abort" Id="{c2b501bc-2d8c-086e-3fd9-ac173dc4eff0}">
+      <Declaration><![CDATA[METHOD PUBLIC Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Stop" Id="{297816d5-de90-0d80-371d-a6f5129a6bb2}">
+      <Declaration><![CDATA[METHOD PUBLIC Stop
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Unsuspend" Id="{199c3e50-b73d-0b1c-0fc2-c7e590019e1b}">
+      <Declaration><![CDATA[METHOD PUBLIC Unsuspend
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

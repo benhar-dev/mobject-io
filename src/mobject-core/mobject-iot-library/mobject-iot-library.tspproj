@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.35">
+	<Project ProjectGUID="{ADDBF286-1B98-4041-B402-BA41E3A71A1F}" Target64Bit="true" ShowHideConfigurations="#x106">
+		<Plc>
+			<Project GUID="{41992315-FA95-4F24-9EAB-1059258BEC92}" Name="mobject-iot" PrjFilePath="mobject-iot\mobject-iot.plcproj" TmcFilePath="mobject-iot\mobject-iot.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e"/>
+		</Plc>
+	</Project>
+</TcSmProject>

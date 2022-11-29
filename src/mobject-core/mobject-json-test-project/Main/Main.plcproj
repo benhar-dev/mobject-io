@@ -23,9 +23,16 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\JsonPath_TestSuit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\TEST_PRG.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="POUs" />
+    <Folder Include="Tests" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="mobject-json">

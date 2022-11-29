@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_PackML_AbortedCommands" Id="{b555524d-549b-0d83-1524-b3f90d512aa1}">
+    <Declaration><![CDATA[INTERFACE I_PackML_AbortedCommands
+]]></Declaration>
+    <Method Name="Clear" Id="{9c2659ef-9635-02bc-21a0-221ddb076b01}">
+      <Declaration><![CDATA[METHOD PUBLIC Clear
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

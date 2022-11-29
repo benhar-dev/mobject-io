@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.35">
+	<Project ProjectGUID="{B9BDAF2D-930E-4983-8EEA-5B0DC43E0E2E}" Target64Bit="true" ShowHideConfigurations="#x106">
+		<Plc>
+			<Project GUID="{DA2FA932-475F-4234-B403-106013EB49E9}" Name="mobject-packml" PrjFilePath="mobject-packml\mobject-packml.plcproj" TmcFilePath="mobject-packml\mobject-packml.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e"/>
+		</Plc>
+	</Project>
+</TcSmProject>

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="AsynchronousCommand" Id="{4573ba5e-f595-4af2-9ceb-09fc18c9edbd}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+  <POU Name="Command" Id="{d59e208f-56ea-0993-208c-31f18de59054}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK ABSTRACT AsynchronousCommand EXTENDS Disposable IMPLEMENTS I_CyclicCalled, I_Command, I_CanReleaseWhenDone
+FUNCTION_BLOCK ABSTRACT Command EXTENDS Disposable IMPLEMENTS I_CyclicCalled, I_Command, I_CanReleaseWhenDone
 VAR
 	cyclicCall : ManualCyclicCall(THIS^);
 	commandFeedback : I_CommandFeedbackReadWrite;
@@ -15,10 +15,10 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Abstract" Id="{be4e69cc-0c81-4045-8111-c266dd4ab910}" />
-    <Folder Name="Private" Id="{9d5c5227-52f5-4c40-92e7-a0bbae19ea54}" />
-    <Folder Name="Protected" Id="{096f4fe6-5bb2-4bb8-a6bb-832023512d0b}" />
-    <Method Name="Abort" Id="{60afcb50-e5af-4421-b1bc-7eeb69aa83d0}">
+    <Folder Name="Abstract" Id="{2ea3f31d-affe-0324-3d76-fa6b4866c4f9}" />
+    <Folder Name="Private" Id="{0db1c8f6-f18a-0f21-2e80-98b63b3597bd}" />
+    <Folder Name="Protected" Id="{9982d537-f8cd-08d9-1adc-bb2db67d50e2}" />
+    <Method Name="Abort" Id="{f0425181-46d0-0740-0ddb-46e6fc86fe39}">
       <Declaration><![CDATA[METHOD PUBLIC Abort : I_CanReleaseWhenDone
 VAR_INPUT
 END_VAR
@@ -45,7 +45,7 @@ IF HasCompleted() THEN
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ClearFeedback" Id="{5b224ecb-5d28-4495-9f77-edea9dba7241}" FolderPath="Private\">
+    <Method Name="ClearFeedback" Id="{cbcfd41a-fe57-07f4-2310-d5e708960fa8}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE ClearFeedback
 VAR_INPUT
 END_VAR
@@ -55,7 +55,7 @@ END_VAR
 commandFeedback := 0;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CompleteTheCommand" Id="{3f77f6ca-3ccf-430a-b4f3-4ad11e70ec64}" FolderPath="Private\">
+    <Method Name="CompleteTheCommand" Id="{af9a6c1b-9fb0-006b-0894-72dc8b5c918d}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE CompleteTheCommand
 VAR_INPUT
 END_VAR
@@ -72,7 +72,7 @@ OnExecuteComplete();
 commandHasCompleted := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CyclicCall" Id="{7d4453bc-d846-4b1a-925e-f901cb1b6de8}">
+    <Method Name="CyclicCall" Id="{eda9c96d-7b39-087b-2e39-c10c5e371001}">
       <Declaration><![CDATA[METHOD PUBLIC CyclicCall
 VAR_INPUT
 END_VAR]]></Declaration>
@@ -93,13 +93,13 @@ DisableCyclicCalling();
 CompleteTheCommand();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="DisableCyclicCalling" Id="{8e9808f9-8f6a-41de-8ce9-d3f6ceea26b0}" FolderPath="Private\">
+    <Method Name="DisableCyclicCalling" Id="{1e759228-2c15-02bf-308e-ebfb5bc65b59}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE DisableCyclicCalling]]></Declaration>
       <Implementation>
         <ST><![CDATA[cyclicCall.Disable();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="DisposeCommand" Id="{96c94693-293c-467d-b91d-0570c6b8b7f5}" FolderPath="Private\">
+    <Method Name="DisposeCommand" Id="{0624dc42-8a43-051c-057a-3d7d5394ca1c}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE DisposeCommand
 VAR_INPUT
 END_VAR
@@ -110,13 +110,13 @@ END_VAR
 SUPER^.OnDispose();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="EnableCyclicCalling" Id="{7c44a651-0968-483b-840e-e2352a4d8094}" FolderPath="Private\">
+    <Method Name="EnableCyclicCalling" Id="{eca93c80-aa17-0b5a-3869-da38bf61fd7d}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EnableCyclicCalling]]></Declaration>
       <Implementation>
         <ST><![CDATA[cyclicCall.Enable();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Execute" Id="{245940fa-5663-43ee-90f4-5403d4f93cb7}">
+    <Method Name="Execute" Id="{b4b4da2b-f51c-008f-2c93-6c0e41d5415e}">
       <Declaration><![CDATA[METHOD PUBLIC Execute : I_CanReleaseWhenDone
 VAR_INPUT
 	Feedback : REFERENCE TO I_CommandFeedback;
@@ -167,7 +167,7 @@ END_IF
 EnableCyclicCalling();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetCustomFeedback" Id="{97fb2c85-2042-475d-9a48-58f6e7709092}" FolderPath="Protected\">
+    <Method Name="GetCustomFeedback" Id="{0716b654-833d-043c-262f-60fb725ced7b}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED GetCustomFeedback : I_CommandFeedbackReadWrite
 VAR
 END_VAR]]></Declaration>
@@ -175,7 +175,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetStandardFeedback" Id="{f5b46f8e-e92c-488b-8d47-06f23dec2c3b}" FolderPath="Private\">
+    <Method Name="GetStandardFeedback" Id="{6559f55f-4a53-0bea-3120-3effa8c051d2}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PROTECTED GetStandardFeedback : I_CommandFeedbackReadWrite
 VAR
 	feedback : POINTER TO CommandFeedback;
@@ -185,7 +185,7 @@ END_VAR]]></Declaration>
 GetStandardFeedback := feedback^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="HasCompleted" Id="{57254ea6-8fe5-4889-8db3-4e6ee8636f4b}" FolderPath="Private\">
+    <Method Name="HasCompleted" Id="{c7c8d477-2c9a-0be8-31d4-76637d4f12a2}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE HasCompleted : BOOL]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF commandFeedback = 0 THEN
@@ -196,7 +196,7 @@ END_IF
 HasCompleted := not commandFeedback.Busy;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsAborting" Id="{826caf00-4fda-4d36-a963-3391fd5b8d02}" FolderPath="Private\">
+    <Method Name="IsAborting" Id="{128135d1-eca5-0e57-1504-0b9c6877f0eb}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE IsAborting : BOOL]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF commandFeedback = 0 THEN
@@ -206,7 +206,7 @@ END_IF
 IsAborting := commandFeedback.Aborting;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsAlreadyExecuting" Id="{2e8792df-35cb-4676-8920-db1b70c114b0}" FolderPath="Private\">
+    <Method Name="IsAlreadyExecuting" Id="{be6a080e-96b4-0517-3547-e316e5ed6959}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE IsAlreadyExecuting : BOOL]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF commandFeedback = 0 THEN
@@ -216,7 +216,7 @@ END_IF
 IsAlreadyExecuting := commandFeedback.Busy;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsStillBusyExecuting" Id="{b51705de-1d6d-48e7-bdae-d504980cfc15}" FolderPath="Private\">
+    <Method Name="IsStillBusyExecuting" Id="{25fa9f0f-be12-0b86-01c9-ed090d2081fc}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE IsStillBusyExecuting : BOOL]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF commandFeedback = 0 THEN
@@ -226,10 +226,10 @@ END_IF
 IsStillBusyExecuting := commandFeedback.Busy and not commandFeedback.Aborting;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnAbort" Id="{434a9592-740f-4773-aecb-a14d6ec189f2}" FolderPath="Protected\">
+    <Method Name="OnAbort" Id="{d3a70f43-d770-0412-12ac-9940fbedf41b}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnAbort
 VAR_INPUT
-	CommandState : I_AsynchronousCommandAbortingState;
+	CommandState : I_CommandAbortingState;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// override this method when a command needs time to "abort".
@@ -237,7 +237,7 @@ END_VAR]]></Declaration>
 CommandState.SetAborted();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnDispose" Id="{5ff28acb-f4dc-4a9e-8c17-5e597a32b0bf}" FolderPath="Protected\">
+    <Method Name="OnDispose" Id="{cf1f101a-57a3-09ff-3070-6654ef1ecd56}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnDispose
 VAR_INPUT
 END_VAR
@@ -252,16 +252,16 @@ END_IF
 DisposeCommand();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{4ead10dc-3960-417d-bc9f-9eb0b39493b9}" FolderPath="Protected\">
+    <Method Name="OnExecute" Id="{de408a0d-9a1f-021c-00f8-a6bd26b8ee50}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
 VAR_INPUT
-	CommandState : I_AsynchronousCommandBusyState;
+	CommandState : I_CommandBusyState;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecuteComplete" Id="{402c5721-0aa2-4b06-b79b-477923b3c1d3}" FolderPath="Protected\">
+    <Method Name="OnExecuteComplete" Id="{d0c1cdf0-a9dd-0867-0bfc-7f74b69fbc3a}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnExecuteComplete
 VAR_INPUT
 END_VAR
@@ -270,7 +270,7 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ThenRelease" Id="{f14c49ed-80c5-440c-a292-a74bf9c9d2ce}">
+    <Method Name="ThenRelease" Id="{61a1d33c-23ba-076d-1ef5-9f466ce5af27}">
       <Declaration><![CDATA[METHOD PUBLIC ThenRelease
 VAR_INPUT
 END_VAR
@@ -284,10 +284,10 @@ END_IF
 disposeOnceComplete := true;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="WhileAborting" Id="{ce6eb5fa-6b19-440c-b4ec-8ab0fa207070}" FolderPath="Protected\">
+    <Method Name="WhileAborting" Id="{5e832f2b-c866-076d-088b-b2bd6f0c0d99}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED WhileAborting
 VAR_INPUT
-	CommandState : I_AsynchronousCommandAbortingState;
+	CommandState : I_CommandAbortingState;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// you must override both OnAbort and WhileAborting to use this method.
@@ -295,10 +295,10 @@ END_VAR]]></Declaration>
 CommandState.SetAborted();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="WhileBusy" Id="{6b6b99f4-f4dd-4ca8-96fd-a4ad4ce31355}" FolderPath="Abstract\">
+    <Method Name="WhileBusy" Id="{fb860325-57a2-0fc9-2a9a-9ca0d9cf6ebc}" FolderPath="Abstract\">
       <Declaration><![CDATA[METHOD PROTECTED ABSTRACT WhileBusy
 VAR_INPUT
-	CommandState : I_AsynchronousCommandBusyState;
+	CommandState : I_CommandBusyState;
 END_VAR
 ]]></Declaration>
       <Implementation>

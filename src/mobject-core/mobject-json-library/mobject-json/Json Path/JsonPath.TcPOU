@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="JsonPath" Id="{91fdfc05-0255-43a2-90ca-ffd8e5cfa080}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK JsonPath IMPLEMENTS I_JsonPath
+  <POU Name="JsonPath" Id="{6d6b4b3c-6b09-0c93-2257-06319394a055}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK JsonPath IMPLEMENTS I_JsonPath
 VAR
 	jsonParser : FB_JsonDomParser;
 	jsonDocument : SJsonValue;
-END_VAR
-VAR CONSTANT
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Parse" Id="{b658e62e-3799-4095-9f1e-b3b4cdcb1654}">
+    <Method Name="Parse" Id="{4ace5117-5ec5-0fa4-2d83-4a5dbb901681}">
       <Declaration><![CDATA[METHOD PUBLIC Parse : I_JsonPath
 VAR_INPUT
 	JsonString : REFERENCE TO STRING;
@@ -22,7 +23,7 @@ END_VAR
 Parse := this^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ParseFromHttpRequest" Id="{db28d493-2bc0-424c-bb7e-318f6ef440be}">
+    <Method Name="ParseFromHttpRequest" Id="{27be63aa-429c-0d7d-09e3-c86618af406b}">
       <Declaration><![CDATA[METHOD PUBLIC ParseFromHttpRequest : I_JsonPath
 VAR_INPUT
 	HttpRequest : REFERENCE TO FB_IotHttpRequest;
@@ -33,7 +34,7 @@ END_VAR
 ParseFromHttpRequest := this^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TryRead" Id="{69ccef2a-b6a5-4daf-8700-f2215c7efe88}">
+    <Method Name="TryRead" Id="{955a5813-dff9-029e-359d-0bc82a25fe5d}">
       <Declaration><![CDATA[METHOD PUBLIC TryRead : HRESULT
 VAR_INPUT
 	Path : T_MaxString;

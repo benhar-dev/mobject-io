@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="InstanceRemovedEvent" Id="{227f2fc3-0115-4986-9712-4ba0d0df4526}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="InstanceRemovedEvent" Id="{b292b512-a26a-0ae7-2b75-73ad45f338cf}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK InstanceRemovedEvent EXTENDS Event IMPLEMENTS I_InstanceRemovedEvent
 VAR
 	_instance : I_Instance;
@@ -35,9 +36,9 @@ END_VAR
         </XmlArchive>
       </CFC>
     </Implementation>
-    <Property Name="Instance" Id="{1f253a84-dc7a-4c27-8a4b-538ae767b11c}">
+    <Property Name="Instance" Id="{8fc8a055-7f05-0f46-362c-6b87724bccf5}">
       <Declaration><![CDATA[PROPERTY PUBLIC Instance : I_Instance]]></Declaration>
-      <Get Name="Get" Id="{4e7b4e23-c9cc-444f-99ba-1b8dfbe37bfa}">
+      <Get Name="Get" Id="{de96d4f2-6ab3-072e-25dd-23806ecf0613}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -46,7 +47,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="Notify" Id="{3f18c54f-f9ce-4136-99a6-703b5bcb05cc}">
+    <Method Name="Notify" Id="{aff55f9e-5ab1-0257-25c1-4836cee77825}">
       <Declaration><![CDATA[METHOD PUBLIC Notify
 VAR_INPUT
 	Instance : I_Instance;

@@ -40,13 +40,13 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\Commands\Cylinder_ExtendCommand.TcPOU">
+    <Compile Include="POUs\CommandExamples\Cylinder\Commands\Cylinder_ExtendCommand.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\I_Cylinder.TcIO">
+    <Compile Include="POUs\CommandExamples\Cylinder\I_Cylinder.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\AsyncCommandsExamples\Cylinder\SimulationTwoPositionCylinderWithFeedback.TcPOU">
+    <Compile Include="POUs\CommandExamples\Cylinder\SimulationTwoPositionCylinderWithFeedback.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\CyclicInstanceExamples\ExampleFlashingLamp_Composition.TcPOU">
@@ -61,9 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="POUs" />
-    <Folder Include="POUs\AsyncCommandsExamples" />
-    <Folder Include="POUs\AsyncCommandsExamples\Cylinder" />
-    <Folder Include="POUs\AsyncCommandsExamples\Cylinder\Commands" />
+    <Folder Include="POUs\CommandExamples" />
+    <Folder Include="POUs\CommandExamples\Cylinder" />
+    <Folder Include="POUs\CommandExamples\Cylinder\Commands" />
     <Folder Include="POUs\CyclicInstanceExamples" />
   </ItemGroup>
   <ItemGroup>

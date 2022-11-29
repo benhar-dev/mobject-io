@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="TEST_PRG" Id="{f82fcdb8-2c22-4362-bb6e-b02954d36a8d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM TEST_PRG
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TcUnit.RUN();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="ManualCyclicCall" Id="{d2a6eae5-f4c1-4aa1-b9bb-b0e27da19250}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ManualCyclicCall EXTENDS Instance IMPLEMENTS I_CyclicInstance
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ManualCyclicCall" Id="{424b7034-57be-09c0-05dc-88efe88defb9}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK ManualCyclicCall EXTENDS Instance IMPLEMENTS I_CyclicInstance
 VAR
 	membership : GlobalInstanceMembership(THIS^);
 	_cyclicInstanceCallback : CyclicCallback(0);
@@ -10,10 +13,10 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{95d99c90-78e5-4239-959f-5a2084f3c724}" />
-    <Property Name="CyclicInstanceCallback" Id="{b1af1ac8-3131-42cd-ae1a-263c770de573}">
+    <Folder Name="Constructor" Id="{05340641-db9a-0158-29f8-622d11dfbacd}" />
+    <Property Name="CyclicInstanceCallback" Id="{21428019-924e-01ac-127d-1e31e221989a}">
       <Declaration><![CDATA[PROPERTY PUBLIC CyclicInstanceCallback : I_Callback]]></Declaration>
-      <Get Name="Get" Id="{3355e5d4-0172-4e55-a365-facbcd3477b6}">
+      <Get Name="Get" Id="{a3b87f05-a20d-0d34-1f02-c2c658180a5f}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -22,7 +25,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="Disable" Id="{f8a54ed5-10e8-43e3-b598-39d803f73ba2}">
+    <Method Name="Disable" Id="{6848d404-b397-0082-09ff-01d596db464b}">
       <Declaration><![CDATA[METHOD PUBLIC Disable
 VAR_INPUT
 END_VAR
@@ -31,7 +34,7 @@ END_VAR
         <ST><![CDATA[membership.Leave();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Enable" Id="{03c801e5-9dd4-423c-86e3-6dcb4b0a8928}">
+    <Method Name="Enable" Id="{93259b34-3eab-015d-3a84-55c6de26f4c1}">
       <Declaration><![CDATA[METHOD PUBLIC Enable
 VAR_INPUT
 END_VAR
@@ -40,7 +43,7 @@ END_VAR
         <ST><![CDATA[membership.Join();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{7726bab5-3c2e-47e7-b183-140b6f298cd0}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{e7cb2064-9f51-0486-0de4-2c06fa05f139}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)

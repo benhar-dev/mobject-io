@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="CyclicCallback" Id="{9f56da02-9969-4a62-b3ab-89de78f9213e}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="CyclicCallback" Id="{0fbb40d3-3a16-0903-0fcc-b1d3edd55cd7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK CyclicCallback IMPLEMENTS I_Callback
 VAR
 	_target : I_CyclicCalled;
@@ -11,8 +12,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{233d67cf-f5ec-42c2-8221-8a5683f18ef1}" />
-    <Method Name="FB_init" Id="{ab963e7e-1c1f-4632-a9d5-57230918bf9f}" FolderPath="Constructor\">
+    <Folder Name="Constructor" Id="{b3d0fd1e-5693-01a3-3e46-b25b16ddf318}" />
+    <Method Name="FB_init" Id="{3b7ba4af-bf60-0553-15b2-6f2e9c34c276}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -24,9 +25,9 @@ END_VAR
         <ST><![CDATA[this^._target := Target;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Target" Id="{25bdf4f3-179d-4bda-b967-ba2c8f26a57b}">
+    <Property Name="Target" Id="{b5506e22-b4e2-08bb-0500-82211a0ad892}">
       <Declaration><![CDATA[PROPERTY PUBLIC Target : I_CyclicCalled]]></Declaration>
-      <Get Name="Get" Id="{047a067b-4fe8-4c10-9801-ff109a08f758}">
+      <Get Name="Get" Id="{94979caa-ec97-0f71-2466-c71d0f248ab1}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -34,7 +35,7 @@ END_VAR
           <ST><![CDATA[Target := _target;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{a022aec8-770a-40f0-b6b7-aa4de4cd8f6e}">
+      <Set Name="Set" Id="{30cf3419-d475-0391-0ad0-924071e1f287}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -43,7 +44,7 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Method Name="Update" Id="{b0c3b4d3-42f6-4a0a-b433-de659224cd84}">
+    <Method Name="Update" Id="{202e2e02-e189-096b-0854-e6680708b06d}">
       <Declaration><![CDATA[METHOD PUBLIC Update
 VAR_INPUT
 	Event : I_Event;

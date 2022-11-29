@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="HttpResponse" Id="{5ba5ba56-9f23-058d-1281-9ac54ea521e6}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK HttpResponse EXTENDS Disposable IMPLEMENTS I_HttpResponse
+VAR
+	jsonPath : JsonPath;	
+	nStatusCode : UDINT;
+	eErrorId : ETcIotHttpRequestError;
+	nContentSize : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{ecd58a11-ff1d-063b-3568-ab388f285118}" />
+    <Method Name="FB_init" Id="{dbac5125-6aeb-0741-26f5-700a2147982a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	HttpRequest : REFERENCE TO FB_IotHttpRequest;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nStatusCode := HttpRequest.nStatusCode;
+eErrorId := HttpRequest.eErrorId;
+nContentSize := HttpRequest.nContentSize;
+jsonPath.ParseFromHttpRequest(HttpRequest);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Json" Id="{3263a925-93fd-0bc2-25b2-5d516a8dfd8c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Json : I_JsonPath]]></Declaration>
+      <Get Name="Get" Id="{13e1e08b-3680-06b9-3287-d6c33c7d6cb6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Json := jsonPath;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ResponseCode" Id="{7b81a008-00fe-02d0-3cd4-a50229b5c720}">
+      <Declaration><![CDATA[PROPERTY PUBLIC ResponseCode : udint]]></Declaration>
+      <Get Name="Get" Id="{9e67abff-fdfe-0aea-116a-1a17aa66cb3a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ResponseCode := nStatusCode;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

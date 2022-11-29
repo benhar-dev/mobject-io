@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="SubscriberCollection" Id="{49fa52f6-80e9-47e5-97e8-bab123e19f18}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="SubscriberCollection" Id="{d917c827-2396-0484-2b8f-82bcb6cde2f1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK SubscriberCollection
 VAR
 	collection : Collection;
@@ -11,9 +12,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="Count" Id="{39367114-1b17-445b-9fee-a0418561408a}">
+    <Property Name="Count" Id="{a9dbebc5-b868-073a-2389-984c104d3d63}">
       <Declaration><![CDATA[PROPERTY PUBLIC Count : UDINT]]></Declaration>
-      <Get Name="Get" Id="{ea189a06-ec9d-44f7-902b-e23e3af2278b}">
+      <Get Name="Get" Id="{7af500d7-4fe2-0796-2c4c-da33afde5a62}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -22,7 +23,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="GetByIndex" Id="{cbe1a40a-f7ae-400c-a7be-3b7d48dc00de}">
+    <Method Name="GetByIndex" Id="{5b0c3edb-54d1-036d-1bd9-0370ddf07d37}">
       <Declaration><![CDATA[METHOD PUBLIC GetByIndex : I_Subscriber
 VAR_INPUT
 	Index : UDINT;
@@ -36,7 +37,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Insert" Id="{bb6174ed-ebf0-4df0-8a8c-0ff98563261c}">
+    <Method Name="Insert" Id="{2b8cee3c-488f-0e91-36eb-37f4104f5bf5}">
       <Declaration><![CDATA[METHOD PUBLIC Insert
 VAR_INPUT
 	Subscriber : I_Subscriber;
@@ -50,7 +51,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Remove" Id="{58b669f5-2b03-4920-99c2-00094c60fbd2}">
+    <Method Name="Remove" Id="{c85bf324-887c-0a41-25a5-3804d94c863b}">
       <Declaration><![CDATA[METHOD Remove : BOOL
 VAR_INPUT
 	Subscriber : I_Subscriber;

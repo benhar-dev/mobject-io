@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="GlobalInstanceMembership" Id="{c3945efc-c3cf-4cf7-9b60-267db192e2ba}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="GlobalInstanceMembership" Id="{5379c42d-60b0-0f96-2707-1e7024be9f53}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK GlobalInstanceMembership
 VAR
 	self : I_Instance;
@@ -12,9 +13,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{728f6580-c734-4667-b96f-4839827c4081}" />
-    <Folder Name="Destructor" Id="{c40fa4d9-48ef-4598-b3a0-1912f1f4cdfb}" />
-    <Method Name="FB_exit" Id="{a9e760cb-6de6-4d5c-a462-b6302a52e14d}" FolderPath="Destructor\">
+    <Folder Name="Constructor" Id="{e262ff51-644b-0506-0508-703417503d68}" />
+    <Folder Name="Destructor" Id="{54e23e08-eb90-06f9-0fc7-211f64d8b012}" />
+    <Method Name="FB_exit" Id="{390afa1a-ce99-0e3d-1805-8e3dbf7e9ca4}" FolderPath="Destructor\">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
@@ -24,7 +25,7 @@ END_VAR
         <ST><![CDATA[Leave();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{1392b377-c760-427e-8d49-00af63536f43}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{837f29a6-641f-011f-312e-38a2f67f12aa}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -36,7 +37,7 @@ END_VAR
         <ST><![CDATA[THIS^.self := Self;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Join" Id="{87bc7d20-8388-4b9d-bbd8-1072bb7781ac}">
+    <Method Name="Join" Id="{1751e7f1-20f7-08fc-07bf-287f2e5bfc45}">
       <Declaration><![CDATA[METHOD PUBLIC Join
 VAR_INPUT
 END_VAR
@@ -45,7 +46,7 @@ END_VAR
         <ST><![CDATA[globalInstanceMembers.AddInstance(Self);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Leave" Id="{0ed57ad7-001d-467b-b611-42a3834425ca}">
+    <Method Name="Leave" Id="{9e38e006-a362-051a-0a76-7aae16685823}">
       <Declaration><![CDATA[METHOD PUBLIC Leave
 VAR_INPUT
 END_VAR

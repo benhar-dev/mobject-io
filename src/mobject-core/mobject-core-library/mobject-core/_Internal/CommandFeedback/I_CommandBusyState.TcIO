@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <Itf Name="I_AsynchronousCommandBusyState" Id="{ac32b9d1-66c3-4455-9f40-dadf7044247c}">
-    <Declaration><![CDATA[INTERFACE I_AsynchronousCommandBusyState
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_CommandBusyState" Id="{ac32b9d1-66c3-4455-9f40-dadf7044247c}">
+    <Declaration><![CDATA[INTERFACE I_CommandBusyState
 ]]></Declaration>
     <Method Name="SetAborting" Id="{e0e67b54-8972-43b1-a296-2dc05d87b1ea}">
       <Declaration><![CDATA[METHOD PUBLIC SetAborting

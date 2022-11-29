@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_CommandFeedbackReadWrite" Id="{2691a8b1-1544-41ef-976d-1b32800c8e52}">
-    <Declaration><![CDATA[INTERFACE I_CommandFeedbackReadWrite EXTENDS I_CommandFeedback, I_AsynchronousCommandBusyState, I_AsynchronousCommandAbortingState, I_SynchronousCommandBusyState
+    <Declaration><![CDATA[INTERFACE I_CommandFeedbackReadWrite EXTENDS I_CommandFeedback, I_CommandBusyState, I_CommandAbortingState
 ]]></Declaration>
     <Method Name="SetBusy" Id="{93d3b7cd-e7ce-44b8-a9f8-94592c7cfb5a}">
       <Declaration><![CDATA[METHOD PUBLIC SetBusy

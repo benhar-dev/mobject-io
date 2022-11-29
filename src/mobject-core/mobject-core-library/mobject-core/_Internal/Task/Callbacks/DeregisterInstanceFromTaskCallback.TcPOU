@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="DeregisterInstanceFromTaskCallback" Id="{e36b6dd5-f56c-4ec8-a6bf-494c674bda54}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="DeregisterInstanceFromTaskCallback" Id="{7386f704-5613-0da9-1ad8-7141f267a7bd}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK DeregisterInstanceFromTaskCallback IMPLEMENTS I_Callback
 VAR
 	task : I_Task;
@@ -10,8 +11,8 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{9501917c-6917-4111-8e58-55a142dfe3dc}" />
-    <Method Name="FB_init" Id="{ddbb7130-b092-4d5b-8f57-fb6f20dd8085}" FolderPath="Constructor\">
+    <Folder Name="Constructor" Id="{05ec0bad-ca68-0270-323f-6dacd7f39e35}" />
+    <Method Name="FB_init" Id="{4d56ebe1-13ed-0e3a-3330-c362b5f1fd6c}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -23,7 +24,7 @@ END_VAR
         <ST><![CDATA[this^.task := Task;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Update" Id="{a8e181ee-b041-4e2c-8c33-116a4739364f}">
+    <Method Name="Update" Id="{380c1b3f-133e-0d4d-3054-2967d2154ba6}">
       <Declaration><![CDATA[METHOD PUBLIC Update
 VAR_INPUT
 	event : I_Event;

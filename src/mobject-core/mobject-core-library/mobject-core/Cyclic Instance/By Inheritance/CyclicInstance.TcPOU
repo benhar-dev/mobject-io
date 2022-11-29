@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="CyclicInstance" Id="{dc2e84c3-6d56-43a2-a4f0-a82e4ef40050}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="CyclicInstance" Id="{4cc31e12-ce29-00c3-1897-9023dbd87db9}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK ABSTRACT CyclicInstance EXTENDS Instance IMPLEMENTS I_CyclicCalled
 VAR
 	cyclicCall : AutomaticCyclicCall(THIS^);
@@ -10,8 +11,8 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Abstract" Id="{25661d79-aab9-4fb7-bdb4-976335c48e7a}" />
-    <Method Name="CyclicCall" Id="{88412bc0-cc27-4015-9d40-0dabd1437f7c}" FolderPath="Abstract\">
+    <Folder Name="Abstract" Id="{b58b87a8-09c6-0cd6-01d3-af6ea0e8f393}" />
+    <Method Name="CyclicCall" Id="{18acb111-6f58-0374-2127-35a6446f0295}" FolderPath="Abstract\">
       <Declaration><![CDATA[METHOD ABSTRACT CyclicCall
 VAR_INPUT
 END_VAR]]></Declaration>

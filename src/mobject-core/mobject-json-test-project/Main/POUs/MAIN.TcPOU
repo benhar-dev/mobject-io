@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="MAIN" Id="{281fb6ec-b826-070c-22e1-d9136e19a5d9}" SpecialFunc="None">
+  <POU Name="MAIN" Id="{40dfb426-e834-4518-bc45-c778a4452b2f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	
@@ -35,7 +35,10 @@ hresult := jsonPath.TryRead('.factory.machines[0].speed',myInt); // hresult = IN
 
 // this will fail as the property 'hello' cannot be found. 
 
-hresult := jsonPath.TryRead('.factory.machines[0].hello',myInt); // hresult = NOTFOUND, myInt = no change]]></ST>
+hresult := jsonPath.TryRead('.factory.machines[0].hello',myInt); // hresult = NOTFOUND, myInt = no change
+
+// library test runner
+TEST_PRG();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

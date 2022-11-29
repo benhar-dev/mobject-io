@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Instance" Id="{61104ee8-d822-48ac-bc47-45dfd009ac1e}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
-{attribute 'reflection'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Instance" Id="{f1fdd439-7b5d-0bcd-0020-7dd24525d1f7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
+{attribute 'reflection'}
 FUNCTION_BLOCK Instance IMPLEMENTS I_Instance, I_Collectable
 {attribute 'hide_all_locals'}
 VAR
@@ -18,8 +18,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Internal" Id="{76b2da4f-a3ed-429e-bbe9-ef5156816628}" />
-    <Method Name="GetNamespace" Id="{e810ce99-9d71-40ac-ae11-a84e6012dcad}" FolderPath="Internal\">
+    <Folder Name="Internal" Id="{e65f409e-0092-01ff-078e-d75cc3ad1bc1}" />
+    <Method Name="GetNamespace" Id="{78fd5448-3e0e-03cd-1276-9043f53ea144}" FolderPath="Internal\">
       <Declaration><![CDATA[METHOD PRIVATE GetNamespace : STRING]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF InstancePathIsFilled() THEN
@@ -32,13 +32,13 @@ IF IsNewObjectDuringInitialization() THEN
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="InstancePathIsFilled" Id="{a2b17ef6-cb9e-476e-9f89-78e97494c366}" FolderPath="Internal\">
+    <Method Name="InstancePathIsFilled" Id="{325ce427-68e1-040f-23ee-40e4e1b8be8f}" FolderPath="Internal\">
       <Declaration><![CDATA[METHOD PRIVATE InstancePathIsFilled : BOOL]]></Declaration>
       <Implementation>
         <ST><![CDATA[InstancePathIsFilled := instancePath <> '';]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsNewObjectDuringInitialization" Id="{f91ae77a-c70e-4c49-b9e0-7278c8ae9b64}" FolderPath="Internal\">
+    <Method Name="IsNewObjectDuringInitialization" Id="{69f77dab-6471-0f28-0587-4a755d82e68d}" FolderPath="Internal\">
       <Declaration><![CDATA[METHOD PRIVATE IsNewObjectDuringInitialization : BOOL
 VAR CONSTANT 
 	PLC_INIT_PHASE : INT := 0;
@@ -47,9 +47,9 @@ END_VAR]]></Declaration>
         <ST><![CDATA[IsNewObjectDuringInitialization := GETCURTASKINDEXEX() = PLC_INIT_PHASE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="NameSpace" Id="{7ae71e18-c030-4e06-a315-882f3a357dc0}">
+    <Property Name="NameSpace" Id="{ea0a84c9-634f-0d67-1f72-b022af190029}">
       <Declaration><![CDATA[PROPERTY PUBLIC NameSpace : STRING]]></Declaration>
-      <Get Name="Get" Id="{c3db41fa-c4f3-4c5f-9e86-90343b017ae9}">
+      <Get Name="Get" Id="{5336db2b-678c-0f3e-22e1-a839ae2d0700}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -58,7 +58,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="SharesNamespaceWith" Id="{8bc887fe-eaed-4854-bdd7-2e4b9a46a836}">
+    <Method Name="SharesNamespaceWith" Id="{1b251d2f-4992-0b35-01b0-16460f6ad5df}">
       <Declaration><![CDATA[METHOD PUBLIC SharesNamespaceWith : BOOL
 VAR_INPUT
 	OtherInstance : I_Instance;

@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="AutomaticCyclicCall" Id="{a2b7e627-a5fd-402e-9eb5-f07e8064d422}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK AutomaticCyclicCall EXTENDS Instance IMPLEMENTS I_CyclicInstance
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="AutomaticCyclicCall" Id="{325a7cf6-0682-034f-22d2-c8731548a9cb}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK AutomaticCyclicCall EXTENDS Instance IMPLEMENTS I_CyclicInstance
 VAR
 	membership : GlobalInstanceMembership(THIS^);
 	_cyclicInstanceCallback : CyclicCallback(0);
@@ -10,10 +13,10 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{227b16bd-e892-4d8a-ae22-6c11c5a245f0}" />
-    <Property Name="CyclicInstanceCallback" Id="{3357174e-c594-4633-a65d-716774e3c184}">
+    <Folder Name="Constructor" Id="{b2968c6c-4bed-0eeb-1245-541c508e3819}" />
+    <Property Name="CyclicInstanceCallback" Id="{a3ba8d9f-66eb-0552-1a3a-496ae1cfbc6d}">
       <Declaration><![CDATA[PROPERTY PUBLIC CyclicInstanceCallback : I_Callback]]></Declaration>
-      <Get Name="Get" Id="{2a63e816-aedf-4c00-b118-0232bfc223e2}">
+      <Get Name="Get" Id="{ba8e72c7-0da0-0f61-0d7f-3a3f2aee5e0b}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -22,7 +25,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{c65d8418-85fb-461a-ba3b-19538b54bc1a}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{56b01ec9-2684-057b-065c-215e1e78c1f3}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)

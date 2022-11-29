@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="RegisterInstancesToTaskVisitor" Id="{47198838-e3d5-441d-8e8c-48c5d4d330b3}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="RegisterInstancesToTaskVisitor" Id="{d7f412e9-40aa-077c-32eb-70c841ff4d5a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK RegisterInstancesToTaskVisitor IMPLEMENTS I_VisitIntances
 VAR
 	task : I_Task;
@@ -11,8 +12,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{c715e4be-f8d7-44a5-93dc-7a578205db4d}" />
-    <Method Name="FB_init" Id="{be82548b-0385-4b38-a84f-93a3a82cb800}" FolderPath="Constructor\">
+    <Folder Name="Constructor" Id="{57f87e6f-5ba8-07c4-2fbb-425a1729a6a4}" />
+    <Method Name="FB_init" Id="{2e6fce5a-a0fa-0859-1428-abae3d00c5e9}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -24,7 +25,7 @@ END_VAR
         <ST><![CDATA[this^.task := Task;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Visit" Id="{b9197ca1-cc69-47ae-bc48-9824cfe7e32c}">
+    <Method Name="Visit" Id="{29f4e670-6f16-04cf-002f-a0295acb9ec5}">
       <Declaration><![CDATA[METHOD PUBLIC Visit
 VAR_INPUT
 	Instance : I_Instance;

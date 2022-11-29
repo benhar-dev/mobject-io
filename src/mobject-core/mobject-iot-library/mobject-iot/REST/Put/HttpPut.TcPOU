@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="HttpPut" Id="{82c5f36d-01f2-0b7d-25e2-f49975c3f814}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK HttpPut EXTENDS Command
+VAR
+	url : T_MAXSTRING;
+	httpClient : REFERENCE TO FB_IotHttpClient;	
+	response : REFERENCE TO I_HttpResponse;
+    httpRequest : FB_IotHttpRequest;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{d1eeab10-647d-0ddd-21e4-e8fdb662cf4e}" />
+    <Folder Name="Protected" Id="{73fa9e4c-5c84-07f6-396a-820ade00449b}" />
+    <Method Name="FB_init" Id="{c53a9f19-99da-0210-3a2c-e2e4d2c07782}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)	
+	HttpClient : REFERENCE TO FB_IotHttpClient;
+	Url : T_MAXSTRING;
+	Response : REFERENCE TO I_HttpResponse;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.httpClient REF= HttpClient;
+THIS^.url := Url;
+This^.response ref= Response;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{46660c52-7387-06cf-1a6f-0ec72d383e6a}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR_INPUT
+	CommandState : I_CommandBusyState;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[F_SafeRelease(response);
+httpRequest.SendRequest(sUri:= url,fbClient:= httpClient,eRequestType:= ETcIotHttpRequestType.HTTP_PUT, 0, 0, 0);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhileBusy" Id="{bb4280db-5999-0fc2-043b-076d505e45c9}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED WhileBusy
+VAR_INPUT
+	commandState : I_CommandBusyState;
+END_VAR
+VAR
+	httpResponse : POINTER TO HTTPResponse;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF httpRequest.bBusy THEN
+	 RETURN;
+END_IF
+
+IF httpRequest.bError THEN
+	commandState.SetError(httpRequest.eErrorId);
+	RETURN;
+END_IF
+
+httpResponse := __NEW(HttpResponse(HttpRequest := httpRequest));
+response := httpResponse^;
+
+commandState.SetDone();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

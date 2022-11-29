@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_IsBusy" Id="{3ff8e7bf-f005-02d8-3c7f-1cbbbdf0aa53}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_IsBusy : BOOL;
+VAR_INPUT
+	Feedback : I_CommandFeedback;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Feedback <> 0 AND_THEN Feedback.Busy THEN
+	F_IsBusy := TRUE;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

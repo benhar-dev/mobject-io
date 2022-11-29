@@ -110,7 +110,9 @@ END_VAR
 In the IEC standard there is no keyword for Class, instead you must use a Function Block with the attributes shown below.  
 You should decorate your classes with the no_explicit_call attribute to prevent if from being used as a standard IEC Function Block. 
 ```example
+{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 ```
 !>You must not place code in the FUNCTION_BLOCK body.  Use a public method instead, such as .CyclicCall();
 

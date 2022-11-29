@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_PackML_UnholdingCommands" Id="{2ed69181-4160-0c5d-1d9d-bb7c14caa326}">
+    <Declaration><![CDATA[INTERFACE I_PackML_UnholdingCommands
+]]></Declaration>
+    <Method Name="Abort" Id="{4e7e3af3-28c7-0217-0911-25fd9ed0093f}">
+      <Declaration><![CDATA[METHOD PUBLIC Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="StateComplete" Id="{2e335044-0308-0546-193b-aceb6a225033}">
+      <Declaration><![CDATA[METHOD StateComplete
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Stop" Id="{4577b164-d5e6-028f-054b-5e25dcb4c9bc}">
+      <Declaration><![CDATA[METHOD PUBLIC Stop
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

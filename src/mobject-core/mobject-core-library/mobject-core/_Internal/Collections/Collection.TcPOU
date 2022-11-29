@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Collection" Id="{02cd4f79-ea16-4bc5-ab43-4e3e5f3ec2c0}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Collection
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Collection" Id="{9220d5a8-4969-08a4-1724-7633ca12bf29}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Collection
 VAR
 	head : I_CollectionNode;
 END_VAR
@@ -9,10 +12,10 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Destructor" Id="{1f30c3ec-e824-4fdb-a84c-193bac262648}" />
-    <Property Name="Count" Id="{8842bc34-c017-4b95-8e0e-89eca5059051}">
+    <Folder Name="Destructor" Id="{8fdd593d-4b5b-0cba-142b-2136390a5ba1}" />
+    <Property Name="Count" Id="{18af26e5-6368-08f4-3269-b1e13029edb8}">
       <Declaration><![CDATA[PROPERTY PUBLIC Count : UDINT]]></Declaration>
-      <Get Name="Get" Id="{143f0c89-d525-45bf-91db-43dc91e6fe97}">
+      <Get Name="Get" Id="{84d29658-765a-06de-2dbc-7bd104ca837e}">
         <Declaration><![CDATA[VAR
 	currentCount : UDINT;
 	currentNode : I_CollectionNode;
@@ -31,7 +34,7 @@ Count := currentCount;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_exit" Id="{31643322-c431-497d-98d4-9a0d12ccf498}" FolderPath="Destructor\">
+    <Method Name="FB_exit" Id="{a189a9f3-674e-0a1c-24b3-a20087e08971}" FolderPath="Destructor\">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
@@ -52,7 +55,7 @@ WHILE currentNode <> 0 DO
 END_WHILE;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetByIndex" Id="{5c6e0bb6-37e8-44ee-8654-d23c03f35250}">
+    <Method Name="GetByIndex" Id="{cc839167-9497-078f-3a33-ea3196df2fb9}">
       <Declaration><![CDATA[METHOD PUBLIC GetByIndex : I_Collectable
 VAR_INPUT
 	Index : UDINT;
@@ -83,7 +86,7 @@ WHILE currentNode <> 0 DO
 END_WHILE;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Insert" Id="{d3d57015-68eb-4d29-bf3e-5be357249a89}">
+    <Method Name="Insert" Id="{4338eac4-cb94-0e48-0359-63eec208e760}">
       <Declaration><![CDATA[METHOD PUBLIC Insert
 VAR_INPUT
 	CollectableObject : I_Collectable;
@@ -109,7 +112,7 @@ END_WHILE;
 last.next := pCollectionNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Remove" Id="{ec2ed065-5448-44be-9b23-02a0f4d6dab4}">
+    <Method Name="Remove" Id="{7cc34ab4-f737-07df-2744-3aad61faa75d}">
       <Declaration><![CDATA[METHOD PUBLIC Remove
 VAR_INPUT
 	CollectableObject : I_Collectable;
@@ -155,7 +158,7 @@ currentNode.Next := 0;
 currentNode.Destroy();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RemoveByIndex" Id="{cf3040fc-88bc-4bc6-a3a2-0b0e27b77dd6}">
+    <Method Name="RemoveByIndex" Id="{5fddda2d-2bc3-08a7-1fc5-3303b29b003f}">
       <Declaration><![CDATA[METHOD PUBLIC RemoveByIndex
 VAR_INPUT
 	Index : UDINT;

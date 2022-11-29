@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_PackML_Mode" Id="{97fc6d2f-c469-4986-a6ff-20099b2007b5}">
+    <Declaration><![CDATA[INTERFACE I_PackML_Mode
+]]></Declaration>
+    <Folder Name="Properties" Id="{cb4b7309-a058-470e-aac8-fac2e1e7c07f}" />
+    <Folder Name="Public" Id="{f3cdd0d6-b9cd-4fbc-be23-18918415331b}" />
+    <Method Name="Abort" Id="{d65dcde3-6a3b-4d68-92ca-d7db64a16943}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Clear" Id="{50999d02-ae62-45b8-b7bd-001050f2aab4}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Clear
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="CurrentState" Id="{654531f9-76ae-4aef-8560-1c397ee53157}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC CurrentState : PackML_State]]></Declaration>
+      <Get Name="Get" Id="{ce8e1346-6609-41ed-b00d-dc8c4571d758}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="CyclicCall" Id="{d5bbdca6-03e6-4649-ae79-8146379d0d79}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC CyclicCall
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Hold" Id="{612804b0-88e8-444e-b1c2-038d511f2570}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Hold
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="IsAborted" Id="{0f9d10af-1131-4b57-94d1-21a74074f8a0}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsAborted : bool]]></Declaration>
+      <Get Name="Get" Id="{45b6c7b4-0738-45a0-8f9c-8f109116aee6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsAborting" Id="{fda16094-c26e-4c85-854f-9b5fc3c5e219}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsAborting : bool]]></Declaration>
+      <Get Name="Get" Id="{a750d063-1893-4ff3-a543-97fc3d3db347}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsClearing" Id="{77435faf-9e4f-4c13-9d44-30be9e7fa103}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsClearing : bool]]></Declaration>
+      <Get Name="Get" Id="{f74f08e5-2b88-49c7-a882-82c6db3ca8c1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsComplete" Id="{178be6a9-d50b-4d65-bbb2-2cf7c1409d95}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsComplete : bool]]></Declaration>
+      <Get Name="Get" Id="{1342af11-f084-4991-836c-dfc0f7215918}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsCompleting" Id="{dfbf910e-7c4c-47ea-a1fb-03bc48272f3f}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsCompleting : bool]]></Declaration>
+      <Get Name="Get" Id="{c249a34e-332d-4258-b068-47a3b4805971}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsExecuting" Id="{86d16397-2c29-4600-9416-38af4206106e}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsExecuting : bool]]></Declaration>
+      <Get Name="Get" Id="{d5bfe5f7-5fd9-4a20-b677-d27d3fc54666}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsHeld" Id="{d4c55b30-1f4c-4974-a84f-01dc15533072}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsHeld : bool]]></Declaration>
+      <Get Name="Get" Id="{7f692ea5-01d6-4285-bfbc-2957ac45c82f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsHolding" Id="{5cb0ab24-73b5-48d1-8057-2746e68a66b8}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsHolding : bool]]></Declaration>
+      <Get Name="Get" Id="{2ebc6ebb-5f62-4d45-877f-f640ee3869a4}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsIdle" Id="{544f8f54-c54a-488e-b1b2-86544b9f41c7}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsIdle : BOOL]]></Declaration>
+      <Get Name="Get" Id="{7177968b-d3f7-4aac-9549-652cae29f743}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="IsModeTransitionAllowed" Id="{7275b0f2-063d-4ab7-94fb-0d991fa87e5d}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC IsModeTransitionAllowed : BOOL
+VAR_INPUT
+	
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="IsResetting" Id="{ab94db72-b0d9-4038-b4fc-21d3d063426d}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsResetting : bool]]></Declaration>
+      <Get Name="Get" Id="{39a417af-ba5b-4ee9-bb0d-4dc0ce5c9ee1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsStarting" Id="{0d5b39dd-aad0-4cf2-9e5c-5b535305f105}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsStarting : bool]]></Declaration>
+      <Get Name="Get" Id="{20eb0ad7-36f5-46ae-b5b8-e4c82f881c7b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsStopped" Id="{a0337ac8-f0a5-400b-80d3-8ffb8259350c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsStopped : BOOL]]></Declaration>
+      <Get Name="Get" Id="{a5caafea-7157-460c-aae1-36b5e4ff08d3}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsStopping" Id="{7867ddbe-8832-4abe-b670-959ff6cbbe15}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsStopping : bool]]></Declaration>
+      <Get Name="Get" Id="{d8b8aea0-6ab5-42aa-8986-dfff3dbaa305}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsSuspended" Id="{0c9795dd-5ffe-4317-add5-84dc288635f9}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsSuspended : bool]]></Declaration>
+      <Get Name="Get" Id="{7e9bbbac-2bf8-4e8b-a2dd-4a44bfdc330c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsSuspending" Id="{fd0fefd1-fec5-4681-a0ee-123763602fe1}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsSuspending : bool]]></Declaration>
+      <Get Name="Get" Id="{7f2432b6-bd28-46f8-8024-156d2719bb9f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsUnholding" Id="{1b9a5b88-f010-4dc9-aa64-064bd11dc99c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsUnholding : bool]]></Declaration>
+      <Get Name="Get" Id="{45e2f4ef-521b-4f4c-886a-f35a7ec7e630}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsUnsuspending" Id="{a3030584-e1a8-48d1-8a81-0e91921a8325}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsUnsuspending : bool]]></Declaration>
+      <Get Name="Get" Id="{7b27baac-4724-4324-9501-f39a3c2fcd45}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Reset" Id="{12eb6aea-34fa-423d-96a6-f375ac6163ff}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Start" Id="{1c086114-3605-4910-9e0a-9b8187d5c8a8}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Start
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Stop" Id="{669e7c7a-38f8-4c04-a257-a9705a029e82}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Stop
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Suspend" Id="{c197dd01-36c6-44c4-9ecc-a65c3b56b859}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Suspend
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Unhold" Id="{b66587e4-567a-455a-b116-8e51385e6b2c}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Unhold
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Unsuspend" Id="{02f2747e-de47-434d-a076-a04bab3b5e8e}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD PUBLIC Unsuspend
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

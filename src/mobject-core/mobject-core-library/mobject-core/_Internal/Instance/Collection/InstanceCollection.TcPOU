@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="InstanceCollection" Id="{fa184060-a42a-4ff0-90e2-dcb283ec6dd8}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="InstanceCollection" Id="{6af5dab1-0755-0c91-2c85-e4bf16c01031}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK InstanceCollection
 VAR
 	collection : Collection;
@@ -11,9 +12,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="Count" Id="{937cecfd-4306-400e-b623-8ba2f897672a}">
+    <Property Name="Count" Id="{0391762c-e079-036f-0a44-b3af6dbb1ac3}">
       <Declaration><![CDATA[PROPERTY PUBLIC Count : UDINT]]></Declaration>
-      <Get Name="Get" Id="{8e72a050-d6fe-4a19-a736-fd6abd2ef4e0}">
+      <Get Name="Get" Id="{1e9f3a81-7581-0978-1b51-c56728028909}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -22,7 +23,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="GetByIndex" Id="{38bd5a7e-f9d7-4ee7-81f7-3b40a70ef39d}">
+    <Method Name="GetByIndex" Id="{a850c0af-5aa8-0d86-3d90-034d32228e74}">
       <Declaration><![CDATA[METHOD PUBLIC GetByIndex : I_Instance
 VAR_INPUT
 	Index : UDINT;
@@ -36,7 +37,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Insert" Id="{12da7243-1afb-41ea-908d-6d963cadcc63}">
+    <Method Name="Insert" Id="{8237e892-b984-028b-2cea-559ba981b18a}">
       <Declaration><![CDATA[METHOD PUBLIC Insert
 VAR_INPUT
 	Instance : I_Instance;
@@ -50,7 +51,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Remove" Id="{5467eb59-5caf-4ef0-8c34-8e4adec7cb97}">
+    <Method Name="Remove" Id="{c48a7188-ffd0-0d91-3053-b6474bebb67e}">
       <Declaration><![CDATA[METHOD Remove : BOOL
 VAR_INPUT
 	Instance : I_Instance;

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="CollectionNode" Id="{ca324659-163c-423a-924a-d130bbe6c4fc}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="CollectionNode" Id="{5adfdc88-b543-015b-2e2d-e93d2ecab915}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK CollectionNode IMPLEMENTS I_CollectionNode
 VAR
@@ -13,10 +13,10 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{3159c69c-3c7c-4acd-8330-f3daff57fdc8}" />
-    <Property Name="Collectable" Id="{fcdc86e8-9e8e-4885-943e-27057e560e4e}">
+    <Folder Name="Constructor" Id="{a1b45c4d-9f03-09ac-3f57-cbd76a7b8021}" />
+    <Property Name="Collectable" Id="{6c311c39-3df1-0be4-2859-1f08eb7a73a7}">
       <Declaration><![CDATA[PROPERTY PUBLIC Collectable : I_Collectable]]></Declaration>
-      <Get Name="Get" Id="{31c9dd18-d3d6-44cd-a11d-f6b1fc310037}">
+      <Get Name="Get" Id="{a12447c9-70a9-07ac-1d7a-cebc691d7dde}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -25,7 +25,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="Destroy" Id="{52151c94-c18b-4c21-b66f-3c84449673c0}">
+    <Method Name="Destroy" Id="{c2f88645-62f4-0f40-0a08-0489d1ba0e29}">
       <Declaration><![CDATA[METHOD PUBLIC Destroy
 VAR_INPUT
 END_VAR
@@ -34,7 +34,7 @@ END_VAR
         <ST><![CDATA[__DELETE(THIS);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{1697923a-0fc8-4c2f-b924-4833ea034891}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{867a08eb-acb7-0f4e-0543-703e7f2f3578}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -46,9 +46,9 @@ END_VAR
         <ST><![CDATA[collectableObject := Collectable;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Next" Id="{8e1ddf3a-4b70-487f-b591-2b5bcaf89b07}">
+    <Property Name="Next" Id="{1ef045eb-e80f-0b1e-09f6-13565fd4e6ee}">
       <Declaration><![CDATA[PROPERTY PUBLIC Next : I_CollectionNode]]></Declaration>
-      <Get Name="Get" Id="{46ce132e-8357-4d98-8acf-9c947d626300}">
+      <Get Name="Get" Id="{d62389ff-2028-0ef9-36a8-a499e84e1ee9}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -56,7 +56,7 @@ END_VAR
           <ST><![CDATA[Next := nextNode;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{f2ac2e7c-d2be-4808-906e-c82174eb21b6}">
+      <Set Name="Set" Id="{6241b4ad-71c1-0b69-2c09-f02ce1c75c5f}">
         <Declaration><![CDATA[PUBLIC 
 VAR
 END_VAR

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="JsonPathElement_Root" Id="{bcd6039b-6363-413d-945a-aab3c37b523b}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+  <POU Name="JsonPathElement_Root" Id="{4040b4a2-0a3f-0e0c-26c7-535ab52052ee}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK JsonPathElement_Root EXTENDS JsonPathElement 
 VAR
@@ -11,9 +11,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="PropertyName" Id="{6eacf135-812e-46f9-a2ba-eb8cfb01c807}">
+    <Property Name="PropertyName" Id="{923a460c-e872-09c8-1027-12658d5ac8d2}">
       <Declaration><![CDATA[PROPERTY PUBLIC PropertyName : T_MAXSTRING]]></Declaration>
-      <Get Name="Get" Id="{1f72e547-e6f6-4030-ad1b-a17440d03f03}">
+      <Get Name="Get" Id="{e3e4527e-8faa-0f01-1f86-589d368b3fd6}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -22,7 +22,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ResolveToSJsonValue" Id="{8f06e459-c7e8-4ad7-b1b8-486e482f8995}">
+    <Method Name="ResolveToSJsonValue" Id="{73905360-aeb4-05e6-0325-b1873e748940}">
       <Declaration><![CDATA[METHOD PUBLIC ResolveToSJsonValue : SJsonValue
 VAR_INPUT
 	jsonParser : REFERENCE TO FB_JsonDomParser;

@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="TaskCyclicEvent" Id="{f887109a-3ad6-453d-bf0f-4c5420be9500}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="TaskCyclicEvent" Id="{686a8a4b-99a9-065c-0368-7459b592e8e9}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK TaskCyclicEvent EXTENDS Event IMPLEMENTS I_TaskCyclicEvent
 VAR
 	parent : I_Task;
@@ -35,7 +36,7 @@ END_VAR
         </XmlArchive>
       </CFC>
     </Implementation>
-    <Method Name="FB_init" Id="{34690361-5385-45c4-abe3-fc0b1ad447c4}">
+    <Method Name="FB_init" Id="{a48499b0-f0fa-06a5-1784-c4068ff83a2d}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -47,9 +48,9 @@ END_VAR
         <ST><![CDATA[this^.parent := Parent;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Info" Id="{45316dd5-4217-4539-8f58-db0230a3c479}">
+    <Property Name="Info" Id="{d5dcf704-e168-0658-333f-e30fa58fb990}">
       <Declaration><![CDATA[PROPERTY Info : PlcTaskSystemInfo]]></Declaration>
-      <Get Name="Get" Id="{68fc8d6f-9547-47bb-b1df-12254bd63a37}">
+      <Get Name="Get" Id="{f81117be-3638-04da-0db8-2a28defa47de}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -58,7 +59,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="Notify" Id="{7ce2d076-8003-40b7-b652-f32bcd386fbe}">
+    <Method Name="Notify" Id="{ec0f4aa7-237c-03d6-0a35-cb2658141257}">
       <Declaration><![CDATA[METHOD PUBLIC Notify
 VAR_INPUT
 END_VAR

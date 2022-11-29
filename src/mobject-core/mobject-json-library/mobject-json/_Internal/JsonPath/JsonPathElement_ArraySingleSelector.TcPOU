@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="JsonPathElement_ArraySingleSelector" Id="{bd3d8056-eb68-4207-9e5d-830f430f2f19}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
+  <POU Name="JsonPathElement_ArraySingleSelector" Id="{41ab376f-8234-0d36-2cc0-7ae635542fcc}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK JsonPathElement_ArraySingleSelector EXTENDS JsonPathElement 
 VAR
@@ -12,8 +12,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{84f42711-a8f3-4280-a72d-9a55fc716792}" />
-    <Method Name="FB_init" Id="{0ec68a8a-ff62-4047-a5e2-a648a2f7e9b7}" FolderPath="Constructor\">
+    <Folder Name="Constructor" Id="{78629028-c1af-0db1-15b0-63bc8a2a6747}" />
+    <Method Name="FB_init" Id="{f2503db3-963e-0f76-177f-5fa1d4ace962}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -27,9 +27,9 @@ END_VAR
         <ST><![CDATA[This^._index := STRING_TO_UDINT(IndexString);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Index" Id="{18217741-bbc3-41d5-9269-0b38391fd6d7}">
+    <Property Name="Index" Id="{e4b7c078-d29f-0ee4-20f4-f2d14f44d602}">
       <Declaration><![CDATA[PROPERTY PUBLIC Index : UDINT]]></Declaration>
-      <Get Name="Get" Id="{01503458-c7a7-4829-ae75-58dd9ccdd335}">
+      <Get Name="Get" Id="{fdc68361-aefb-0718-1ce8-a134ea96d3e0}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -38,9 +38,9 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Property Name="PropertyName" Id="{35e4d2bb-c128-4cc7-b44a-dcaf5f84834e}">
+    <Property Name="PropertyName" Id="{c9726582-a874-03f6-06d7-254629df839b}">
       <Declaration><![CDATA[PROPERTY PUBLIC PropertyName : T_MAXSTRING]]></Declaration>
-      <Get Name="Get" Id="{58a78575-75e5-40a7-9361-7c84e0903c0c}">
+      <Get Name="Get" Id="{a431324c-1cb9-0f96-21fc-856d96cb3cd9}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -53,7 +53,7 @@ PropertyName := PreviousElement.PropertyName;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ResolveToSJsonValue" Id="{f695918f-89e5-44f4-b617-66fd2990035a}">
+    <Method Name="ResolveToSJsonValue" Id="{0a0326b6-e0b9-0bc5-048a-9f145fcb038f}">
       <Declaration><![CDATA[METHOD PUBLIC ResolveToSJsonValue : SJsonValue
 VAR_INPUT
 	jsonParser : REFERENCE TO FB_JsonDomParser;

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Disposable" Id="{869ad9a5-a7c1-45c5-b310-1f17b5d4cef9}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'linkalways'}
-{attribute 'no_explicit_call' := 'do not call this POU directly'}
-{attribute 'reflection'}
+  <POU Name="Disposable" Id="{16774374-04be-06a4-0f77-271a20f8b310}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
+{attribute 'reflection'}
 FUNCTION_BLOCK Disposable IMPLEMENTS I_Disposable
 VAR
 	{attribute 'instance-path'} 
@@ -15,8 +15,8 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Protected" Id="{4c53547f-9172-4827-abf4-7bbd1b7af9dc}" />
-    <Method Name="AddReference" Id="{48439e69-8098-49ea-990b-a1612fb609e6}">
+    <Folder Name="Protected" Id="{dcbeceae-320d-0b46-1793-43b08e568435}" />
+    <Method Name="AddReference" Id="{d8ae04b8-23e7-0a8b-256c-996cba9a740f}">
       <Declaration><![CDATA[METHOD AddReference
 VAR_INPUT
 END_VAR
@@ -29,7 +29,7 @@ END_VAR]]></Declaration>
 debug := referenceCount;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnDispose" Id="{557c0ee7-c9e8-4533-927d-e6ba6353bbd0}" FolderPath="Protected\">
+    <Method Name="OnDispose" Id="{c5919436-6a97-0652-2e1a-deb7f67fc639}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnDispose
 VAR_INPUT
 END_VAR
@@ -38,7 +38,7 @@ END_VAR
         <ST><![CDATA[__DELETE(THIS);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Release" Id="{5416b4c9-62cc-4a51-b665-54b85dbfdcb4}">
+    <Method Name="Release" Id="{c4fb2e18-c1b3-0930-0a02-6cb5c893a15d}">
       <Declaration><![CDATA[METHOD Release
 VAR_INPUT
 END_VAR
