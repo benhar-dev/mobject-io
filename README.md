@@ -5,21 +5,23 @@ Pronounced mob-ject. The open source machine object oriented programming framewo
 
 ## Important Information
 
-The code stored inside this repo will soon be removed.  The project has now split in to small easy to maintain repos. 
+The code stored inside this repo has now been removed. The project has been split in to small easy to maintain repos.
 
-Please take a look at 
+Please take a look at
 
-* [mobject-disposable](https://benhar-dev.github.io/mobject-disposable/#/)
-* [mobject-events](https://benhar-dev.github.io/mobject-events/#/)
-* [mobject-collections](https://benhar-dev.github.io/mobject-collections/#/)
-* [mobject-converters](https://benhar-dev.github.io/mobject-converters/#/)
+- [mobject-disposable](https://benhar-dev.github.io/mobject-disposable/#/)
+- [mobject-events](https://benhar-dev.github.io/mobject-events/#/)
+- [mobject-collections](https://benhar-dev.github.io/mobject-collections/#/)
+- [mobject-converters](https://benhar-dev.github.io/mobject-converters/#/)
 
 ## Coming soon...
-* mobject-cyclic
-* mobject-json
-* mobject-iot
-* mobject-condition-monitoring
-* mobject-motion
+
+- mobject-cyclic
+- mobject-json
+- mobject-iot
+- mobject-condition-monitoring
+- mobject-motion
+- CI/CD
 
 ## About this project
 
