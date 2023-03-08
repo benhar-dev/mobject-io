@@ -21,6 +21,7 @@ Please take a look at
 - mobject-iot
 - mobject-condition-monitoring
 - mobject-motion
+- mobject-documentation-generator (used to create the github library documentation files)
 - CI/CD
 
 ## About this project
